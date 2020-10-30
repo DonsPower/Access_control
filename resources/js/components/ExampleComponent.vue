@@ -7,9 +7,32 @@
 
                     <div class="card-body">
                         <h1>{{message}}</h1>
+                       
+                        <v-text-field
+                                   v-model="message" 
+                        ></v-text-field>
+                     
+                        <v-btn block v-on:click="reverseMessage">
+                            Reversa
+                        </v-btn>
+                          <v-btn
+                            class="mx-2"
+                            fab
+                            dark
+                            small
+                            color="#E33E1D"
+                            >
+                            <v-icon >
+                                mdi-heart
+                            </v-icon>
+                        </v-btn>
+                        <v-btn
+                            icon
+                            color="#E33E1D"
+                            >
+                            <v-icon>mdi-heart</v-icon>
+                        </v-btn>
 
-                        <button v-on:click="reverseMessage">Reverse Message</button>
-                        <input v-model="message">
                     </div>
                 </div>
             </div>
@@ -21,7 +44,7 @@
     export default {
         data() {
             return {
-                message: 'Hello Vue!',
+                message: 'Hello Vue! + Vuetify',
                 disable: true,
             }
         },
