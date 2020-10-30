@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
   return view('auth.login');
 });
-
+Route::get('/home', function () {
+  return view('index');
+});
 
 
 
@@ -36,4 +38,4 @@ Route::resource('Alumnos', 'App\Http\Controllers\AlumnosController')->middleware
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\AlumnosController::class, 'index'])->name('Alumnos');
+Route::get('/home/hola', [App\Http\Controllers\AlumnosController::class, 'index'])->name('Alumnos');
