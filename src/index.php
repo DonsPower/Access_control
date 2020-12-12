@@ -1,3 +1,34 @@
+<?php
+//$_SESSION["token"] = md5(uniqid(mt_rand(), true)); add token en la sesion.n
+  session_start();
+  require_once ('./clases/authController.Class.php');
+  if (!empty($_POST['email']) && !empty($_POST['password'])) {
+		$usuario=$_POST['email'];
+		$password= $_POST['password'];
+    //Llamaos a la clase.
+    $auth= new auth;
+    $row= $auth->addUser($usuario,$password); 
+
+		if (!empty($row)) {
+      //Obtengo los datos del usuario
+      $userinfo=$auth->userInfo($usuario, $password);
+      //Almaceno el usuario el la variable sesion para utilizarla despues
+      //print_r($userinfo); 
+      $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm']." ".$userinfo['ApellidoMFAdm'];
+			 //Almacenamos tiempo.
+       $_SESSION['tiempo'] = time();
+       $_SESSION['tipo']= $userinfo['Tipo'];
+       $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
+       //echo "Si funciona";
+			header('location: dashboard.php');
+		}else{
+      
+      //TODO: Mandar notificacion con js de usuario no registrado.
+      $resultado=true;
+      
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,42 +91,32 @@
           <h4>Inicia sesion</h4>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Correo</label>
-            <input type="email" name="email" style="width: 100%;" value="asd@hotmail.com" placeholder="name@example.com">
+            <input type="email" name="email" style="width: 100%;" REQUIERED maxlength="30" value="asd@gmail.com" placeholder="name@example.com">
           </div>
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Contraseña</label>
-            <input type="password" name="password" style="width: 100%;" value="asd"> </input>
+            <input type="password" name="password" style="width: 100%;" REQUIERED maxlength="20" value="asd"> </input>
           </div>
           <div class=" mb-3">
-            <button class="btn btn-primary" type="submit">Enviar</button>
+            <button class="btn btn-primary" onClick="activarAlert($resultado)" type="submit">Enviar</button>
           </div>
         </div>
         </div>
+        <?php
+        
+          if(!empty($resultado)){
+            if($resultado){
+              ?>
+              <script language="javascript">alert("Error");</script>
+            <?php
+            } 
+          }
+        ?>
       </form>
+       
     </div>
   </div>
   </div>
 </div>
 </body>
 </html>
-<?php
-  session_start();
-  require_once ('./clases/authController.Class.php');
-  if (!empty($_POST['email']) && !empty($_POST['password'])) {
-		$usuario=$_POST['email'];
-		$password= $_POST['password'];
-		$auth= new auth;
-		$row= $auth->addUser($usuario,$password); 
-		if ($row) {
-			//Almaceno el usuario el la variable sesion para utilizarla despues
-			 $_SESSION['nombre'] = $usuario;
-			 //Almacenamos tiempo.
-       $_SESSION['tiempo'] = time();
-       echo "Si funciona";
-			header('location: menu.php');
-		}else{
-      echo 'no funciona';
-			$resultado=true;
-		}
-	}
-?>
