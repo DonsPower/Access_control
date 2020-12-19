@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/apiclient": "2.7",
+        "khanamiryan/qrcode-detector-decoder": "^1.0"
+    }
+}

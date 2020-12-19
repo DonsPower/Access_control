@@ -14,7 +14,7 @@
       $userinfo=$auth->userInfo($usuario, $password);
       //Almaceno el usuario el la variable sesion para utilizarla despues
       //print_r($userinfo); 
-      $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm']." ".$userinfo['ApellidoMFAdm'];
+      $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm'];
 			 //Almacenamos tiempo.
        $_SESSION['tiempo'] = time();
        $_SESSION['tipo']= $userinfo['Tipo'];
@@ -36,9 +36,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de acceso</title>
     <!--CSS - Bootstrap-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/asd.css">
     <!--JavaScript-->
 </head>
 <body background="red">
