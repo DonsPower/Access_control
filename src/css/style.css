@@ -1,0 +1,45 @@
+body{
+    background: #f0f2f5;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    display: block;
+}
+.titulos{
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 32px;
+    width: 500px;
+}
+.card{
+    align-items: center;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    box-sizing: border-box;
+    margin: 40px 0 0;
+    padding: 20px 0 28px;
+    width: 396px;
+}
+input {
+    -webkit-appearance: none;
+    border: 1px solid #ccd0d5;
+    border-radius: 10px;
+    margin: 9px;
+    padding: 20px;
+    width: 95%;
+    size: 550px;
+    font-size: 15px;
+}
+.buttomPrimary {
+    background-color: #1877f2;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    line-height: 48px;
+    padding: 0 16px;
+    width: 332px;
+    color: #fff;
+}
+
