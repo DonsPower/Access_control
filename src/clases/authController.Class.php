@@ -24,7 +24,7 @@
         }
         function lifeSession($time, $location){
             //Tiempo en segundos para dar vida a la sesión.
-            $inactivo = 120;//2 min en este caso.
+            $inactivo = 1200;//20 min en este caso.
 
             //Calculamos tiempo de vida inactivo.
             $vida_session = time() - $time;

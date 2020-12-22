@@ -1,7 +1,4 @@
-body {
-    font-family: "Lato", sans-serif;
-  }
-  
+
   .sidebar {
     height: 100%;
     width: 0;
@@ -86,13 +83,7 @@ body {
     background-color: #f1f1f1;
   }
   
-  .chip img {
-    float: left;
-    margin: 0 10px 0 -25px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-  }
+ 
   .card {
     width: 150px;
     height: 150px;
@@ -102,7 +93,7 @@ body {
     align-items: center;
     position: relative;
     box-shadow: 0 14px 16px rgba(0,0,0,0.04);
-    text-decoration: none;
+ 
     text-align: center;
    
   }  
@@ -111,8 +102,4 @@ body {
   }
   
  
-  @media screen and (max-height: 450px) {
-    .sidebar {padding-top: 15px;}
-    .sidebar a {font-size: 18px;}
-  }
  

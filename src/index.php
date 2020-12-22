@@ -20,7 +20,7 @@
        $_SESSION['tipo']= $userinfo['Tipo'];
        $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
        //echo "Si funciona";
-			header('location: dashboard.php');
+			header('location: dos.php');
 		}else{
       
       //TODO: Mandar notificacion con js de usuario no registrado.
@@ -44,7 +44,7 @@
 <body>
   <div class="container">
     <div class="row ">
-      <div class="col-sm-5" style="width: 50%; margin-left: 6%; margin-top:18%;">
+      <div class="col-sm-5" style="width: 50%; margin-left: 6%; margin-top:16%;">
       <!--<img src="img/logo.png" alt="logo-ControlAccess" width="80" height="80">-->
         <img src="img/controlacceso.png"  width="320" height="60">
         <div class="titulos" style="margin-top: 10px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos ea commodi debitis </div>
