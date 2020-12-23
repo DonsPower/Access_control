@@ -1,6 +1,6 @@
 <?php 
+
     //PHP Data Objects
-   
     class visitor {
        //get data visitor
         function getVisitorData(){
@@ -19,7 +19,7 @@
         }
         function deathVisitor(){
            
-                $db = new Connect;
+            $db = new Connect;
             $user = $db-> prepare("UPDATE visitantes SET estado= 0 WHERE estado=1");
             $user->execute();
             $userinfo= $user->fetch(PDO::FETCH_ASSOC);

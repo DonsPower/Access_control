@@ -1,5 +1,5 @@
 <?php
-    //Esta .l. pal admin
+    
     class admin{
         function getDataAdmin(){
             $db = new Connect;

@@ -1,4 +1,9 @@
-
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
 .sidebar{
     height: 100%;
     width: 0;
@@ -20,10 +25,79 @@
     line-height: 68px;
     background:   #83AEBF;
     user-select: none;
-    
 }
 
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #454749;
+    padding-left: 30px;
+    box-sizing: border-box;
+    display: block;
+    transition: .1s;
+    border-top: 1px solid rgba(255,255,255,.1);
+    text-size-adjust: 5px;
+    
+  }
+  
+  .sidebar a:hover {
+    padding-left: 50px;
+    background-color: #E3E3E3;
+    color: black;
+  }
+  .sidebar i{
+    margin-right: 16px;
+  }
+  
+  .card-top{
+    box-shadow: 0 1px 18px rgba(0,0,0,0.30), 0 1px 6px rgba(0,0,0,0.22);
+    background-color: #A9DBEF;
+  }
+  .card-top i{
+      float: right;
+      padding: 8px 8px 8px 32px;
+      font-size: 50px;
+      color: #454749;
+      transition: .1s;
+      border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .card-top i:hover {
+    color: black;
+  }
+  .card-top p{
+     float: right;
+      font-size: .9rem;
+    }
+    .card-top button{
+      float: right;
+      margin-top: 17px;
+      margin-right: 5px;
+     
+    }
+  .chip {
+    margin-top: 8px;
+   
+    padding: 0 25px;
 
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+  }
+  
+  .card {
+    width: 100%;
+    height: 50%;
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 14px 16px rgba(0,0,0,0.04);
+    text-decoration: none;
+    text-align: center;
+   
+  }  
 
 #check{
     display: none;
@@ -31,18 +105,17 @@
 }
 label #btn, label #cancel{
     
-    position: absolute;
+    position:fixed;
     cursor: pointer;
-    
     border-radius: 2px;
+    background-color: rgb(192, 192, 181);
 }
 label #btn{
-
     left: 60px;
     top: 10px;
    color: white;
     font-size: 35px;
-    
+    scroll-behavior: auto;
     padding: 6px 12px;
     transition:  all .5s;
 }
@@ -83,5 +156,4 @@ label #cancel{
     background: #f0f2f5;
     box-shadow: 0 1px 18px rgba(0,0,0,0.30), 0 1px 6px rgba(0,0,0,0.22);
     border-radius: 5px;
-    
 }

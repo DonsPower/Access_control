@@ -20,7 +20,7 @@
        $_SESSION['tipo']= $userinfo['Tipo'];
        $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
        //echo "Si funciona";
-			header('location: dos.php');
+			header('location: dashboard.php');
 		}else{
       
       //TODO: Mandar notificacion con js de usuario no registrado.
@@ -52,8 +52,8 @@
       <div class="col-sm-5" style="margin-top:10%; text-align: center;">
         <div class="card">
         <div class="mb-3">
-           <form class="container" method="POST" autocomplete="off">
-            <input type="email" name="email"  REQUIERED maxlength="30"  autofocus="1" placeholder="Correo electronico" aria-label="Correo electronico">
+           <form class="container" method="POST" autocomplete="off" >
+            <input class="input-group" type="email" name="email"  REQUIERED maxlength="30"  autofocus="1" placeholder="Correo electronico" aria-label="Correo electronico">
             <input type="password" name="password" REQUIERED maxlength="30"  autofocus="0" placeholder="Contraseña" aria-label="Contraseña">
             <button type="submit" class="buttomPrimary">Iniciar Sesión</button>
             </form>
