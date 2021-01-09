@@ -2,14 +2,7 @@
 
     //PHP Data Objects
     class visitor {
-       //get data visitor
-        function getVisitorData(){
-            $db = new Connect;
-            $user = $db-> prepare("SELECT * FROM visitantes");
-            $user->execute();
-            $userinfo = $user->rowCount();
-            return  $userinfo;
-        }
+        //Obengo el total de visitantes activos
         function getVisitorActive(){
             $db = new Connect;
             $user = $db-> prepare("SELECT * FROM visitantes WHERE estado=1");
@@ -17,31 +10,164 @@
             $userinfo = $user->rowCount();
             return  $userinfo;
         }
+        //Obtengo TOTAL DE VISITANTES
+        function getVisitorData(){
+            $db = new Connect;
+            $user = $db-> prepare("SELECT * FROM visitantes");
+            $user->execute();
+            $userinfo = $user->rowCount();
+            return  $userinfo;
+        }
+        //Dar de baja al visitante 
+        //TODO: MATAR EL TIEMPO DE SALIDA DE ELLOS.
         function deathVisitor(){
-           
             $db = new Connect;
             $user = $db-> prepare("UPDATE visitantes SET estado= 0 WHERE estado=1");
             $user->execute();
-            $userinfo= $user->fetch(PDO::FETCH_ASSOC);
-            return $userinfo;
-         
-            
+            return $user;
         }
+        //Mostrar datos user
+        function tablaVisitantes(){
+            $db= new Connect;
+            $user= $db->prepare("SELECT * FROM visitantes");
+            $user->execute();
+            return $user;
 
-
-
-        //Imprimir resultados
-        function imprimir_resultados($id){
-            $db = new Connect;
-            $user = $db-> prepare("SELECT * FROM visitantes WHERE id=:id");
+        }
+        //Actualizar al visitante-Obtenemos los datos del modal.
+        function actualizarVis($id,$nombre,$apellidop,$apellidom,$razon){
+            $db=new Connect;
+            $user=$db->prepare("UPDATE visitantes SET nombre=:nombre, apellidop=:apellidop, apellidom=:apellidom, razonvisita=:razon WHERE id=:id");
             $user->execute([
-                ':id' =>intval($id)
+                ':id'=>$id,
+                ':nombre'=>$nombre,
+                ':apellidop'=>$apellidop,
+                ':apellidom'=>$apellidom,
+                ':razon'=>$razon
             ]);
-            $userinfo = $user->fetch(PDO::FETCH_ASSOC);
-            return  $userinfo["nombre"]. " ". $userinfo["apellidop"]." ".$userinfo["apellidom"];
+            return $user;
         }
-        //Checamos que el usuario este dentro.
-        function user_activo($id){
+        //Dar de baja a solo un visitante
+        function bajaVist($id){
+            $db = new Connect;
+            $user = $db->prepare("UPDATE visitantes SET estado= 0 WHERE id=:id");
+            $user->execute([
+                ':id'=>$id
+            ]);
+            return $user;
+        }
+        //Agregar a un visitante
+        function agregarVis($nombre, $apellidop, $apellidom, $razon, $codigoQr){
+            //Verifico que el codigo QR no este en uso.
+            $db=new Connect;
+            $contqr=$db->prepare("SELECT * FROM visitantes WHERE numcodqr=:codigoQr" );
+            $contqr->execute([
+                ':codigoQr'=>$codigoQr
+            ]);
+            $contador=$contqr->rowCount();
+            if ($contador>0) {
+                # ya existe un codigo qr existente
+                return 1;
+            }else{
+                //No esta en uso el qr
+                $user=$db->prepare("INSERT INTO visitantes (nombre, apellidop, apellidom, razonvisita, numcodqr, estado) VALUES (:nombre, :apellidop, :apellidom, :razon, :codigoQr, :estado)");
+                $user->execute([
+                    ':nombre'=>$nombre,
+                    ':apellidop'=>$apellidop,
+                    ':apellidom'=>$apellidom,
+                    ':razon'=>$razon,
+                    ':codigoQr'=>$codigoQr,
+                    ':estado'=>"1"
+                ]);
+                return 0;
+            }
+        }
+        //gemerar token
+        function generarToken($tamaño){
+            $char = "qwertywDns07";
+            $code = "";
+            $clean = strlen($char) -1;
+            //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+            //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
+            
+            while(strlen($code) < $tamaño){
+                //si se agrega al sistema aumentar rango.
+                $code .= $char[rand(0,$clean)];
+            }
+            return $code;
+        }
+        function validarToken($token){
+            $db=new Connect;
+            $contqr=$db->prepare("SELECT * FROM visitantes WHERE numcodqr=:codigo" );
+            $contqr->execute([
+                ':codigo'=>$token
+            ]);
+            $contador=$contqr->rowCount();
+            if($contador>0){
+                //Si existe el codigo qr
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        //registrar Visitante por metodo URL
+        function registerVisURL($data){
+            //Hay 2 tipos de redireccionamiento cuando tengo la razonvisita=palabrasecreta=google y cuando no
+            //Entonces almaceno la razon de vista que trae al principio el array para despues comparar
+            $comparar_razon_redireccionamiento=$data['razonvisita'];
+            $token = $this->generarToken(10);
+            $comprobarToken=$this->validarToken($token);
+            //me retorna si el token ya existe en la BD 0 o 1
+            if($comprobarToken==1){
+                //funcion recursiva no se si esto se pueda hacer aqui pero como tal debe de funcionar 
+                return $this->registerVisURL($data);
+            }else{
+                //Si no existe el token en la BD entra aqui
+                $db=new Connect;
+                $addUser = $db->prepare('INSERT INTO  visitantes (nombre, apellidop, apellidom, razonvisita, numcodqr, estado) 
+                                        VALUES (:nombre, :apellidop, :apellidom, :razonvisita, :numcodqr, :estado)');
+                $addUser->execute([
+                    ':nombre'=>$data['nombre'],
+                    ':apellidop'=>$data['apellidop'],
+                    ':apellidom'=> $data["apellidom"],
+                    ':razonvisita'=> $data["razonvisita"],
+                    ':numcodqr' => $token,
+                    ':estado'=> 1
+                ]);
+                //Si en la razon no hay nada almacenado redirecciona para agregarlo
+                if($comparar_razon_redireccionamiento == "palabrasecreta"){
+                    if ($addUser) {
+                        setcookie("id", $db->lastInsertId(), time()+60*60*24*30, "/", NULL);
+                        header("location: ../url/index.php");
+                        exit();
+                        
+                    }else{
+                        return "Error -> No se agrego el usuario";
+                        exit();
+                    }
+                }else{
+                
+                 //Generar codigo qr
+                 require '../../lib/phpqrcode/qrlib.php';
+                 //require '../../phpqrcode/qrlib.php';
+                 $dir='temp/';
+                 if(!file_exists($dir)){
+                     mkdir($dir);
+                 }
+
+                 $filename=$dir.'test.png';
+                 $tamanio=10;
+                 $level='M';
+                 $frameSize=3;
+                 $contenido= $token;
+                 QRcode::png($contenido, $filename, $level, $tamanio, $frameSize);
+                  echo '<img src="'.$filename.'"/> ';
+                }
+            }
+            
+        } 
+         //Checamos que el usuario esta en la BD 
+         function userActivo($id){
             //me conecto a la BD
             $db = new Connect;
             $user = $db-> prepare("SELECT id FROM visitantes WHERE id=:id");
@@ -54,20 +180,32 @@
             }else{
                 return TRUE;
             }
+        }     
+        //Obtenemos el usuario que obtuvimos con el registro de google URL visitante
+        function imprimirResultados($id){
+            $db = new Connect;
+            $user = $db-> prepare("SELECT * FROM visitantes WHERE id=:id");
+            $user->execute([
+                ':id' =>intval($id)
+            ]);
+            $userinfo = $user->fetch(PDO::FETCH_ASSOC);
+            return  $userinfo["nombre"]. " ". $userinfo["apellidop"]." ".$userinfo["apellidom"];
         }
-        //gemerar token
-        function generar_token($tamaño){
-            $char = "qwertywDns07";
-            $code = "";
-            $clean = strlen($char) -1;
-            //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
-            //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
-            
-            while(strlen($code) < $tamaño){
-                //si se agrega al sistema aumentar rango.
-                $code .= $char[rand(0,$clean)];
-            }
-            return $code;
-        }      
+        //Editar la razon de la visita
+        function editarRazon($razon, $id){
+            $db = new Connect;
+           
+            $user2 = $db-> prepare("UPDATE visitantes SET razonvisita=:razon where id=:id");
+            $user2->execute([
+                ':id' =>intval($id),
+                ':razon'=>$razon
+            ]);
+            $user = $db-> prepare("SELECT * FROM visitantes WHERE id=:id");
+            $user->execute([
+                ':id' =>intval($id)
+            ]);
+            $userinfo = $user->fetch(PDO::FETCH_ASSOC);
+            return  $userinfo;
+        }
     }
 ?>

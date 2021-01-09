@@ -1,30 +1,28 @@
 <?php
-    //Obtenemos los datos de la DB
-    //include('pdoConfig.php');
-    
-    //Create connection
-    class Connect extends PDO{
-        //Conexion a la base de datos
-        public function __construct(){
-            parent::__construct("mysql:host=localhost;dbname=autenticaciónca",'root', '',
-            array(PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES utf8"));
-        }
-    }
+ 
     class auth{
         function addUser($usuario,$password){
-            //TODO: Encriptar
             $db = new Connect;
-            $user = $db->prepare("SELECT * FROM administradores where email=:email and contraseña=:pasword");
+            $pass_cifrada = password_hash($password, PASSWORD_DEFAULT, array("cost"=>10));
+            $user = $db->prepare("SELECT * FROM administradores where email=:email");
             $user->execute([
-                ':email' =>$usuario,
-                ':pasword'=> $password
+                ':email' =>$usuario
             ]);
-            $userinfo= $user->rowCount();
-            return $userinfo;
+            $userinfo= $user->fetch(PDO::FETCH_ASSOC);
+            if(empty($userinfo['email'])){
+                return 2;
+            }else{
+                $pass=$userinfo['contraseña'];
+                if(password_verify($password,$pass)){
+                    return 1;
+                }
+                
+            }
+
         }
         function lifeSession($time, $location){
             //Tiempo en segundos para dar vida a la sesión.
-            $inactivo = 1200;//20 min en este caso.
+            $inactivo = 120;//20 min en este caso.
 
             //Calculamos tiempo de vida inactivo.
             $vida_session = time() - $time;
@@ -35,18 +33,20 @@
                 //Destruimos sesión.
                 session_destroy();              
                 //Redirigimos pagina.
-                header("Location: $location");
+                //header("Location: ".$location);
+                header("Refresh: 0; url=index.php");
+                //header('Refresh: '.$location);
                 exit();
             } else {  // si no ha caducado la sesion, actualizamos
                 $time = time();
             }
         }
-        function userInfo($usuario, $password){
+        function userInfo($usuario){
             $db = new Connect;
-            $user = $db->prepare("SELECT * FROM administradores where email=:email and contraseña=:pasword");
+            $user = $db->prepare("SELECT * FROM administradores where email=:email ");
             $user->execute([
                 ':email' =>$usuario,
-                ':pasword'=> $password
+                
             ]);
             $userinfo= $user->fetch(PDO::FETCH_ASSOC);
             return $userinfo;

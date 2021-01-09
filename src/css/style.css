@@ -1,4 +1,14 @@
 
+/*Modo oscuro muajaja
+html{
+    filter: invert(1) hue-rotate(180deg);
+    transition: color 280ms, background-color 280ms;
+}
+html img{
+    filter: invert(1) hue-rotate(180deg);
+}
+*/
+
 body{
     background: #f0f2f5;
     font-family: Helvetica, Arial, sans-serif;
@@ -11,6 +21,7 @@ body{
     font-weight: normal;
     line-height: 32px;
     width: 500px;
+    
 }
 .card{
     align-items: center;
@@ -25,7 +36,7 @@ body{
 }
 input {
     -webkit-appearance: none;
-    border: 1px solid #ccd0d5;
+    border: 1px solid  #1877f2;
     border-radius: 10px;
     margin: 9px;
     padding: 20px;

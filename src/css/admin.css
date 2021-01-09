@@ -1,0 +1,21 @@
+/*form add admin*/
+.form1 input, select{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-color: #0C8ABC;
+    border-radius: 10px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 100%;
+}
+a{
+    text-decoration: none;
+    font-size: 20px;
+    color: white; 
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 15px;
+}
+a:hover{
+    color: white;
+}

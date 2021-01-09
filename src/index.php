@@ -1,32 +1,42 @@
 <?php
 //$_SESSION["token"] = md5(uniqid(mt_rand(), true)); add token en la sesion.n
   session_start();
+  require_once ('./clases/conexion.Class.php');
   require_once ('./clases/authController.Class.php');
   if (!empty($_POST['email']) && !empty($_POST['password'])) {
-		$usuario=$_POST['email'];
-		$password= $_POST['password'];
-    //Llamaos a la clase.
-    $auth= new auth;
-    $row= $auth->addUser($usuario,$password); 
-
-		if (!empty($row)) {
-      //Obtengo los datos del usuario
-      $userinfo=$auth->userInfo($usuario, $password);
-      //Almaceno el usuario el la variable sesion para utilizarla despues
-      //print_r($userinfo); 
-      $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm'];
-			 //Almacenamos tiempo.
-       $_SESSION['tiempo'] = time();
-       $_SESSION['tipo']= $userinfo['Tipo'];
-       $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
-       //echo "Si funciona";
-			header('location: dashboard.php');
-		}else{
+    $usuario=$_POST['email'];
+    $password= $_POST['password'];
+    //preg_match("/^[a-zA-Z]*$/", $usuario) || preg_match("/^[a-zA-Z]*$/", $password)
+      //valdiamos correo.
+      if(filter_var($usuario, FILTER_VALIDATE_EMAIL)){
+        //redireccionamos.
+        //Llamaos a la clase.
+        $auth= new auth;
+        $row= $auth->addUser($usuario,$password); 
+        
+        if($row==2) $resultado=2;
+        else if ($row==1) {
+          //Obtengo los datos del usuario
+          $userinfo=$auth->userInfo($usuario, $password);
+          //Almaceno el usuario el la variable sesion para utilizarla despues
+          //print_r($userinfo); 
+          $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm'];
+          //Almacenamos tiempo.
+          $_SESSION['tiempo'] = time();
+          $_SESSION['tipo']= $userinfo['Tipo'];
+          $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
+          //echo "Si funciona";
+          header('location: dashboard.php');
+        }else{
       
-      //TODO: Mandar notificacion con js de usuario no registrado.
-      $resultado=true;
-      
-		}
+          //Mandar notificacion con js de usuario no registrado.
+          $resultado=1;
+          
+        }
+      }else{
+        $resultado=1;
+          
+      }
 	}
 ?>
 <!DOCTYPE html>
@@ -40,6 +50,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <!--JavaScript-->
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <script src="js/index.js"></script>
+    <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+
+    
+    <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+    
 </head>
 <body>
   <div class="container">
@@ -53,8 +72,8 @@
         <div class="card">
         <div class="mb-3">
            <form class="container" method="POST" autocomplete="off" >
-            <input class="input-group" type="email" name="email"  REQUIERED maxlength="30"  autofocus="1" placeholder="Correo electronico" aria-label="Correo electronico">
-            <input type="password" name="password" REQUIERED maxlength="30"  autofocus="0" placeholder="Contraseña" aria-label="Contraseña">
+            <input class="input-group" type="email" name="email"  REQUIERED maxlength="30"  autofocus="1" placeholder="Correo electronico" style="width: 95%; margin-right: 15px;" aria-label="Correo electronico">
+            <input type="password" name="password" REQUIERED maxlength="30"  autofocus="0" placeholder="Contraseña" aria-label="Contraseña" style="width: 95%;">
             <button type="submit" class="buttomPrimary">Iniciar Sesión</button>
             </form>
             <div class="mt-3">
@@ -62,35 +81,39 @@
             </div>
             <hr>
             <?php
-              if (!empty($resultado)) {
+              if (!empty($resultado) ) {
                 # code...
-              if($resultado){
-                ?>
-                <div class="container">
+                if($resultado==1){
+                  ?>
+                  <div class="container">
 
-                <div class="alert alert-danger content" role="alert">
-                  Usuario o contraseña incorrecto!
-                </div>
-                
-                </div>
-                <?php
+                  <div class="alert alert-danger content" role="alert">
+                  Correo ó contraseña <p style="color: red;"> Incorrectos!!</p>
+                  </div>
+                  
+                  </div>
+                  <?php
+                  }
+                else if($resultado==2){
+                  ?>
+                  <div class="container">
+                    <div class="alert alert-danger content" role="alert">
+                    El correo electrónico que ingresaste no coinciden con ninguna cuenta. <p style="color: red;"> Registre una cuenta con el administrador</p>
+                    </div>
+                    </div>
+                    <?php
                 }
               }
             ?>
-            
+
+             
           </div>
         </div>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    setTimeout(function() {
-        $(".content").fadeOut(2000);
-    },3000);
+    <hr>
+    Eres visitante registrate aqui
 
-});
-</script>
    
 </body>
 </html>
