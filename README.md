@@ -2,4 +2,4 @@
 
 
 - Install composer.
--npm install @mdi/font
+- composer install
