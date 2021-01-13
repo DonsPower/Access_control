@@ -12,13 +12,7 @@
     $location="../index.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
-            //Enviamos el tiempo y si pasan ciertos minutos lo redireccionamos
-            if(isset($_SESSION['tiempo'])){
-                echo $auth-> lifeSession($_SESSION['tiempo'],$location);
-            } else {
-                //Activamos sesion tiempo con cualquier uso de la pagina.
-                $_SESSION['tiempo'] = time();
-           } 
+            
     }else{
         header('Location: ../index.php');
         die();
