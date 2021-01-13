@@ -5,8 +5,10 @@
     require_once 'clases/authController.Class.php';
     require_once 'clases/visitorController.Class.php';
     require_once 'clases/adminController.Class.php';
+    require_once 'clases/alumnosController.Class.php';
     //creamos el objeto cliente
     $auth=new auth;
+    $alumno=new alumno;
     //objeto visitante
     $visitor= new visitor;
     $admin=new admin;
@@ -42,12 +44,17 @@
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/visitante.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <!--JS-->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="js/dashboar.js"></script>
     <script src="lib/alertifyjs/alertify.js"></script>
+    <script src="js/sesion.js"></script>
+    <script src="js/alumno.js"></script>
     
     
    
@@ -57,7 +64,7 @@
   <form action="closeSeasson.php">
 <button type="submit" class="btn btn-primary">Cerrar sesión</button>
 </form>
-  <a href="dashboard.php"><img src="img/controlacceso.png" style="width: 20%; margin-top: 1%; margin-left: 20%; " alt="logo"></a>
+  <a href="dashboard.php"><img src="img/controlacceso.png" style="height: auto; max-width: 20%; ; margin-left: 15%; margin-top:3px " alt="logo"></a>
   <a href="https://github.com/DonsPower/Access_control"><i class="fab fa-github" "></i></a>
   <p class="chip"><?php echo $_SESSION['nombre']?></p>
   
@@ -69,8 +76,8 @@
         </label>
         
   <div class="sidebar">
-  <header>Dashboard</header>
-      <a href="#"><i class="fas fa-user-plus"></i></i>Alumnos</a>
+  <header>Inicio</header>
+      <a href="#" id="altaAlumno"><i class="fas fa-user-plus"></i></i>Alumnos</a>
       <a href="#"><i class="fas fa-user-plus"></i></i>Docente</a>
       <a href="#"><i class="fas fa-user-plus"></i></i>PAEE</a>
       <a href="#" id="altaVis"><i class="fas fa-user-plus"></i>Visitantes</i></a>
@@ -94,16 +101,39 @@
 
   </div>
   <!--ALL CODE -->    
+  
   <div id="main">
-   
-  <div class=" container">
-      <h4>
-        <?php echo $_SESSION['tipo']?>
-      </h4>
-      <hr>
-    </div>
-        
+            
+          <div class=" container">
+              <h4>
+                <?php echo $_SESSION['tipo']?>
+              </h4>
+              <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio / </li>
+            
+        </ol>
+        </nav>
+              <hr>
+            </div>
+
             <div class="container ">
+            <div class="row">
+                      <?php 
+                        if ($_SESSION['tipo']=='AdministradorArea') {
+                      ?>
+                        <div class="card" style="background-color:#4c6ef5;; border-radius:10px">
+                            <div >
+                            <i class="fas fa-qrcode" style="color: white;"></i>
+                            <h5 class="card-title" style="margin-top: 10px;">Leer códigos QR</h5>
+                            <a href="#" id="lector" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                           
+                        </div>
+                      <?php   
+                        }
+                      ?>
+                    </div>
                 <div class="row">
                     <?php 
                     if($_SESSION['tipo']=='AdministradorGlobal'){?>
@@ -119,6 +149,9 @@
                     <?php
                       }
                     ?>
+
+                    
+
               <div class="col mb-6">
                 <div class="card card-5 text-white bg-success " >
                 <div class="card-body">
@@ -138,14 +171,18 @@
                   
                 </div>
               </div>
-             
+                  
             </div>
-            
+            <div class="col mb-6 ">
+                <div class="card card-5 text-white  bg-success " >
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-top: 10px;">Total alumnos</h5>
+                    <h3 class="card-text"><?php echo $alumno->getDataAlumno();?></h3>
+                      <a href="#" id="tablaAlumno" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                  
+                </div>
+              </div>
             </div>
-            
-      <!--No se si sirva-->
-        <div id="prueba"></div>
-        
-        
 </body>
 </html> 

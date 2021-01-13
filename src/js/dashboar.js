@@ -1,10 +1,28 @@
+$(document).ready(function(){
+    $("#tablaAlumno").click(function(){
+        $("#main").load("altaAlumnos/index.php");
+    });
+});
+//Mostrar alta de alumnos
+$(document).ready(function(){
+    $("#altaAlumno").click(function(){
+        $("#main").load("altaAlumnos/formAlumno.php");
+    });
+});
 
+//Mostrar Lectura de codigos QR
+$(document).ready(function(){
+    $("#lector").click(function(){
+        $("#main").load("visitante/readqr/index.php");
+    });
+});
 //Mostrar agregar visitantes
 $(document).ready(function(){
     $("#altaVis").click(function(){
         $("#main").load("visitante/agregarVis.php");
     });
 });
+
 //Mostrar tabla visitantes
 $(document).ready(function(){
     $("#totalVist").click(function(){
@@ -18,7 +36,6 @@ $(document).ready(function(){
     });
 });
 //Mostrar form agregar admin 
-//TODO: ENCRYPTAR PASSWORD
 $(document).ready(function(){
     $("#altaAdmin").click(function(){
         $("#main").load("admin/addAdmin.php");

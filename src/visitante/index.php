@@ -1,6 +1,7 @@
 <?php
     //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
     //importamos la clase auth
+    //TODO: Eliminar llave foranea y agregar un boton de "Agregar áreas"
     require_once '../clases/conexion.Class.php';
     require_once '../clases/authController.Class.php';
     require_once "../clases/visitorController.Class.php";
@@ -8,12 +9,12 @@
     //creamos el objeto cliente
     $auth=new auth;
     $visitor=new visitor;
-    $location="../dashboar.php";
+    $location="../index.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
             //Enviamos el tiempo y si pasan ciertos minutos lo redireccionamos
             if(isset($_SESSION['tiempo'])){
-                echo $auth-> lifeSession($_SESSION['tiempo'],$location );
+                echo $auth-> lifeSession($_SESSION['tiempo'],$location);
             } else {
                 //Activamos sesion tiempo con cualquier uso de la pagina.
                 $_SESSION['tiempo'] = time();
@@ -44,6 +45,13 @@
       <h4>
         <?php echo $_SESSION['tipo']?>
       </h4>
+      <!--muestra la ubicación de donde esta-->
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista visitantes</li>
+        </ol>
+        </nav>
       <hr>
     </div>
     <!--Boton buscar visitante-->
@@ -56,7 +64,7 @@
         <caption>
             <div class="titulos "><h2>Lista visitantes</h2></div>
         </caption>
-        <div class=" table-responsive-md">
+        <div class="table-responsive-md">
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -93,6 +101,7 @@
                 <td><?php echo $row['razonvisita'];?></td>
                 <td><?php echo $row['numcodqr'];?></td>
                 <td><?php echo $estado;?></td>
+                <!--TODO: inactivo el usuaro desabilitar boton.-->
                 <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatosVis('<?php echo $datos; ?>')"><i class="fas fa-user-edit"></i></button></td>
                 <td><button type="button" id="eliminar" class="btn btn-danger" onclick="bajaVist('<?php echo $row['id']; ?>','<?php echo $nombre?>')"><i class="fas fa-user-minus"></i> </button></td>
 

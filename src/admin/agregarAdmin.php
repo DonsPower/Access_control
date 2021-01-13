@@ -15,7 +15,15 @@
     $clave=$_POST['clave'];
     $preguntaS=$_POST['preguntaS'];
     $respuestaS=$_POST['respuestaS'];
-    //Mandamos la consulta con todos los datos
+    if($areaAdministra=="Seleccione el área que administra")$areaAdministra="1";
+    else{
+       $id= $admin->buscarIdAdmin($areaAdministra);
+       $areaAdministra=$id['id'];
+    } 
+    //Si es administrador por area buscar el ID para almacenarlo.
+    
+    
+    //Mandamos la consul    ta con todos los datos
     $algo=$admin->agregarAdmin($name,$apellidoP,$apellidoM,$puesto,$areaAdministra,$tipo,$email,$clave,$password,$preguntaS,$respuestaS);
 
     echo json_encode($algo);

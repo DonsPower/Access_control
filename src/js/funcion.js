@@ -23,7 +23,6 @@ function regresar(){
     $.ajax({
         url: 'admin/buscarAdmin.php',
         type: 'post',
-        
         dataType: 'json',
         data:{
             primero:$('#primero').val()
@@ -50,7 +49,7 @@ function regresar(){
                // $('#primero').toggle(); 
                 document.getElementById("enviar").innerHTML = "Buscar";
             } 
-            //console.log(data);
+            console.log(data);
             //Obtengo la cadena de datos que se encontraron en la BD desde uno hasta 100000000
             //Si data=1 = no hay datos
             if(data.length==1){
@@ -64,7 +63,7 @@ function regresar(){
                 //2 Genaro Vazquez holaholahola Encargado Sistemas A…genaro@gmail.com 123424fr43e Bebida favorita Jugo
                 var tabla;
                 for (let index = 1; index < data.length; index++) {
-                    //console.log(datos);
+                    console.log(datos);
                     var datos= data[index].split("||");
                     //console.log(datos[1]);
                     //Concatenamos los datos para hacer la editacion XD.
@@ -194,20 +193,26 @@ function eliminarAdmin(id,nombre){
     //console.log(id);
     alertify.prompt( 'Eliminar administrador', 'Estas seguro que quieres eliminar a:', nombre
     , function(evt, value) { 
-        alertify.success('Se elimino a: ' + value) 
+        
         $.ajax({
             type:"POST",
             url:"admin/deleteAdmin.php",
             data:{ids:id},
             success:function(r){
-                //console.log(r);
+                console.log(r);
                 if(r){
                     //console.log("deberiaentrar");
+                    //TODO: Cuando hay llaves foraneas no elimina.
+                    alertify.success('Se elimino as: ' + value) 
                     $("#main").load("admin/index.php");
                 }else{
                     alertify.error("Problemas con el servidor.");
                     $("#main").load("dashboard.php");
                 }
+            },
+            error: function (xhr) {
+                console.log(xhr);
+                alertify.error("Error al eliminar datos");
             }
         });
     

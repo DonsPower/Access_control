@@ -48,7 +48,7 @@
   .sidebar a:hover {
     padding-left: 50px;
     background-color: #E3E3E3;
-    color: black;
+    color: gray;
   }
   .sidebar i{
     margin-right: 16px;
@@ -67,7 +67,7 @@
       float: right;
       padding: 8px 8px 8px 32px;
       font-size: 50px;
-      color: #454749;
+      color:#424242;
       transition: .1s;
       border-top: 1px solid rgba(255,255,255,.1);
   }

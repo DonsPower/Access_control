@@ -8,10 +8,6 @@
      $apellidoP=$_POST['apellidop'];
      $apellidoM=$_POST['apellidom'];
      $razon=$_POST['razon'];
-    
-     
      $algo=$visitor->actualizarVis($id,$name,$apellidoP,$apellidoM,$razon);
- 
      echo json_encode($algo);
-
 ?>

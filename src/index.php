@@ -20,6 +20,8 @@
           $userinfo=$auth->userInfo($usuario, $password);
           //Almaceno el usuario el la variable sesion para utilizarla despues
           //print_r($userinfo); 
+          //Almacenamos el id para utilizarlo en el lector de QR
+          $_SESSION['id']=$userinfo['id'];
           $_SESSION['nombre'] = $userinfo['name']." ".$userinfo['ApellidoPAdm'];
           //Almacenamos tiempo.
           $_SESSION['tiempo'] = time();
@@ -62,7 +64,9 @@
 </head>
 <body>
   <div class="container">
-    <div class="row ">
+
+     <div class="row ">
+      
       <div class="col-sm-5" style="width: 50%; margin-left: 6%; margin-top:16%;">
       <!--<img src="img/logo.png" alt="logo-ControlAccess" width="80" height="80">-->
         <img src="img/controlacceso.png"  width="320" height="60">

@@ -39,6 +39,9 @@
             $user->execute([
                 ':id'=>$id
             ]);
+            //TODO: Como saber si se elimino correctamente el usuario. puedo hacer una busqueda de
+            //lo que se borro si lo encentra mandar mensaje de no se pudo borrar por llave foranea.
+            
             return $user;
         }
         function agregarAdmin($name,$apellidoP,$apellidoM,$puesto,$areaAdministra,$tipo,$email,$clave,$password,$preguntaS,$respuestaS){
@@ -69,9 +72,25 @@
                     ':respuestaS'=>$respuestaS
                 ]);
                 return 0;
-            }
-            
+            }   
         }
+        //Obtenemos las áreas.
+        function getAreas(){
+            $db=new Connect;
+            $user=$db->prepare("SELECT * FROM area");
+            $user->execute();
+            return $user;
+        }
+        //Buscamos el ID del administrador nos basamos en la area.
+        function buscarIdAdmin($area){
+            $db=new Connect;
+            $user=$db->prepare("SELECT id FROM area WHERE nombreArea=:area");
+            $user->execute([
+                ':area'=>$area
+            ]);
+            $userinfo=$user->fetch(PDO::FETCH_ASSOC);
+            return $userinfo;
+        } 
     }
 
 ?>

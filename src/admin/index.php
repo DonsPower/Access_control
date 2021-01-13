@@ -8,7 +8,7 @@
     //creamos el objeto cliente
     $auth=new auth;
     $admin=new admin;
-    $location="../dashboar.php";
+    $location="../index.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
             //Consultamos datos del administrador para obtenerlos en una tabla.
@@ -35,19 +35,23 @@
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     <!--JS-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/funcion.js"></script>
     <script src="lib/alertifyjs/alertify.js"></script>
-    <script src="js/dashboard.js"></script>
-  
 </head>
 <body>
     <div class="container">
       <h4>
         <?php echo $_SESSION['tipo']?>
       </h4>
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista administradores</li>
+        </ol>
+        </nav>
       <hr>
     </div>
+    
     <!--Boton buscar-->
     <div class="container" style="float: right;">
         <button type="button" id="enviar" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
@@ -163,8 +167,5 @@
           </div>
         </div>
       </div>
-
-      
-
 </body>
 </html>

@@ -45,6 +45,13 @@
       <h4>
         <?php echo $_SESSION['tipo']?>
       </h4>
+      <!--muestra la ubicación de donde esta-->
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Almacenar visitante</li>
+        </ol>
+        </nav>
       <hr>
     </div>
     <div class="container form1" >
@@ -65,6 +72,7 @@
             <div class="col"><input type="text" REQUIRED class="col" name="razon" id="razon" placeholder="Razón de la visita"></div>
          </div>
         <div class="row">
+        <!--TODO: Cuando se le asigne un numero que este usuario ya este almacenado en la base de datos asi solo asignamos numero con id de la BD-->|
             <div class="col"><input type="text"   REQUIRED  name="codigoqr" id="codigoqr"  placeholder="Numero de codigo QR"></div>
           
         </div>

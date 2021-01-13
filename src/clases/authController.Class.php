@@ -1,7 +1,9 @@
 <?php
  
     class auth{
+        //Verificamos si existe el usuario o no?
         function addUser($usuario,$password){
+            $password= strtolower($password);
             $db = new Connect;
             $pass_cifrada = password_hash($password, PASSWORD_DEFAULT, array("cost"=>10));
             $user = $db->prepare("SELECT * FROM administradores where email=:email");
@@ -22,7 +24,7 @@
         }
         function lifeSession($time, $location){
             //Tiempo en segundos para dar vida a la sesión.
-            $inactivo = 120;//20 min en este caso.
+            $inactivo = 1200;//20 min en este caso.
 
             //Calculamos tiempo de vida inactivo.
             $vida_session = time() - $time;
@@ -33,8 +35,8 @@
                 //Destruimos sesión.
                 session_destroy();              
                 //Redirigimos pagina.
-                //header("Location: ".$location);
-                header("Refresh: 0; url=index.php");
+                header("Location: ".$location);
+                //header("Refresh: 0; url=index.php");
                 //header('Refresh: '.$location);
                 exit();
             } else {  // si no ha caducado la sesion, actualizamos
