@@ -13,8 +13,9 @@
     $telefonoPersonal = ($_POST['telefonoPersonal']);
     $NSS = ($_POST['nss']);
     $emailAlumno = ($_POST['email']);
+    $numcodqr = ($_POST['numcodqr']);
     //Mandamos la consulta con todos los datos
-    $algo=$alumno->agregarAlum($nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS);
+    $algo=$alumno->agregarAlum($nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS,$numcodqr);
     echo json_encode($algo);
     
 ?>

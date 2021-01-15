@@ -1,3 +1,3 @@
 <?php
-  $conex = mysqli_connect("localhost","root","","AutenticaciónCA");
+  $conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
 ?>
