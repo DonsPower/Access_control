@@ -34,6 +34,7 @@
         <title>Registrar Alumno</title>
         <meta charset="utf-8">
         <script src="js/alumno.js"></script>
+        <script src="js/modal.js"></script>
     </head>
     <body>
         <!--tituto-->
@@ -51,7 +52,7 @@
         <div class="container form1">
         <div style="margin-bottom: 30px; margin-top:10px;">
         <caption>
-            <div class="titulos "><h2>Almacenar visitante</h2></div>
+            <div class="titulos "><h2>Almacenar Alumno</h2></div>
         </caption>
         </div>
         <!--Lo anterior solo son los titulos, de aquí para abajo va lo que tien que ir el los datos usuario-->
@@ -87,10 +88,10 @@
                 <div class="col"><input type="text"name="NSS" id="NSS" placeholder="NSS"></div>
                 <div class="col"><input type="text"  name="emailAlumno" id="emailAlumno"  placeholder="Correo"></div>
             </div>
-            
+            <div class="col-4 col-sm-12"><input type="text" name="numcodqr" id="numcodqr" placeholder="Número de código QR"></div>
             <!--Botones para regresar o guardar datos.-->
             <div class="container">
-                <button  type="button" id="registrarAlumno" class="btn btn-success" style="width: 100px;">Registrar</button>
+                <button  type="button" id="registrarAlumno"  class="btn btn-success" style="width: 100px;">Registrar</button>
                 <button type="button" class="btn btn-danger" style="width: 100px; "><a href="dashboard.php">Regresar</a></button>
             </div>
         </div>

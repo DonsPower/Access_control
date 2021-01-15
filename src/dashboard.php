@@ -6,9 +6,13 @@
     require_once 'clases/visitorController.Class.php';
     require_once 'clases/adminController.Class.php';
     require_once 'clases/alumnosController.Class.php';
+    require_once 'clases/paaeController.Class.php';
+    require_once 'clases/perAcademicoController.Class.php';
     //creamos el objeto cliente
     $auth=new auth;
     $alumno=new alumno;
+    $perAcademico=new perAcademico;
+    $paae=new paae;
     //objeto visitante
     $visitor= new visitor;
     $admin=new admin;
@@ -47,6 +51,8 @@
     <script src="lib/alertifyjs/alertify.js"></script>
     <script src="js/sesion.js"></script>
     <script src="js/alumno.js"></script>
+    <script src="js/paae.js"></script>
+    <script src="js/perAcademico.js"></script>
     
     
    
@@ -70,8 +76,8 @@
   <div class="sidebar">
   <header>Inicio</header>
       <a href="#" id="altaAlumno"><i class="fas fa-user-plus"></i></i>Alumnos</a>
-      <a href="#"><i class="fas fa-user-plus"></i></i>Docente</a>
-      <a href="#"><i class="fas fa-user-plus"></i></i>PAEE</a>
+      <a href="#" id="altaPerAcademico"><i class="fas fa-user-plus"></i></i>Docente</a>
+      <a href="#" id="altaPaae"><i class="fas fa-user-plus"></i></i>PAEE</a>
       <a href="#" id="altaVis"><i class="fas fa-user-plus"></i>Visitantes</i></a>
       <a href="#"><i class="fas fa-file-medical"></i>Reportes</a>
       <?php
@@ -165,12 +171,33 @@
               </div>
                   
             </div>
+            <div class="row">
             <div class="col mb-6 ">
                 <div class="card card-5 text-white  bg-success " >
                 <div class="card-body">
                     <h5 class="card-title" style="margin-top: 10px;">Total alumnos</h5>
                     <h3 class="card-text"><?php echo $alumno->getDataAlumno();?></h3>
                       <a href="#" id="tablaAlumno" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                  
+                </div>
+              </div>
+              <div class="col mb-6 ">
+                <div class="card card-5 text-white  bg-success " >
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-top: 10px;">Total PAAE</h5>
+                    <h3 class="card-text"><?php echo $paae->getDataPaae();?></h3>
+                      <a href="#" id="tablaPaae" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                  
+                </div>
+              </div>
+              <div class="col mb-6 ">
+                <div class="card card-5 text-white  bg-success " >
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-top: 10px;">Total Personal Academico</h5>
+                    <h3 class="card-text"><?php echo $perAcademico->getDataPerAcademico();?></h3>
+                      <a href="#" id="tablaPerAcademico" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
                     </div>
                   
                 </div>
