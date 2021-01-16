@@ -10,6 +10,33 @@ $(document).ready(function(){
     });
 });
 
+//Mostrar tabla Paaes
+$(document).ready(function(){
+    $("#tablaPaae").click(function(){
+        $("#main").load("altaPaae/index.php");
+    });
+});
+//Mostrar alta de paaes
+$(document).ready(function(){
+    $("#altaPaae").click(function(){
+        $("#main").load("altaPaae/formPaae.php");
+    });
+});
+
+//Mostrar tabla Personal Academico
+$(document).ready(function(){
+    $("#tablaPerAcademico").click(function(){
+        $("#main").load("altaPerAcademico/index.php");
+    });
+});
+//Mostrar alta de personal Academico
+$(document).ready(function(){
+    $("#altaPerAcademico").click(function(){
+        $("#main").load("altaPerAcademico/formPerAcademico.php");
+    });
+});
+
+
 //Mostrar Lectura de codigos QR
 $(document).ready(function(){
     $("#lector").click(function(){

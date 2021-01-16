@@ -39,7 +39,7 @@
             $user->execute([
                 ':id'=>$id
             ]);
-            //TODO: Como saber si se elimino correctamente el usuario. puedo hacer una busqueda de
+            //TO DO: Como saber si se elimino correctamente el usuario. puedo hacer una busqueda de
             //lo que se borro si lo encentra mandar mensaje de no se pudo borrar por llave foranea.
             
             return $user;
