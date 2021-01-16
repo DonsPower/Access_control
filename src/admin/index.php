@@ -90,6 +90,7 @@
                              ."||".$row['PreguntaS']."||".$row['RespuestaS'];
             //Concatenamos para mandarlos a la funcion eliminarADMIN.
             $nombre=$row['name']." ".$row['ApellidoPAdm']." ".$row['ApellidoMFAdm'];
+            $ocultarCorreo=True;
             ?>   
                 
             <tr>
@@ -102,8 +103,21 @@
                 <td><?php echo $row['TrabajadorAdm'];?></td>
                 <td><?php echo $row['PreguntaS'];?></td>
                 <td><?php echo $row['RespuestaS'];?></td>
-                <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatos('<?php echo $datos; ?>')"><i class="fas fa-user-edit"></i></button></td>
+                <?php
+                  if($row['id']==$_SESSION['id']){
+                    $ocultarCorreo=False;
+                    ?>
+                    <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatos('<?php echo $datos; ?>', <?php $ocultarCorreo ?>)"><i class="fas fa-user-edit"></i></button></td>
+                    <td><button type="button" id="eliminar" class="btn btn-danger" disabled onclick="eliminarAdmin(<?php echo $row['id']; ?>,'<?php echo $nombre ?>')"><i class="fas fa-user-times"></i> </button></td>
+                   <?php
+                  }else{
+                    ?>
+                    <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatos('<?php echo $datos; ?>')"><i class="fas fa-user-edit"></i></button></td>
                 <td><button type="button" id="eliminar" class="btn btn-danger" onclick="eliminarAdmin(<?php echo $row['id']; ?>,'<?php echo $nombre ?>')"><i class="fas fa-user-times"></i> </button></td>
+                    <?php
+                  }
+                ?>
+                
 
                 </tr>
          <?php  
@@ -125,7 +139,7 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-              
+              <?php echo print_r($_SESSION)?>  
                 <div class="row">
                   <div class="col-4 col-sm-4">Nombre<input type="text" name="name" id="name"></div>
                   <div class="col">Apellido paterno<input type="text" name="" id="apellidoP"></div>
@@ -139,6 +153,7 @@
 
                 <div class="row">
                   <div class="col">Tipo de administrador<input type="text" name="" id="tipo"></div>
+        
                   <div class="col">Correo<input type="text" name="" id="email"></div>
                 </div>  
 

@@ -65,7 +65,7 @@
             <div class="col"><input type="text" REQUIRED class="col" name="razon" id="razon" placeholder="Razón de la visita"></div>
          </div>
         <div class="row">
-        <!--TODO: Cuando se le asigne un numero que este usuario ya este almacenado en la base de datos asi solo asignamos numero con id de la BD-->|
+        <!--TODO: Cuando se le asigne un numero que este usuario ya este almacenado en la base de datos asi solo asignamos numero con id de la BD-->
             <div class="col"><input type="text"   REQUIRED  name="codigoqr" id="codigoqr"  placeholder="Numero de codigo QR"></div>
           
         </div>

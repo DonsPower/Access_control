@@ -115,8 +115,7 @@
         </div>
       </div>
     </div>
-    <hr>
-    Eres visitante registrate aqui
+   
 
    
 </body>

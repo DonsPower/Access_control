@@ -1,4 +1,5 @@
-    //Activar modal
+    var emailid=document.getElementById("email");
+//Activar modal
     var modal = document.getElementById("myModal");
     // Obtengo "X" obtener evento.
     var span = document.getElementsByClassName("close")[0];
@@ -94,14 +95,19 @@ function regresar(){
     );
 }
 //AGREGAR DATOS DEL ADMINISTRADOR AL MODAL
-function editarDatos(datos){
+function editarDatos(datos, id){
     //console.log(datos);
     //console.log(the.id);
     //Activa modal.
     modal.style.display = "block";
+    
+    console.log(id);
     //console.log(datos);
     //Almacenamos los datos en una cadena y hacemos split para separarlos.
     cadena=datos.split("||");
+    if(id){
+        emailid.style.display="none";
+    }
     //Cuando los datos vienen de la tabla buscar
     //Hacemos esto por que el nombre y los apellidos no vienen separados por "||"
     if(cadena[10]=="undefined"){
@@ -203,7 +209,7 @@ function eliminarAdmin(id,nombre){
                 if(r){
                     //console.log("deberiaentrar");
                     //TODO: Cuando hay llaves foraneas no elimina.
-                    alertify.success('Se elimino as: ' + value) 
+                    alertify.success('Se elimino a: ' + value) 
                     $("#main").load("admin/index.php");
                 }else{
                     alertify.error("Problemas con el servidor.");

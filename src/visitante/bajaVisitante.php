@@ -2,9 +2,9 @@
     require_once '../clases/conexion.Class.php';
     require_once '../clases/visitorController.Class.php';
     $visitor= new visitor;
-    $confirmar=$_POST['conf'];
+    $id=$_POST['ids'];
     
-    $algo= $visitor->deathVisitor();
+    $algo= $visitor->deathVisitor($id);
     echo json_encode($algo);
 
 ?>

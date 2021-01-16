@@ -95,10 +95,18 @@
                 <td><?php echo $row['razonvisita'];?></td>
                 <td><?php echo $row['numcodqr'];?></td>
                 <td><?php echo $estado;?></td>
-                <!--TODO: inactivo el usuaro desabilitar boton.-->
                 <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatosVis('<?php echo $datos; ?>')"><i class="fas fa-user-edit"></i></button></td>
-                <td><button type="button" id="eliminar" class="btn btn-danger" onclick="bajaVist('<?php echo $row['id']; ?>','<?php echo $nombre?>')"><i class="fas fa-user-minus"></i> </button></td>
-
+                <?php
+                  if($estado=="Inactivo"){
+                    ?>
+                    <td><button type="button" id="eliminar" class="btn btn-danger" disabled onclick="bajaVist('<?php echo $row['id']; ?>','<?php echo $nombre?>')"><i class="fas fa-user-minus"></i> </button></td>
+                 <?php
+                  }else{
+                    ?>
+                     <td><button type="button" id="eliminar" class="btn btn-danger" onclick="bajaVist('<?php echo $row['id']; ?>','<?php echo $nombre?>')"><i class="fas fa-user-minus"></i> </button></td>
+                     <?php
+                  }
+                ?>
                 </tr>
          <?php  
         } ?>

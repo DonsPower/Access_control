@@ -19,11 +19,15 @@
             return  $userinfo;
         }
         //Dar de baja al visitante 
-        //TODO: MATAR EL TIEMPO DE SALIDA DE ELLOS falta agregar.
-        function deathVisitor(){
+        
+        function deathVisitor($idArea){
             $db = new Connect;
-            $user = $db-> prepare("UPDATE visitantes SET estado= 0 WHERE estado=1");
-            $user->execute();
+            $user = $db-> prepare("UPDATE registro_visitante SET estado= 0 WHERE id_administrador=:idArea AND estado=:estado");
+            $user->execute([
+                ':idArea'=>$idArea,
+                ':estado'=>'1'
+
+            ]);
             return $user;
         }
         //Mostrar datos user
@@ -55,6 +59,7 @@
                 ':id'=>$id
             ]);
             return $user;
+            //TODO: Preguntar si cuando se de de baja, dar de baja en todos los registros?
         }
         //Agregar a un visitante
         function agregarVis($nombre, $apellidop, $apellidom, $razon, $codigoQr){
@@ -77,7 +82,7 @@
                     ':apellidom'=>$apellidom,
                     ':razon'=>$razon,
                     ':codigoQr'=>$codigoQr,
-                    ':estado'=>"1"
+                    ':estado'=>"0"
                 ]);
                 return 0;
             }
@@ -132,7 +137,7 @@
                     ':apellidom'=> $data["apellidom"],
                     ':razonvisita'=> $data["razonvisita"],
                     ':numcodqr' => $token,
-                    ':estado'=> 1
+                    ':estado'=> 0
                 ]);
                 //Si en la razon no hay nada almacenado redirecciona para agregarlo
                 if($comparar_razon_redireccionamiento == "palabrasecreta"){
@@ -207,9 +212,10 @@
             $userinfo = $user->fetch(PDO::FETCH_ASSOC);
             return  $userinfo;
         }
+        
         //Buscamos Codigo QR
         //Hacer el filtro del codigo QR para poblacion fija y flotante
-        function buscarQr($codigoQr, $idAdmin, $hora){
+        function buscarQrVis($codigoQr, $idAdmin, $hora){
             $db=new Connect;
             $contqro=$db->prepare("SELECT * FROM visitantes WHERE numcodqr=:codigo" );
             $contqro->execute([
@@ -218,58 +224,51 @@
             $userinfo = $contqro->fetch(PDO::FETCH_ASSOC);
             
             if($userinfo){
-             //Si encontro el codigo qr en la base de datos.
-             $estado=$userinfo['estado'];
-             $idVis=$userinfo['id'];
-             //Cuando el estado es 0 se registrara un nuevo registro en el área
-             if($estado==0){
-                 //pasaremos de cero a uno. inactivo - activo
-                 //Guardo la hora en la tabla.
-                 $user=$db->prepare("INSERT INTO  registro_visitante (id_visitante, id_administrador, entrada) VALUES (:idVis, :idAdmin, :entrada)");
-                 $user->execute([
-                     ':idVis'=>$idVis,
-                     ':idAdmin'=>$idAdmin,
-                     ':entrada'=>$hora,
-                     
-                 ]);
-                 //Cambio el estado a 1. 
-                $user2 = $db-> prepare("UPDATE visitantes SET estado=1 WHERE id=:id");
-                 $user2->execute([
-                     ':id'=>$idVis
-                 ]);
-                if($user){
-                    return $userinfo['nombre']."||".$userinfo['apellidop']."||".$userinfo['apellidom']."||".$userinfo['estado']."||".$userinfo['numcodqr']."||".$hora;
-                } 
-                else{
-                    return "Error : No se guardo la entrada.";
-                } ; 
-                // return  $user;       
-             }else{
-                 //El usuario registrara su salida pasaremos de 1 a 0 el QR
-                 $time = time();
-                 $hora2=date("d-m-Y H:i:s", $time);
-                 
-                 $user=$db->prepare("UPDATE registro_visitante SET salida=:salida WHERE id_visitante=:id");
-                 $user->execute([
-                     ':salida'=>$hora,
-                     ':id'=>$idVis
-                 ]);
-                 $user2 = $db-> prepare("UPDATE visitantes SET estado= 0 WHERE id=:id");
-                 $user2->execute([
-                     ':id'=>$idVis
-                 ]);
-                 if($user2){
-                     return $hora2;
-                 }else{
-                     return "Error: no se guardo la salida";
-                 }
-             }
+                //Obtengo el id del visitante.
+                $idVis=$userinfo['id'];
+                //Como saber cuando entro y salio. con un ID 
+                //Primero buscamos si no existe ningun registro en la BD.
+                $buscarRegistro=$db->prepare("SELECT * FROM registro_visitante WHERE id_visitante=:idVis AND id_administrador=:idAdmin AND estado=:estado");
+                $buscarRegistro->execute([
+                    ':idVis'=>$idVis,
+                    ':idAdmin'=>$idAdmin,
+                    ':estado' => "1"
+                ]);
+                $res=$buscarRegistro->fetch(PDO::FETCH_ASSOC);
+                //SI $res>1 entonces si hay un registro y buscar en que estado esta el campo 'ESTADO'
+                if($res){
+                    //Buscar si es 0 o 1 el campo 'ESTADO'
+                    //1 es igual a la entrada. cero es la salida
+                    $checarEstado=$db->prepare("UPDATE registro_visitante SET estado=0 WHERE id_visitante=:idVis AND id_administrador=:idAdmin AND estado=1");
+                    $checarEstado->execute([
+                        'idVis'=>$idVis,
+                        'idAdmin'=>$idAdmin
+                    ]);
+                    $retornar="||"."vis"."||".$userinfo['nombre']."||".$hora."||"."1"."||";
+                    return $retornar;
+                }else{
+                    //Activamos el estado del codigo QR y activamos la entrada al area del registro_visitantes
+                    $user=$db->prepare("INSERT INTO  registro_visitante (id_visitante, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
+                    $user->execute([
+                        ':idVis'=>$idVis,
+                        ':idAdmin'=>$idAdmin,
+                        ':entrada'=>$hora,
+                        ':estado'=>"1" 
+                    ]);
+                    $userActive=$db->prepare("UPDATE visitantes SET estado= 1 WHERE id=:id");
+                    $userActive->execute([
+                        ':id'=>$idVis
+                    ]);
+                    $res2="||"."vis"."||".$userinfo['nombre']."||".$hora."||"."2"."||";
+                    return $res2;
+                }
             }
             else{
                 //Si no encontro el codigo qr
-                return "Error: No se encontro el codigo QR";
+                return "||"."vis"."||"."No user"."||"."No hora"."||"."0"."||";
             }
         }
+       
 
     }
 ?>
