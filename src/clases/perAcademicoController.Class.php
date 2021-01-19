@@ -7,8 +7,49 @@
             $userinfo=$user->rowCount();
             return $userinfo;
         }
+
+         //generar token
+     function generarToken($tamaño){
+        $char = "qwertywDns07";
+        $code = "";
+        $clean = strlen($char) -1;
+        //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+        //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
+        
+        while(strlen($code) < $tamaño){
+            //si se agrega al sistema aumentar rango.
+            $code .= $char[rand(0,$clean)];
+        }
+        return "pro-".$code;
+    }
+    function validarToken($token){
+        $db=new Connect;
+        $contqr=$db->prepare("SELECT * FROM personalacademico WHERE numcodqr=:codigo" );
+        $contqr->execute([
+            ':codigo'=>$token
+        ]);
+        $contador=$contqr->rowCount();
+        if($contador>0){
+            //Si existe el codigo qr
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
     function agregarPerAcademico($nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico,$academia,$RFC,$telefono,$extension,$emailPerAcademico,$numcodqr){
         $db=new Connect;
+        $i=0;
+            while ($i==0){
+                $numcodqr=$this->generarToken(10);
+                $comprobarToken=$this->validarToken($numcodqr);
+                if($comprobarToken == 0){
+                    //no hay ninguno
+                    $i=1;
+                    break;
+                }
+            
+            } 
             $user=$db->prepare("INSERT INTO personalacademico(nombrePerAcademico,apellidoPatPerAcademico,apellidoMatPerAcademico,academia,RFC,telefono,extension,emailPerAcademico,numcodqr)
             VALUES(:nombrePerAcademico,:apellidoPatPerAcademico,:apellidoMatPerAcademico,:academia,:RFC,:telefono,:extension,:emailPerAcademico,:numcodqr)");
 
@@ -56,20 +97,7 @@
         return $user;
     }
 
-     //generar token
-     function generarToken($tamaño){
-        $char = "qwertywDns07";
-        $code = "";
-        $clean = strlen($char) -1;
-        //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
-        //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
-        
-        while(strlen($code) < $tamaño){
-            //si se agrega al sistema aumentar rango.
-            $code .= $char[rand(0,$clean)];
-        }
-        return "perAc-".$code;
-    }
+    
     }
 
  ?>

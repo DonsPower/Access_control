@@ -34,14 +34,14 @@
     <script src="lib/alertifyjs/alertify.js"></script>
 </head>
 <body>
-    <div class="container">
+<div class="container">
       <h4>
         <?php echo $_SESSION['tipo']?>
       </h4>
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Lista administradores</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista Administradores</li>
         </ol>
         </nav>
       <hr>

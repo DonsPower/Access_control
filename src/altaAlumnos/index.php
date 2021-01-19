@@ -31,31 +31,45 @@
        
 
 <title>Alumnos </title>
+ <!--CSS-->
+ <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/funcion.js"></script>
+    <script src="lib/alertifyjs/alertify.js"></script>
   </head>
   <body>
-   
-    
-    <div class="container">
-      
-      
-      <div class="col px-md-5"> 
-        <form method="POST">
-          <div class="input-group mb-3">
-              <input type="text" name="buscarUser" REQUIRED class="form-control" placeholder="Nombre del usuario" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" name="buscar">Buscar usuario</button>
-            </div>
-          </div>
-       </form>
-     </div>
-     
-      
+  <div class="container">
+      <h4>
+        <?php echo $_SESSION['tipo']?>
+      </h4>
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista Administradores</li>
+        </ol>
+        </nav>
+      <hr>
     </div>
     
-<table class="table table-hover" class="row table-responsive">
+    <!--Boton buscar-->
+    <div class="container" style="float: right;">
+        <button type="button" id="enviar" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
+        <input type="text" id="primero" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+    </div>
+    
+    <div>
+    
+        
+    <div class="container">
+    <caption>
+        <div class="titulos "><h2>Lista Alumnos</h2></div>
+    </caption>
+     <div class=" table-responsive-md">
+    <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+      <th scope="col">#</th>
       <th scope="col">NOMBRE</th>
       <th scope="col">CARRERA</th>
       <th scope="col">BOLETA</th>
@@ -98,7 +112,7 @@
         
   
       <tr>
-          <td><?php echo $row['id'];?> </td>
+      <td ><?php echo $i;?> </td>
           <td><?php echo $row['nombreAlumno'];?> <?php echo $row['apellidoPatAlumno'];?> <?php echo $row['apellidoMatAlumno'];?></td>
           <td><?php echo $row['carrera'];?></td>
           <td><?php echo $row['boleta'];?></td>
@@ -141,6 +155,8 @@
                   
                 </div>
                 <div class="row">
+                
+            
                   <div class="col">carrera<input type="text" name="" id="carrera"></div>
                   <div class="col">boleta <input type="text" name="" id="boleta"></div>
                 </div>
@@ -159,10 +175,7 @@
                   <div class="col"> email<input type="text" name="" id="emailAlumno"></div>
                   <div class="col">NSS<input type="text" name="" id="NSS"></div>
                 </div>
-                <div>
-                  <div class="col">Código QR <input type="text" name="" id="numcodqr"></div>
-                  
-                </div>
+              
                 
               </div>
             </div>

@@ -12,12 +12,11 @@ function registro(){
     $telefono = $('#telefono').val();
     $extension = $('#extension').val();
     $emailPaae = $('#emailPaae').val();
-    $numcodqr=$('#numcodqr').val();
+    $numcodqr= $('#numcodqr').val();
 
     //La cadena para pasarla al POST.
     cadena="nombrePaae="+$nombrePaae+"&apellidoPatPaae="+$apellidoPatPaae+"&apellidoMatPaae="+$apellidoMatPaae+"&area="+
-    $area+"&RFC="+$RFC+"&telefono="+$telefono+"&extension="+$extension+"&emailPaae="
-    +$emailPaae+"&numcodqr="+numcodqr;
+    $area+"&RFC="+$RFC+"&telefono="+$telefono+"&extension="+$extension+"&emailPaae="+$emailPaae+"&numcodqr="+$numcodqr;
 
     $.ajax({
         url:"altaPaae/agregarPaae.php",
@@ -80,7 +79,7 @@ function actualizardata(){
     tipo=$('#telefono').val();
     email=$('#extension').val();
     clave=$('#emailPaae').val();
-    $numcodqr=$('#numcodqr').val();
+    numcodqr=$('#numcodqr').val();
     id=$('#idAdmin').val();
     //Concatenamos los resultados
     cadena="id="+id+"&nombrePaae="+nombre+"&apellidoPatPaae="+apellidoP+
