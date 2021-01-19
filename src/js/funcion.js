@@ -226,4 +226,42 @@ function eliminarAdmin(id,nombre){
     , function() { alertify.error('Cancelado') });
 
 }
+//Paginacion de la tabla administradores.
+function paginacion(numPagina){
+    //Obtengo al numero de pagina que quiero ir.
+    //console.log(numPagina);
+    //Se supone que si llega un 2 debo de recuperar un 20.
+    $.ajax({
+        type:"POST",
+        dataType: 'json',
+        url: "admin/paginacion.php",
+        data:{ 
+            ids: numPagina 
+        }
+    }).done(
+        function(data){
+            console.log(data);
+            var tabla;
+            let i=(numPagina-1)*10;
+                for (let index = 0; index < data.length; index++) {
+                    i++;
+                    //console.log(datos);
+                    var datos= data[index].split("||");
+                    //console.log(datos[1]);
+                    //Concatenamos los datos para hacer la editacion XD.
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]
+                             +"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]
+                             +"||"+datos[9]+"||"+datos[10];
+                             //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                    +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
+                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
+                    
+                }
+                datosRetornar="";
+                $('#salida').html(tabla);
+                $('#primero').val('');
+        });
+}
 

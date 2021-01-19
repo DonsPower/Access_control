@@ -17,7 +17,7 @@ $('#enviarVisitante').click(regresar);
 var total=[0];
 //Boton buscar usuario.
 function regresar(){
-    //console.log("Entro");
+    
     $.ajax({
         url: 'visitante/buscarVist.php',
         type: 'post',
@@ -27,7 +27,7 @@ function regresar(){
         }
     }).done(
         function(data){
-           // console.log(data);
+           //console.log(total[0]);
              //Obtenemos el numero mayor de consultas para así cambiar el estado del boton.
              if(total[0]<data.length){
                 total.pop();
@@ -159,5 +159,50 @@ function bajaVist(id, nombre){
     
     }
     , function() { alertify.error('Cancelado') });
+}
+
+function paginacion(numPagina){
+    //Obtengo al numero de pagina que quiero ir.
+    //console.log(numPagina);
+    //Se supone que si llega un 2 debo de recuperar un 20.
+    $.ajax({
+        type:"POST",
+        dataType: 'json',
+        url: "visitante/paginacion.php",
+        data:{ 
+            ids: numPagina 
+        }
+    }).done(
+        function(data){
+            //console.log(data[0]);
+            var tabla;
+                //console.log(numPagina);
+                //No se en que momento o cual sea mejor entre var y let.
+                let i=(numPagina-1)*10;
+                for (let index = 0; index < data.length; index++) {
+                    i++;
+                    //console.log(datos);
+                    var datos= data[index].split("||");
+                    //console.log(datos[1]);
+                    //Activo e inactivo 
+                    var estado="";
+                    if(datos[4]==1) estado="Activo";
+                    else estado="Inactivo";
+                    //Concatenamos los datos para hacer la editacion XD.
+                   
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||tabla";
+                    //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                    +datos[3]+"</td><td>"+estado+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosVis(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='bajaVist(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                    
+                    
+                }
+                datosRetornar="";
+                //console.log(tabla);
+                $('#salida').html(tabla);
+                
+        }
+    );
 }
 

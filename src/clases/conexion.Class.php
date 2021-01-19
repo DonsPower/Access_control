@@ -2,7 +2,7 @@
 class Connect extends PDO{
     //Conexion a la base de datos
     public function __construct(){
-        parent::__construct("mysql:host=localhost;dbname=SistemaControlAcceso",'root', '',
+        parent::__construct("mysql:host=localhost;dbname=sistemaControlAcceso",'root', '',
         array(PDO::MYSQL_ATTR_INIT_COMMAND=> "SET NAMES utf8"));
     }
 }

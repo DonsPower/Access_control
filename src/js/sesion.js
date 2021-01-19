@@ -30,8 +30,9 @@ function contadorSesion() {
         });
         //Variable tiempo.
         //1segundo=1000
-        //3600000
-    },3600000);//1 hora
+        //3600000=1 HORA
+      
+    },1200000);//2O MINUTOS
 }
 
 function salir() {

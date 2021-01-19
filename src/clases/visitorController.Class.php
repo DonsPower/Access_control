@@ -31,9 +31,10 @@
             return $user;
         }
         //Mostrar datos user
-        function tablaVisitantes(){
+        function tablaVisitantes($num){
             $db= new Connect;
-            $user= $db->prepare("SELECT * FROM visitantes  ORDER BY id DESC");
+            //El cero tiene que cambiar 
+            $user= $db->prepare("SELECT * FROM visitantes  ORDER BY id DESC LIMIT 0, 10");
             $user->execute();
             return $user;
 

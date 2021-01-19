@@ -27,9 +27,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
-    
     <!--JS-->
-    
     <script src="js/visitante.js"></script>
     <script src="lib/alertifyjs/alertify.js"></script>
     
@@ -76,7 +74,7 @@
     <!--Mostrar los registros de la BD -->
       <?php
         $i=0;
-        $resultado=$visitor->tablaVisitantes();
+        $resultado=$visitor->tablaVisitantes(1);
         while($row=$resultado->fetch(PDO::FETCH_ASSOC))
         {
             $i+=1;
@@ -113,9 +111,44 @@
 
         </tbody>
         </table>
+          <div style="float: right;">
+              <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item">
+                <?php
+                  $i=1;
+                  $total= $visitor->getVisitorData();
+                  $celdas=ceil($total/10);
+                  
+                  
+                ?>
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+                <?php
+                  while($i<=$celdas){
+                    ?>
+                      <li class="page-item"><a class="page-link" href="#" onclick="paginacion(<?php echo $i; ?>)"><?php echo $i; ?></a></li>
+                      
+                    <?php
+                    $i+=1;
+                  }
+                ?>
+                
+                
+                <li class="page-item">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
+        
         </div>
-
+        
         <!--Modal cuando se activa editar-->
         <div class="modal" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

@@ -8,6 +8,7 @@
             $userinfo = $user->rowCount();
             return  $userinfo;
         }
+        //Obtengo la tabla de administradores.
         function getAdmin(){
             $db = new Connect;
             $user= $db->prepare("SELECT * FROM administradores");
