@@ -13,13 +13,12 @@ function registro(){
     telefonoPersonal=$('#telefonoPersonal').val();
     nss=$('#NSS').val();
     emailAlumno=$('#emailAlumno').val();
-    $numcodqr=$('#numcodqr').val();
+    numcodqr=$('#numcodqr').val();
 
     //La cadena para pasarla al POST.
     cadena="nombre="+nombre+"&apellidop="+apellidoP+"&apellidom="+apellidoM+"&carrera="+
     carrera+"&boleta="+boleta+"&telefonomovil="+telefonoMovil+"&telefonoFijo="+telefonoFijo+"&telefonoPersonal="
-    +telefonoPersonal+"&nss="
-    +nss+"&email="+emailAlumno+"&numcodqr="+$numcodqr;
+    +telefonoPersonal+"&nss="+nss+"&email="+emailAlumno+"&numcodqr="+numcodqr;
     
     $.ajax({
         url:"altaAlumnos/agregarAlumno.php",

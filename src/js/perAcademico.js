@@ -17,7 +17,7 @@ function registro(){
     //La cadena para pasarla al POST.
     cadena="nombrePerAcademico="+$nombrePerAcademico+"&apellidoPatPerAcademico="+$apellidoPatPerAcademico+"&apellidoMatPerAcademico="+$apellidoMatPerAcademico+"&academia="+
     $academia+"&RFC="+$RFC+"&telefono="+$telefono+"&extension="+$extension+"&emailPerAcademico="
-    +$emailPerAcademico+"&numcodqr="+numcodqr;
+    +$emailPerAcademico+"&numcodqr="+$numcodqr;
 
     $.ajax({
         url:"altaPerAcademico/agregarPerAcademico.php",
@@ -80,7 +80,7 @@ function actualizardata(){
     tipo=$('#telefono').val();
     email=$('#extension').val();
     clave=$('#emailPerAcademico').val();
-    $numcodqr=$('#numcodqr').val();
+    numcodqr=$('#numcodqr').val();
     id=$('#idAdmin').val();
     //Concatenamos los resultados
     cadena="id="+id+"&nombrePerAcademico="+nombre+"&apellidoPatPerAcademico="+apellidoP+

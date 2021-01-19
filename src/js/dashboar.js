@@ -37,6 +37,9 @@ $(document).ready(function(){
 });
 
 
+
+
+
 //Mostrar Lectura de codigos QR
 $(document).ready(function(){
     $("#lector").click(function(){
