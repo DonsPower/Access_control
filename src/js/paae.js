@@ -1,10 +1,6 @@
 
-<<<<<<< HEAD
 
 $('#registrarPaae').click(registro);
-=======
-$('#Paae').click(registro);
->>>>>>> origin/master
 
 
 function registro(){
