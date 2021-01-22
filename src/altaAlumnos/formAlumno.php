@@ -33,6 +33,7 @@
 <head>
         <title>Registrar Alumno</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="css/dashboard.css">
         <script src="js/alumno.js"></script>
         <script src="js/modal.js"></script>
     </head>
@@ -51,9 +52,21 @@
         </nav>
         <div class="container form1">
         <div style="margin-bottom: 30px; margin-top:10px;">
+        <?php
+        
+            if($_SESSION['tipo']=='AdministradorGlobal'){
+
+                ?>
+                <div style="float: right;">
+                    <button type="button" id="datosSaes" class="btn btn-success">Carga de datos</button>
+                </div>
+              <?php 
+            } ?>
         <caption>
             <div class="titulos "><h2>Almacenar Alumno</h2></div>
+            
         </caption>
+        
         </div>
         <!--Lo anterior solo son los titulos, de aquí para abajo va lo que tien que ir el los datos usuario-->
             <!--Row=Fila entonces agregar los row necesarios.-->
@@ -88,11 +101,44 @@
                 <div class="col"><input type="text"name="NSS" id="NSS" placeholder="NSS"></div>
                 <div class="col"><input type="text"  name="emailAlumno" id="emailAlumno"  placeholder="Correo"></div>
             </div>
+            <div class="row">
             <div class="col-4 col-sm-12"><input type="text" name="numcodqr" id="numcodqr" placeholder="Número de código QR"></div>
+            </div>
             <!--Botones para regresar o guardar datos.-->
             <div class="container">
                 <button  type="button" id="registrarAlumno"  class="btn btn-success" style="width: 100px;">Registrar</button>
                 <button type="button" class="btn btn-danger" style="width: 100px; "><a href="dashboard.php">Regresar</a></button>
+            </div>
+        </div>
+
+
+         <!--Modal cuando se activa editar-->
+        <div class="modal" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cargar datos</h5>
+                        <span  class="close1 close">&times; </span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">Usuario<input type="text" name="name" id="usuarioSaes"></div>
+                                <div class="col">Contraseña<input type="text" name="name" id="passwordSaes"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Token<input type="text" name="name" id="token"></div>
+                               
+                            </div>
+                            <div class="row">
+                            <div class="col">URL<input type="text" name="name" id="url"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="dataSaes">Bajar datos del sistema</button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

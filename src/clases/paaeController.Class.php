@@ -70,6 +70,57 @@
         }
         return "paae-".$code;
     }
+        function validarToken($token){
+            $db=new Connect;
+            $contqr=$db->prepare("SELECT * FROM paaes WHERE numcodqr=:codigo" );
+            $contqr->execute([
+                ':codigo'=>$token
+            ]);
+            $contador=$contqr->rowCount();
+            if($contador>0){
+                //Si existe el codigo qr
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        function addSaes2($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof,  $email){
+            $db = new Connect;
+            $numcodqr=$this->generarToken(10);
+            $validarCod=$this->validarToken($numcodqr);
+            if($validarCod==1){
+                return $this->addSaes2($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof,  $email);
+            }else{
+                //Buscamos el usuario si existe ya en la BD.
+                $buscarUser=$db->prepare("SELECT * FROM paaes WHERE RFC=:boleta");
+                $buscarUser->execute([
+                    ':boleta'=> $boleta
+                ]);
+                $userCount=$buscarUser->rowCount();
+                if($userCount>0){
+                    return 0;
+                }else{
+                    $user=$db->prepare("INSERT INTO paaes(nombrePaae,apellidoPatPaae,apellidoMatPaae,area,RFC,telefono,extension,emailPaae,numcodqr)
+                    VALUES(:nombrePaae,:apellidoPatPaae,:apellidoMatPaae,:area,:RFC,:telefono,:extension,:emailPaae,:numcodqr)");
+
+                    $user->execute([
+                        ':nombrePaae' => $nombre,
+                        ':apellidoPatPaae' =>$apellidop,
+                        ':apellidoMatPaae' =>$apellidom,
+                        ':area'=> $carrera,
+                        ':RFC' =>$boleta,
+                        ':telefono'=>$telefonom,
+                        ':extension'=>$telefonof,
+                        ':emailPaae'=>$email,
+                        ':numcodqr'=>$numcodqr
+                        ]);
+                    return $user;    
+                }
+                
+                
+            }
+            
+        }
     }
 
  ?>

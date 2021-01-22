@@ -229,9 +229,9 @@
                 $idVis=$userinfo['id'];
                 //Como saber cuando entro y salio. con un ID 
                 //Primero buscamos si no existe ningun registro en la BD.
-                $buscarRegistro=$db->prepare("SELECT * FROM registro_visitante WHERE id_visitante=:idVis AND id_administrador=:idAdmin AND estado=:estado");
+                $buscarRegistro=$db->prepare("SELECT * FROM registro_visitante WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=:estado");
                 $buscarRegistro->execute([
-                    ':idVis'=>$idVis,
+                    ':idVis'=>$codigoQr,
                     ':idAdmin'=>$idAdmin,
                     ':estado' => "1"
                 ]);
@@ -240,18 +240,18 @@
                 if($res){
                     //Buscar si es 0 o 1 el campo 'ESTADO'
                     //1 es igual a la entrada. cero es la salida
-                    $checarEstado=$db->prepare("UPDATE registro_visitante SET estado=0 WHERE id_visitante=:idVis AND id_administrador=:idAdmin AND estado=1");
+                    $checarEstado=$db->prepare("UPDATE registro_visitante SET estado=0 WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=1");
                     $checarEstado->execute([
-                        'idVis'=>$idVis,
+                        'idVis'=>$codigoQr,
                         'idAdmin'=>$idAdmin
                     ]);
                     $retornar="||"."vis"."||".$userinfo['nombre']."||".$hora."||"."1"."||";
                     return $retornar;
                 }else{
                     //Activamos el estado del codigo QR y activamos la entrada al area del registro_visitantes
-                    $user=$db->prepare("INSERT INTO  registro_visitante (id_visitante, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
+                    $user=$db->prepare("INSERT INTO  registro_visitante (numcodqr, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
                     $user->execute([
-                        ':idVis'=>$idVis,
+                        ':idVis'=>$codigoQr,
                         ':idAdmin'=>$idAdmin,
                         ':entrada'=>$hora,
                         ':estado'=>"1" 

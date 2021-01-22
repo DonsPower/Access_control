@@ -1,4 +1,5 @@
 
+
 $('#registrarPaae').click(registro);
 
 
@@ -144,5 +145,78 @@ function eliminarPaae(id,nombre){
     }
     , function() { alertify.error('Cancelado') });
 
+}
+$('#datosSaes2').click(datosSaes2);
+
+function datosSaes2(){
+    modal.style.display = "block";
+}
+$('#dataSaes2').click(guardarDatospaae);
+function guardarDatospaae(){
+    
+    let nombre=$('#usuarioSaes').val();
+    let contra=$('#passwordSaes').val();
+    let token=$('#token').val();
+    let url2=$('#url').val();
+    let cont=0;
+    let URL='http://localhost:3000/auth/login';
+            fetch(URL, {
+                method: "post",
+                dataType: 'json',
+                mode: 'cors',
+                //headers: myHeaders
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "username" : nombre,
+                    "password" : contra,
+                    "token1": token   
+                })
+            }).then((response) => {
+                return response.json();   
+            }).then((data) => {
+                console.log(data);
+                if(data['message']!='OK'){
+                    //No se registro bien el usuario.
+                    console.log("Registro incorrecto.");
+                }else{
+                    document.cookie = "token= "+data['token'];
+                    fetch(url2, {
+                        method: "get",
+                        dataType: 'json',
+                        mode: 'cors',
+                        //headers: myHeaders
+                        headers:{
+                            'Content-Type': 'application/json',
+                            'auth' : data['token']
+                        }
+                    }).then((response) => {
+                        return response.json();   
+                    }).then((datas) => {
+                        for(let i=0;i<datas.length;i++){
+                            $.ajax({
+                                url: 'altaPaae/addData.php',
+                                type:'post',
+                                data:{
+                                    id:datas[i]
+                                }
+                            }).done(
+                                function(data){
+                                    console.log(data);
+                                //    total= parseInt(data,10);
+                                //     cont+=total;
+                                //     console.log(cont);
+                                }
+                            );
+                        }
+                        
+                        //console.log(data['token']);
+                        //console.log(data);
+                    })
+                }
+                //document.cookie = "token= "+data['token'];
+                //console.log(data['token']);
+            });
 }
 

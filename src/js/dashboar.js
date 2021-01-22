@@ -36,13 +36,6 @@ $(document).ready(function(){
     });
 });
 
-
-//Mostrar Lectura de codigos QR
-$(document).ready(function(){
-    $("#lector").click(function(){
-        $("#main").load("visitante/readqr/index.php");
-    });
-});
 //Mostrar agregar visitantes
 $(document).ready(function(){
     $("#altaVis").click(function(){

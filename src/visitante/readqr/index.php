@@ -12,14 +12,14 @@
     $admin=new admin;
     $location="index.php";
    
-   
+   //TODO: El usuario administrador global no deberia de entrar en esta pagina., terminar el tiempo de ejecucion de los usuarios.
     //creamos variable cliente logueado y si no esta logueado lo redireccionamos 
    
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
         
     }else{
-        header('Location: ./index.php');
+        header('Location: ../../index.php');
         die();
     }
 ?>
@@ -27,10 +27,26 @@
 <html>
   <head>
     <title>Leer codigo QR</title>
-    <link rel="stylesheet" href="css/visitante.css">
-    <script type="text/javascript" src="lib/instascan.min.js"></script>
-  </head>
-  <body >
+    <link rel="stylesheet" href="../../css/visitante.css">
+    <script type="text/javascript" src="../../lib/instascan.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <!--JS-->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+<div class="card-top">
+
+  <a href="../../dashboard.php"><img src="../../img/controlacceso.png" style="width: 20%; margin-top: 0.5%; margin-left: 10%; " alt="logo"></a>
+  <a href="https://github.com/DonsPower/Access_control"><i class="fab fa-github" "></i></a>
+  
+  
+</div>
   <div class="container">
       <h4>
         <?php echo $_SESSION['tipo']?>
@@ -51,24 +67,25 @@
     </div>
   <div class="container">
 
-    <div class="row mt-5"  >
-      <div class="col-md-6" id="camera" style="margin-left: 10%;">
+    <div class="row mt-5" style="width:58%; height:290px;">
+      <div class="col-md-6" id="camera" >
         <div class="led"></div>
 
         <div class="strip">
        
-        <video id="preview" class="video"></video>
+        <video id="preview" class="video" style="height: 100%;"></video>
         </div>
 
       <!--<video id="preview" style="width: 95%; height:95%; "></video>-->
       </div>
       <div class="col-md-6">
-        <div class="row" style="margin-left: 25%;">
+        <div class="row" style="margin-left: 25%;" >
             <input type="hidden" id="idAdmin" value="<?php echo $_SESSION['AreaAdm']; ?>"></input>
             
             <div class="col"style="margin-top: 10px;" ><h6>Área: <?PHP echo $_SESSION['AreaAdm'];?></h6></div>
             <hr>
               <h5>Datos del usuario.</h5>
+              <hr>
             <div class="row" style="margin-top: 10px;">
               <div class="col"><h6>Tipo de usuario: <span id="tipoqr"></span></h6></div>
             </div>
@@ -161,7 +178,7 @@
         let horaMandar=today.getMinutes();
           $.ajax({
             type:"POST",
-            url: 'visitante/readqr/buscarqr.php',
+            url: 'buscarqr.php',
             data: {
               id:valorQR,
               id2: idAdmin,

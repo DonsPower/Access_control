@@ -11,7 +11,7 @@
         //Obtengo la tabla de administradores.
         function getAdmin(){
             $db = new Connect;
-            $user= $db->prepare("SELECT * FROM administradores");
+            $user= $db->prepare("SELECT * FROM administradores ORDER BY id DESC LIMIT 0 , 10");
             $user->execute();
             return $user;
         }

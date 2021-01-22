@@ -68,8 +68,61 @@
             //si se agrega al sistema aumentar rango.
             $code .= $char[rand(0,$clean)];
         }
-        return "perAc-".$code;
+        return "per-".$code;
     }
+        function validarToken($token){
+            $db=new Connect;
+            $contqr=$db->prepare("SELECT * FROM personalacademico WHERE numcodqr=:codigo" );
+            $contqr->execute([
+                ':codigo'=>$token
+            ]);
+            $contador=$contqr->rowCount();
+            if($contador>0){
+                //Si existe el codigo qr
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        function addSaes3($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof,  $email){
+            $db = new Connect;
+            $numcodqr=$this->generarToken(10);
+            $validarCod=$this->validarToken($numcodqr);
+            if($validarCod==1){
+                return $this->addSaes3($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof,  $email);
+            }else{
+                //Buscamos el usuario si existe ya en la BD.
+                $buscarUser=$db->prepare("SELECT * FROM personalacademico WHERE RFC=:boleta");
+                $buscarUser->execute([
+                    ':boleta'=> $boleta
+                ]);
+                $userCount=$buscarUser->rowCount();
+                if($userCount>0){
+                    return 0;
+                }else{
+                    $user=$db->prepare("INSERT INTO personalacademico(nombrePerAcademico,apellidoPatPerAcademico,apellidoMatPerAcademico,academia,RFC,telefono,extension,emailPerAcademico,numcodqr)
+                    VALUES(:nombrePerAcademico,:apellidoPatPerAcademico,:apellidoMatPerAcademico,:academia,:RFC,:telefono,:extension,:emailPerAcademico,:numcodqr)");
+        
+                    $user->execute([
+                        ':nombrePerAcademico' => $nombre,
+                        ':apellidoPatPerAcademico' =>$apellidop,
+                        ':apellidoMatPerAcademico' =>$apellidom,
+                        ':academia'=> $carrera,
+                        ':RFC' =>$boleta,
+                        ':telefono'=>$telefonom,
+                        ':extension'=>$telefonof,
+                        ':emailPerAcademico'=>$email,
+                        ':numcodqr'=>$numcodqr
+                        ]);
+                  return $user;    
+                }
+                
+                
+            }
+            
+        }
     }
+    
+    
 
  ?>

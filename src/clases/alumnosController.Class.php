@@ -72,7 +72,58 @@
                 //si se agrega al sistema aumentar rango.
                 $code .= $char[rand(0,$clean)];
             }
-            return "alum-".$code;
+            return "alu-".$code;
+        }
+        function validarToken($token){
+            $db=new Connect;
+            $contqr=$db->prepare("SELECT * FROM alumnos WHERE numcodqr=:codigo" );
+            $contqr->execute([
+                ':codigo'=>$token
+            ]);
+            $contador=$contqr->rowCount();
+            if($contador>0){
+                //Si existe el codigo qr
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+        function addSaes($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof, $telefonop, $email, $nss){
+            $db = new Connect;
+            $numcodqr=$this->generarToken(10);
+            $validarCod=$this->validarToken($numcodqr);
+            if($validarCod==1){
+                return $this->addSaes($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof, $telefonop, $email, $nss);
+            }else{
+                //Buscamos el usuario si existe ya en la BD.
+                $buscarUser=$db->prepare("SELECT * FROM alumnos WHERE boleta=:boleta");
+                $buscarUser->execute([
+                    ':boleta'=> $boleta
+                ]);
+                $userCount=$buscarUser->rowCount();
+                if($userCount>0){
+                    return 0;
+                }else{
+                    $user=$db->prepare("INSERT INTO alumnos(nombreAlumno, apellidoPatAlumno, apellidoMatAlumno, carrera, boleta, telefonoMovil, telefonoFijo, telefonoPersonal, emailAlumno, NSS, numcodqr) VALUES ( :nombre, :apellidop, :apellidom, :carrera, :boleta, :telefonoM, :telefonofijo, :telefonop, :email, :nss,:numcodqr)");
+                    $user->execute([
+                        ':nombre'=>$nombre,
+                        ':apellidop' =>$apellidop,
+                        ':apellidom'=>$apellidom,
+                        ':carrera'=>$carrera,
+                        ':boleta'=>$boleta,
+                        ':telefonoM'=>$telefonom,
+                        ':telefonofijo'=>$telefonof,
+                        ':telefonop'=>$telefonop,
+                        ':email'=>$email,
+                        ':nss'=> $nss,
+                        ':numcodqr'=>$numcodqr
+                    ]);
+                    return 1;
+                }
+                
+                
+            }
+            
         }
     }
 

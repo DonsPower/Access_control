@@ -92,12 +92,21 @@ function editarDatosVis(datos){
     datosVist=datos.split("||");
         //console.log(datosVist[5]);
         if(datosVist[5]=="tabla"){
-            nombreCompleto=datosVist[1].split(" ");
-            $('#idVist').val(datosVist[0]);
-            $('#apellidoP').val(nombreCompleto[1]);
-            $('#apellidoM').val(nombreCompleto[2]);
-            $('#razon').val(datosVist[2]);
-            $('#name').val(nombreCompleto[0]);
+            //TODO: QUE PASA CUANDO HAY MAS DE DOS NOMBRES.
+            //juan hernandez montalvo
+            //juna lucas fim algo
+            if(datosVist[1].length>3){
+                nombreCompleto=datosVist[1].split(" ");
+                $('#name').val(nombreCompleto[0]+" " +nombreCompleto[1]);
+                $('#apellidoP').val(nombreCompleto[2]);
+                $('#apellidoM').val(nombreCompleto[3]);
+                
+            }else{
+
+            }
+            
+            
+            
         }else{
             $('#idVist').val(datosVist[0]);
             $('#apellidoP').val(datosVist[2]);
