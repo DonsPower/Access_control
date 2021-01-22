@@ -64,25 +64,86 @@
                  <th >Total de participantes en simulacro</th>
              <tr> 
              
-             <tr>   <?php
-          //$conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
-          include("../../database/con_db.php");
-                $sql = "SELECT * FROM poblaciontm";
+             <tr>     <?php
+              include("../../database/con_db.php");  
+               $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="docente" id="fax" value="<?php echo $row['docente']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="paae" id="fax" value="<?php echo $row['paae']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estudiantes" id="fax" value="<?php echo $row['estudiantes']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="visitantes" id="fax" value="<?php echo $row['visitantes']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="total" id="fax" value="<?php echo $row['total']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    <?php
+                      }
+                    }
+                          $conex->close();
+               ?>
+              <?php
+
+          include("../../database/con_db.php");  
+          $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+               $resultado = $conex->query($sql);
+
+               if($resultado->num_rows> 0){
+                   while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
              <?php
                }
             }
 
                   $conex->close();
        ?>
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
         
                   </thead>        
 </table>
@@ -101,25 +162,85 @@
                  <th >Total de participantes en simulacro</th>
              <tr> 
              <?php
-           //   $conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
-           include("../../database/con_db.php");  
-           $sql = "SELECT * FROM poblaciontv";
+              include("../../database/con_db.php");  
+               $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="docentev" id="fax" value="<?php echo $row['docentev']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="paaev" id="fax" value="<?php echo $row['paaev']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estudiantesv" id="fax" value="<?php echo $row['estudiantesv']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="visitantesv" id="fax" value="<?php echo $row['visitantesv']; ?> " type="text"> </td>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="totalv" id="fax" value="<?php echo $row['totalv']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    <?php
+                      }
+                    }
+                          $conex->close();
+               ?>
+              <?php
+
+          include("../../database/con_db.php");  
+          $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+               $resultado = $conex->query($sql);
+
+               if($resultado->num_rows> 0){
+                   while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
              <?php
                }
             }
 
                   $conex->close();
        ?>
-        
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
+
+            <?php
+
+            include("../../database/con_db.php");  
+            $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+                $resultado = $conex->query($sql);
+
+                if($resultado->num_rows> 0){
+                    while($row = $resultado->fetch_assoc()){ ?>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
+                    
+            <?php
+                }
+            }
+
+                    $conex->close();
+            ?>
         
                   </thead>        
 </table>

@@ -50,12 +50,11 @@
       <hr>
     </div>
     
-    <!--Boton buscar-->
-    <div class="container" style="float: right;">
-        <button type="button" id="enviar" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
-        <input type="text" id="primero" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+      <!--Boton buscar-->
+  <div class="container" style="float: right;">
+        <button type="button" id="enviarPaae" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
+        <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
     </div>
-    
     <div>
     
         
@@ -75,11 +74,13 @@
       <th scope="col">EXTENSION</th>
       <th scope="col">CORREO </th>
       <th scope="col">Código QR </th>
+      <th scope="col">Editar </th>
+      <th scope="col">Borrar</th>
       
      
     </tr>
   </thead>
-  <tbody>
+  <tbody id="salida">
     <!--Mostrar los registros de la BD -->
   
       <?php

@@ -112,7 +112,7 @@
                 $sql = "Update administradores Set contraseña='$contraseña' Where email='$email'";
 
                 if ($conex->query($sql) === TRUE) {
-                    echo "usuario modificado correctamente ";
+                    echo "correcto: ";
                 } else {
                     echo "Error modificando: " . $conex->error;
                 }
@@ -122,7 +122,7 @@
                 $message = '<html><body>';
                 $message .= '<h1 style="color:#f40;">Hola!</h1>';
                 $message .= '<p style="color:#080;font-size:18px;"></p>';
-                $message .= '<a href="http://192.168.1.71//Autenticaci%C3%B3nCA/Log/RestablecerContrase%C3%B1a.php" >Restablecer </a>';
+                $message .= '<a href="https://7433e85a9629.ngrok.io/Access_control/src/RestablecerContrase%C3%B1a.php" >Restablecer </a>';
                 $message .= '</body></html>';
                 $headers = "From:  mafrosh13@gmail.com";  
                             'Reply-To: .mafrosh13@gmail.com' ."\r\n" .

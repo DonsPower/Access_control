@@ -8,7 +8,7 @@
             return $userinfo;
         }
 
-         //generar token
+     //generar token
      function generarToken($tamaño){
         $char = "qwertywDns07";
         $code = "";
@@ -22,9 +22,10 @@
         }
         return "pae-".$code;
     }
+
     function validarToken($token){
         $db=new Connect;
-        $contqr=$db->prepare("SELECT * FROM paaes  WHERE numcodqr=:codigo" );
+        $contqr=$db->prepare("SELECT * FROM paaes WHERE numcodqr=:codigo" );
         $contqr->execute([
             ':codigo'=>$token
         ]);
@@ -37,19 +38,20 @@
         }
     }
 
-    function agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae,$numcodqr){
+
+    function agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae){
         $db=new Connect;
-        $i=0;
-        while ($i==0){
-            $numcodqr=$this->generarToken(10);
-            $comprobarToken=$this->validarToken($numcodqr);
-            if($comprobarToken == 0){
-                //no hay ninguno
+     $i=0;
+    while ($i==0){
+          $numcod=$this->generarToken(10);
+            $comprobarToken=$this->validarToken($numcod);
+           if($comprobarToken == 0){
+              //  no hay ninguno
                 $i=1;
                 break;
-            }
+        }
         
-        } 
+      } 
             $user=$db->prepare("INSERT INTO paaes(nombrePaae,apellidoPatPaae,apellidoMatPaae,area,RFC,telefono,extension,emailPaae,numcodqr)
             VALUES(:nombrePaae,:apellidoPatPaae,:apellidoMatPaae,:area,:RFC,:telefono,:extension,:emailPaae,:numcodqr)");
 
@@ -62,7 +64,7 @@
                 ':telefono'=>$telefono,
                 ':extension'=>$extension,
                 ':emailPaae'=>$emailPaae,
-                ':numcodqr'=>$numcodqr
+                ':numcodqr'=>$numcod
                 ]);
           return $user;    
       }
