@@ -36,6 +36,19 @@ $(document).ready(function(){
     });
 });
 
+<<<<<<< HEAD
+=======
+
+
+
+
+//Mostrar Lectura de codigos QR
+$(document).ready(function(){
+    $("#lector").click(function(){
+        $("#main").load("visitante/readqr/index.php");
+    });
+});
+>>>>>>> origin/master
 //Mostrar agregar visitantes
 $(document).ready(function(){
     $("#altaVis").click(function(){
@@ -96,4 +109,3 @@ function darBaja(id){
     }
     , function() { alertify.error('Cancelado') });
 }
-

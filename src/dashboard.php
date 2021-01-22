@@ -8,8 +8,12 @@
     require_once 'clases/alumnosController.Class.php';
     require_once 'clases/paaeController.Class.php';
     require_once 'clases/perAcademicoController.Class.php';
+   
+    
+    
     //creamos el objeto cliente
     $auth=new auth;
+    
     $alumno=new alumno;
     $perAcademico=new perAcademico;
     $paae=new paae;
@@ -40,8 +44,10 @@
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     <link rel="stylesheet" href="css/admin.css">
+    
     <link rel="stylesheet" href="css/visitante.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    
     <!--JS-->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -51,10 +57,10 @@
     <script src="lib/alertifyjs/alertify.js"></script>
     <script src="js/sesion.js"></script>
     <script src="js/alumno.js"></script>
-    <script src="js/paae.js"></script>
+    
     <script src="js/perAcademico.js"></script>
-    
-    
+    <script src="js/menu.js"></script>
+   
    
 </head>
 <body>
@@ -77,9 +83,30 @@
   <header>Inicio</header>
       <a href="#" id="altaAlumno"><i class="fas fa-user-plus"></i></i>Alumnos</a>
       <a href="#" id="altaPerAcademico"><i class="fas fa-user-plus"></i></i>Docente</a>
-      <a href="#" id="altaPaae"><i class="fas fa-user-plus"></i></i>PAEE</a>
+      <a href="#" id="altaPaae"><i class="fas fa-user-plus"></i></i>PAAE</a>
       <a href="#" id="altaVis"><i class="fas fa-user-plus"></i>Visitantes</i></a>
-      <a href="#"><i class="fas fa-file-medical"></i>Reportes</a>
+      
+      <nav>
+        
+           
+            <li class="submenu"><a href="#"><i class="fas fa-file-medical"></i>Reportes<i class="fas fa-caret-square-down more"></i></a>
+            <ul>
+                <li><a href="././Reporte/reporteSismo.php" id="altaRepSismo" target="_blank">Sismo</a></li>
+                <li><a href="././Reporte/reporteIncendio.php" id="altaRepSismo" target="_blank">Incendio</a></li>
+                <li><a href="././Reporte/reporteArtExplo.php" id="altaRepSismo" target="_blank">Artefacto Explosivo</a></li>
+            </ul></li>
+         
+    </nav>
+
+    <!--  <a href="#"><i class="fas fa-file-medical"></i>Reportes</a>
+      
+				<ul>
+        <li><a href="/Reporte/reporteSismo.php" id="altaRepSismo" target="_blank">Sismo</a></li>
+					<li><a href="/Reporte/reporteIncendio.php" id="altaRepInc" target="_blank">Incendio</a></li>
+					<li><a href="/Reporte/reporteArtExplo.php" id="altaRepAE" target="_blank">Artefacto explosivo</a></li>
+				</ul>
+			-->
+
       <?php
       //Checamos tipo de administrador.
         if($_SESSION['tipo']=='AdministradorGlobal'){

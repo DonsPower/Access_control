@@ -3,6 +3,7 @@
  require_once '../clases/conexion.Class.php';
  require_once '../clases/authController.Class.php';
  require_once "../clases/adminController.Class.php";
+ require_once "../clases/perAcademicoController.Class.php";
 
 //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
     //importamos la clase auth
@@ -13,6 +14,7 @@
     //creamos el objeto cliente
     $auth=new auth;
     $admin=new admin;
+    $perAcademico=new perAcademico;
     $location="../dashboar.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
@@ -91,11 +93,9 @@
             </div>
             <div class="row">
             <!--Es necesario que cada input valla con un Div -->
-                <div class="col-4 col-sm-4"><input type="text" name="emailPerAcademico" id="emailPerAcademico" placeholder="Correo"></div>
+                <div class="col-4 col-sm-12"><input type="text" name="emailPerAcademico" id="emailPerAcademico" placeholder="Correo"></div>
            </div>
-           <!--Es necesario que cada input valla con un Div -->
-           <div class="col-4 col-sm-4"><input type="text" name="numcodqr" id="numcodqr" placeholder="Número de código QR"></div>
-           </div>
+         
             <!--Botones para regresar o guardar datos.-->
             <div class="container">
                 <button  type="button" id="registrarPerAcademico" class="btn btn-success" style="width: 100px;">Registrar</button>

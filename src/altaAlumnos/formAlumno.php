@@ -3,7 +3,8 @@
 <?php
  require_once '../clases/conexion.Class.php';
  require_once '../clases/authController.Class.php';
- require_once "../clases/adminController.Class.php";
+ require_once '../clases/adminController.Class.php';
+  require_once "../clases/alumnosController.Class.php";
 
 //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
     //importamos la clase auth
@@ -13,18 +14,24 @@
     session_start();
     //creamos el objeto cliente
     $auth=new auth;
+    $alumno=new alumno;
+    $qr = $alumno->generarToken(10);
+    
     $admin=new admin;
     $location="../dashboar.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
             //Consultamos datos del administrador para obtenerlos en una tabla.
             $row=$admin->getAdmin();
+          
+ 
             
     }else{
         header('Location: ../index.php');
         die();
     }
- 
+
+   
 ?>
 
 
@@ -101,9 +108,18 @@
                 <div class="col"><input type="text"name="NSS" id="NSS" placeholder="NSS"></div>
                 <div class="col"><input type="text"  name="emailAlumno" id="emailAlumno"  placeholder="Correo"></div>
             </div>
+<<<<<<< HEAD
             <div class="row">
             <div class="col-4 col-sm-12"><input type="text" name="numcodqr" id="numcodqr" placeholder="Número de código QR"></div>
             </div>
+=======
+           
+
+           <div class="row">
+              <div class="col"></div>
+
+           </div>
+>>>>>>> origin/master
             <!--Botones para regresar o guardar datos.-->
             <div class="container">
                 <button  type="button" id="registrarAlumno"  class="btn btn-success" style="width: 100px;">Registrar</button>

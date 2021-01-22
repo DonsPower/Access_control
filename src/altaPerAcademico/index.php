@@ -28,39 +28,48 @@
       <meta name="viewport" content="width=device-width. initial-scale=1">
       <script type="text/javascript" src="js/perAcademico.js"></script>
       <script type="text/javascript" src="js/modal.js"></script>
+
 <title>Personal Academico </title>
-</head>
-<body>
- 
-    <div class="container">
-     <br>
-      
-      <h2 class="text-center">Lista de Personal Academico</h2>
-    <br>
-    <br>
-    <div class="container">
+<!--CSS-->
+<link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/funcion.js"></script>
+    <script src="lib/alertifyjs/alertify.js"></script>
+  </head>
+  <body>
 
-
-    <div class="row mx-md-n5">
-      
-      <div class="col px-md-5"> 
-        <form method="POST">
-        <div class="input-group mb-3">
-          <input type="text" name="buscarUser" REQUIRED class="form-control" placeholder="Nombre del usuario" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" name="buscar">Buscar usuario</button>
-          </div>
-        </div>
-        </form>
-      </div>
-      
-
+  <div class="container">
+      <h4>
+        <?php echo $_SESSION['tipo']?>
+      </h4>
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista Personal Académico</li>
+        </ol>
+        </nav>
+      <hr>
     </div>
     
-<table class="table table-hover" class="row table-responsive">
+    <!--Boton buscar-->
+    <div class="container" style="float: right;">
+        <button type="button" id="enviarPerAcademico" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
+        <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+    </div>
+    
+    <div>
+    
+        
+    <div class="container">
+    <caption>
+        <div class="titulos "><h2>Lista Personal Académico</h2></div>
+    </caption>
+     <div class=" table-responsive-md">
+    <table class="table table-hover">
   <thead>
     <tr>
-   <th scope="col">ID</th>
+   <th scope="col">#</th>
       <th scope="col">NOMBRE</th>
       <th scope="col">ACADEMIA</th>
       <th scope="col">CLAVE </th>
@@ -68,10 +77,12 @@
       <th scope="col">EXTENSION</th>
       <th scope="col">CORREO </th>
       <th scope="col">Código QR</th>
+      <th scope="col">Editar </th>
+      <th scope="col">Borrar</th>
      
     </tr>
   </thead>
-  <tbody>
+  <tbody id="salida">
     <!--Mostrar los registros de la BD -->
   
       <?php
@@ -99,7 +110,7 @@
         
   
       <tr>
-      <td><?php echo $row['id'];?> </td>
+      <td ><?php echo $i;?> </td>
         <td><?php echo $row['nombrePerAcademico'];?> <?php echo $row['apellidoPatPerAcademico'];?> <?php echo $row['apellidoMatPerAcademico'];?></td>
           <td><?php echo $row['academia'];?></td>
           <td><?php echo $row['RFC'];?></td>
@@ -150,10 +161,7 @@
                   <div class="col">Correo <input type="text" name="" id="emailPerAcademico"></div>
                   
                 </div>
-                <div>
-                  <div class="col">Código QR <input type="text" name="" id="numcodqr"></div>
-                  
-                </div>
+            
               
               </div>
             </div>

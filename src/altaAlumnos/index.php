@@ -31,10 +31,28 @@
        
 
 <title>Alumnos </title>
+ <!--CSS-->
+ <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+    <!--JS-->
+    <script type="text/javascript" src="js/funcion.js"></script>
+    <script src="lib/alertifyjs/alertify.js"></script>
   </head>
   <body>
-   
+  <div class="container">
+      <h4>
+        <?php echo $_SESSION['tipo']?>
+      </h4>
+      <nav aria-label="breadcrumb" style="margin-top: 20px;">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">Inicio</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista Alumnos</li>
+        </ol>
+        </nav>
+      <hr>
+    </div>
     
+<<<<<<< HEAD
     <div class="container">
       
       <div class="col px-md-5"> 
@@ -49,12 +67,27 @@
      </div>
      
       
+=======
+  <!--Boton buscar-->
+  <div class="container" style="float: right;">
+        <button type="button" id="enviarAlumno" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
+        <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+>>>>>>> origin/master
     </div>
+    <div>
     
-<table class="table table-hover" class="row table-responsive">
+    <div>
+    
+        
+    <div class="container">
+    <caption>
+        <div class="titulos "><h2>Lista Alumnos</h2></div>
+    </caption>
+     <div class=" table-responsive-md">
+    <table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">ID</th>
+      <th scope="col">#</th>
       <th scope="col">NOMBRE</th>
       <th scope="col">CARRERA</th>
       <th scope="col">BOLETA</th>
@@ -64,12 +97,13 @@
       <th scope="col">CORREO</th>
       <th scope="col">NSS </th>
       <th scope="col">Código QR </th>
-
+      <th scope="col">Editar </th>
+      <th scope="col">Borrar</th>
      
     </tr>
    </thead>
   
-  <tbody>
+  <tbody id="salida">
     <!--Mostrar los registros de la BD -->
       <?php
        include("../../database/con_db.php");
@@ -97,7 +131,7 @@
         
   
       <tr>
-          <td><?php echo $row['id'];?> </td>
+      <td ><?php echo $i;?> </td>
           <td><?php echo $row['nombreAlumno'];?> <?php echo $row['apellidoPatAlumno'];?> <?php echo $row['apellidoMatAlumno'];?></td>
           <td><?php echo $row['carrera'];?></td>
           <td><?php echo $row['boleta'];?></td>
@@ -125,7 +159,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Editar administrador</h5>
+              <h5 class="modal-title">Editar Alumno</h5>
               
                 <span  class="close1 close">&times; </span>
               
@@ -140,6 +174,8 @@
                   
                 </div>
                 <div class="row">
+                
+            
                   <div class="col">carrera<input type="text" name="" id="carrera"></div>
                   <div class="col">boleta <input type="text" name="" id="boleta"></div>
                 </div>
@@ -158,10 +194,7 @@
                   <div class="col"> email<input type="text" name="" id="emailAlumno"></div>
                   <div class="col">NSS<input type="text" name="" id="NSS"></div>
                 </div>
-                <div>
-                  <div class="col">Código QR <input type="text" name="" id="numcodqr"></div>
-                  
-                </div>
+              
                 
               </div>
             </div>

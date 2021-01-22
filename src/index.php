@@ -63,6 +63,8 @@
     
 </head>
 <body>
+
+
   <div class="container">
 
      <div class="row ">
@@ -81,7 +83,7 @@
             <button type="submit" class="buttomPrimary">Iniciar Sesión</button>
             </form>
             <div class="mt-3">
-            <a  href="">¿Se te olvido tu contraseña?</a>
+            <a  href="metodos.php">¿Se te olvido tu contraseña?</a>
             </div>
             <hr>
             <?php

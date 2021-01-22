@@ -7,8 +7,51 @@
             $userinfo=$user->rowCount();
             return $userinfo;
         }
-    function agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae,$numcodqr){
+
+     //generar token
+     function generarToken($tamaño){
+        $char = "qwertywDns07";
+        $code = "";
+        $clean = strlen($char) -1;
+        //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
+        //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
+        
+        while(strlen($code) < $tamaño){
+            //si se agrega al sistema aumentar rango.
+            $code .= $char[rand(0,$clean)];
+        }
+        return "pae-".$code;
+    }
+
+    function validarToken($token){
         $db=new Connect;
+        $contqr=$db->prepare("SELECT * FROM paaes WHERE numcodqr=:codigo" );
+        $contqr->execute([
+            ':codigo'=>$token
+        ]);
+        $contador=$contqr->rowCount();
+        if($contador>0){
+            //Si existe el codigo qr
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+
+    function agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae){
+        $db=new Connect;
+     $i=0;
+    while ($i==0){
+          $numcod=$this->generarToken(10);
+            $comprobarToken=$this->validarToken($numcod);
+           if($comprobarToken == 0){
+              //  no hay ninguno
+                $i=1;
+                break;
+        }
+        
+      } 
             $user=$db->prepare("INSERT INTO paaes(nombrePaae,apellidoPatPaae,apellidoMatPaae,area,RFC,telefono,extension,emailPaae,numcodqr)
             VALUES(:nombrePaae,:apellidoPatPaae,:apellidoMatPaae,:area,:RFC,:telefono,:extension,:emailPaae,:numcodqr)");
 
@@ -21,7 +64,7 @@
                 ':telefono'=>$telefono,
                 ':extension'=>$extension,
                 ':emailPaae'=>$emailPaae,
-                ':numcodqr'=>$numcodqr
+                ':numcodqr'=>$numcod
                 ]);
           return $user;    
       }
@@ -56,6 +99,7 @@
         return $user;
     }
 
+<<<<<<< HEAD
      //generar token
      function generarToken($tamaño){
         $char = "qwertywDns07";
@@ -121,6 +165,10 @@
             }
             
         }
+=======
+    
+
+>>>>>>> origin/master
     }
 
  ?>

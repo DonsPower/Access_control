@@ -11,11 +11,14 @@
     $telefono = ($_POST['telefono']);
     $extension = ($_POST['extension']);
     $emailPaae = ($_POST['emailPaae']);
-    $numcodqr=($_POST['numcodqr']);
+  //  $numcodqr= ($_POST['numcodqr']);
 
      //Mandamos la consulta con todos los datos
-    $algo=$paae->agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae,$numcodqr);
-    echo json_encode($algo);
+$algo=$paae->agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae);
+ 
+ echo json_encode($algo);
+    
+
 
     
      ?>
