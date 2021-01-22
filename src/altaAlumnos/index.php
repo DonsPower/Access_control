@@ -52,27 +52,10 @@
       <hr>
     </div>
     
-<<<<<<< HEAD
-    <div class="container">
-      
-      <div class="col px-md-5"> 
-        <form method="POST">
-          <div class="input-group mb-3">
-              <input type="text" name="buscarUser" REQUIRED class="form-control" placeholder="Nombre del usuario" aria-label="Recipient's username" aria-describedby="button-addon2">
-          <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" name="buscar">Buscar usuario</button>
-            </div>
-          </div>
-       </form>
-     </div>
-     
-      
-=======
   <!--Boton buscar-->
   <div class="container" style="float: right;">
         <button type="button" id="enviarAlumno" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
         <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
->>>>>>> origin/master
     </div>
     <div>
     

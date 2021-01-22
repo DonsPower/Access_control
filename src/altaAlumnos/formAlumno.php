@@ -108,18 +108,12 @@
                 <div class="col"><input type="text"name="NSS" id="NSS" placeholder="NSS"></div>
                 <div class="col"><input type="text"  name="emailAlumno" id="emailAlumno"  placeholder="Correo"></div>
             </div>
-<<<<<<< HEAD
-            <div class="row">
-            <div class="col-4 col-sm-12"><input type="text" name="numcodqr" id="numcodqr" placeholder="Número de código QR"></div>
-            </div>
-=======
            
 
            <div class="row">
               <div class="col"></div>
 
            </div>
->>>>>>> origin/master
             <!--Botones para regresar o guardar datos.-->
             <div class="container">
                 <button  type="button" id="registrarAlumno"  class="btn btn-success" style="width: 100px;">Registrar</button>

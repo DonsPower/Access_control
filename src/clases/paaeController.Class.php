@@ -98,36 +98,6 @@
         
         return $user;
     }
-
-<<<<<<< HEAD
-     //generar token
-     function generarToken($tamaño){
-        $char = "qwertywDns07";
-        $code = "";
-        $clean = strlen($char) -1;
-        //$random_number = intval( "0" . rand(1,9) . rand(0,9) . rand(0,9) . rand(0,9) . rand(0,9) );
-        //$random_string = chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90)) . chr(rand(65,90));
-        
-        while(strlen($code) < $tamaño){
-            //si se agrega al sistema aumentar rango.
-            $code .= $char[rand(0,$clean)];
-        }
-        return "paae-".$code;
-    }
-        function validarToken($token){
-            $db=new Connect;
-            $contqr=$db->prepare("SELECT * FROM paaes WHERE numcodqr=:codigo" );
-            $contqr->execute([
-                ':codigo'=>$token
-            ]);
-            $contador=$contqr->rowCount();
-            if($contador>0){
-                //Si existe el codigo qr
-                return 1;
-            }else{
-                return 0;
-            }
-        }
         function addSaes2($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof,  $email){
             $db = new Connect;
             $numcodqr=$this->generarToken(10);
@@ -165,10 +135,6 @@
             }
             
         }
-=======
-    
-
->>>>>>> origin/master
     }
 
  ?>
