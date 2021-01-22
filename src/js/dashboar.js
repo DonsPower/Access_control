@@ -102,4 +102,3 @@ function darBaja(){
     }
     , function() { alertify.error('Cancelado') });
 }
-

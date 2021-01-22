@@ -46,17 +46,18 @@
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Lista Administradores</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista Alumnos</li>
         </ol>
         </nav>
       <hr>
     </div>
     
-    <!--Boton buscar-->
-    <div class="container" style="float: right;">
-        <button type="button" id="enviar" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
-        <input type="text" id="primero" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+  <!--Boton buscar-->
+  <div class="container" style="float: right;">
+        <button type="button" id="enviarAlumno" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
+        <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
     </div>
+    <div>
     
     <div>
     
@@ -79,12 +80,13 @@
       <th scope="col">CORREO</th>
       <th scope="col">NSS </th>
       <th scope="col">Código QR </th>
-
+      <th scope="col">Editar </th>
+      <th scope="col">Borrar</th>
      
     </tr>
    </thead>
   
-  <tbody>
+  <tbody id="salida">
     <!--Mostrar los registros de la BD -->
       <?php
        include("../../database/con_db.php");
@@ -140,7 +142,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Editar administrador</h5>
+              <h5 class="modal-title">Editar Alumno</h5>
               
                 <span  class="close1 close">&times; </span>
               

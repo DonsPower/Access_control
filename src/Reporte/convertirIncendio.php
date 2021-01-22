@@ -138,20 +138,28 @@ function Datos1 ($header)
       $this->Cell(40,5,utf8_decode("Total de Participantes"),1);
       $this->Ln();
       
-    //  $conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
-    include("../../database/con_db.php");  
-    $sql = "SELECT * FROM poblaciontm";
+      include("../../database/con_db.php");  
+      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+  
+       $this->Cell(25,5,$row['numcodqr'],1);}
+       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+       $this->Cell(75,5,$row['numcodqr'],1);}
+       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+      $this->Cell(25,5,$row['numcodqr'],1);}
+      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+      $this->Cell(25,5,$row['numcodqr'],1);}
+      $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
       $resultado = $conex->query($sql);
-
-     
-          while($row = $resultado->fetch_assoc()){
-
-     $this->Cell(25,5,$row['docente'],1);
-     $this->Cell(75,5,$row['paae'],1);
-    $this->Cell(25,5,$row['estudiantes'],1);
-    $this->Cell(25,5,$row['visitantes'],1);
-      $this->Cell(40,5,$row['total'],1);
-          }
+      while($row = $resultado->fetch_assoc()){
+        $this->Cell(40,5,$row['salida'],1);}
       $this->Ln(10);
       $this->SetFont('Times','B',10,);
       $this->Cell(190,5,utf8_decode("POBLACIÓN TOTAL DEL TURNO VESPERTINO"),1);
@@ -163,19 +171,28 @@ function Datos1 ($header)
       $this->Cell(25,5,utf8_decode("Visitantes"),1);
       $this->Cell(40,5,utf8_decode("Total de Participantes"),1);
       $this->Ln();
-      $conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
-      $sql = "SELECT * FROM poblaciontv";
+      include("../../database/con_db.php");  
+      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+  
+       $this->Cell(25,5,$row['numcodqr'],1);}
+       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+       $this->Cell(75,5,$row['numcodqr'],1);}
+       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+      $this->Cell(25,5,$row['numcodqr'],1);}
+      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+                 $resultado = $conex->query($sql);
+            while($row = $resultado->fetch_assoc()){
+      $this->Cell(25,5,$row['numcodqr'],1);}
+      $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
       $resultado = $conex->query($sql);
-
-     
-          while($row = $resultado->fetch_assoc()){
-
-     $this->Cell(25,5,$row['docentev'],1);
-     $this->Cell(75,5,$row['paaev'],1);
-    $this->Cell(25,5,$row['estudiantesv'],1);
-    $this->Cell(25,5,$row['visitantesv'],1);
-      $this->Cell(40,5,$row['totalv'],1);
-          }
+      while($row = $resultado->fetch_assoc()){
+        $this->Cell(40,5,$row['salida'],1);}
 
      //Datos simulacro
      $this->Ln(10);

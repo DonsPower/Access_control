@@ -1,5 +1,5 @@
 
-$('#registrarPaae').click(registro);
+$('#Paae').click(registro);
 
 
 function registro(){
@@ -145,3 +145,72 @@ function eliminarPaae(id,nombre){
 
 }
 
+$('#enviarPaae').click(regresar);
+var total=[0];
+//Boton buscar usuario.
+function regresar(){
+    //console.log("Entro");
+    $.ajax({
+        url: 'altaPaae/buscarPaae.php',
+        type: 'post',
+        dataType: 'json',
+        data:{
+            buscar:$('#buscar').val()
+        }
+    }).done(
+        function(data){
+           // console.log(data);
+             //Obtenemos el numero mayor de consultas para así cambiar el estado del boton.
+             if(total[0]<data.length){
+                total.pop();
+                total.push(data.length);
+            }
+            //console.log(total);
+            if(total[0]>data.length) {
+                //Ocultar buscar
+                $('#buscar').css('visibility', 'hidden');
+                  //$( "#primero" ).hide();
+                document.getElementById("enviarPaae").innerHTML = "Regresar";
+                alertify.success("Busqueda correcta");
+            }
+            else{
+                //Mostrar buscar
+                $('#buscar').css('visibility', 'visible');
+                //$('#primero').toggle(); 
+                document.getElementById("enviarPaae").innerHTML = "Buscar";
+            }
+            //Si el array solo trae un dato significa que no hay resultados.
+            if(data.length==1){
+                $('#salida').html("<h2>No se encontraron resultados.</h2>");
+                $('#primero').val('');
+                //Alerta.
+                alertify.error("No hay resultados");
+               
+            }else{
+                 
+                var tabla;
+                for (let index = 1; index < data.length; index++) {
+                    
+                    //console.log(datos);
+                    var datos= data[index].split("||");
+                    
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||tabla";
+                    
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                    +datos[4]+"</td><td>"
+                    +datos[5]+"</td><td>"
+                    +datos[6]+"</td><td>"
+                    +datos[7]+"</td><td>"
+                    +datos[8]+"</td><td>"
+                    +datos[9]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosPaae(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarPaae(`"+datos[0]+"`,`"+datos[1]+"`,`"+datos[2]+"`,`"+datos[3]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                    
+                }
+                datosRetornar="";
+                $('#salida').html(tabla);
+                $('#primero').val('');
+            }
+        }
+    );
+
+}
