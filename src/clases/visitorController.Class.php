@@ -22,7 +22,7 @@
         
         function deathVisitor($idArea){
             $db = new Connect;
-            $user = $db-> prepare("UPDATE registro_visitante SET estado= 0 WHERE id_administrador=:idArea AND estado=:estado");
+            $user = $db-> prepare("UPDATE registro SET estado= 0 WHERE id_administrador=:idArea AND estado=:estado");
             $user->execute([
                 ':idArea'=>$idArea,
                 ':estado'=>'1'
@@ -229,7 +229,7 @@
                 $idVis=$userinfo['id'];
                 //Como saber cuando entro y salio. con un ID 
                 //Primero buscamos si no existe ningun registro en la BD.
-                $buscarRegistro=$db->prepare("SELECT * FROM registro_visitante WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=:estado");
+                $buscarRegistro=$db->prepare("SELECT * FROM registro WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=:estado");
                 $buscarRegistro->execute([
                     ':idVis'=>$codigoQr,
                     ':idAdmin'=>$idAdmin,
@@ -240,7 +240,7 @@
                 if($res){
                     //Buscar si es 0 o 1 el campo 'ESTADO'
                     //1 es igual a la entrada. cero es la salida
-                    $checarEstado=$db->prepare("UPDATE registro_visitante SET estado=0 WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=1");
+                    $checarEstado=$db->prepare("UPDATE registro SET estado=0 WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=1");
                     $checarEstado->execute([
                         'idVis'=>$codigoQr,
                         'idAdmin'=>$idAdmin
@@ -248,8 +248,8 @@
                     $retornar="||"."vis"."||".$userinfo['nombre']."||".$hora."||"."1"."||";
                     return $retornar;
                 }else{
-                    //Activamos el estado del codigo QR y activamos la entrada al area del registro_visitantes
-                    $user=$db->prepare("INSERT INTO  registro_visitante (numcodqr, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
+                    //Activamos el estado del codigo QR y activamos la entrada al area del registro
+                    $user=$db->prepare("INSERT INTO  registro (numcodqr, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
                     $user->execute([
                         ':idVis'=>$codigoQr,
                         ':idAdmin'=>$idAdmin,

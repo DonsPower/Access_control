@@ -71,10 +71,11 @@ function editarDatosAlumnos(datos){
         
 }
 
-$("#editActualizar").click(actualizardata);
-function actualizardata(){
+$("#editActualizarAlu").click(actualizardataAlu);
+function actualizardataAlu(){
     //obtenemos los datos de los input que el usaurioi editó.
     //alertify.success("Entro");
+    console.log("entrada: 1");
     nombre=$('#nombreAlumno').val();
     apellidoP=$('#apellidoPatAlumno').val();
     apellidoM=$('#apellidoMatAlumno').val();
@@ -99,8 +100,10 @@ function actualizardata(){
         url:"altaAlumnos/actualizarAlumnos.php",
         data:cadena,
         success:function(r){
-            console.log(r);
+            console.log("entrada: 2");
             if(r){
+                console.log("entrada: 3");
+                console.log(r);
                 //cont=true;
             //Eliminamos el modal
             modal.style.display = "none";
@@ -109,7 +112,7 @@ function actualizardata(){
             $("#main").load("altaAlumnos/index.php");
             }else{
                 alertify.error("Problemas con el servidor.");
-                $("#main").load("dashboard.php");
+                //$("#main").load("dashboard.php");
             }
            
 
@@ -222,4 +225,113 @@ function guardarDatosAlumno(){
                 //document.cookie = "token= "+data['token'];
                 //console.log(data['token']);
             });
+}
+
+$('#enviarAlumno').click(buscarAlumno);
+var total1=[0];
+function buscarAlumno(){
+    //console.log("asd");
+    $.ajax({
+        url: 'altaAlumnos/buscarAlumno.php',
+        type: 'post',
+        dataType: 'json',
+        data:{
+            buscar: $('#buscarAlumno').val()
+        }
+    }).done(
+        function(data){
+            console.log(total1[0]);
+            if(data.length==1){
+                $('#salida').html("<h2>No se encontraron resultados.</h2>");
+                $('#primero').val('');
+                //Alerta.
+                alertify.error("No hay resultados");
+            }else{
+                var tabla;
+                for(let index=1; index<data.length;index++){
+                    console.log(data);
+                    var datos= data[index].split("||");
+                       
+                        var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+                        //console.log(datosRetornar);
+                        //Concateno para mostrar en la tabla.
+                        tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                        +datos[4]+"</td><td>"
+                        +datos[5]+"</td><td>"
+                        +datos[6]+"</td><td>"
+                        +datos[7]+"</td><td>"
+                        +datos[8]+"</td><td>"
+                        +datos[9]+"</td><td>"
+                        +datos[10]+"</td><td>"
+                        +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                        
+                }
+                datosRetornar="";
+                    $('#salida').html(tabla);
+                    $('#primero').val('');
+                //     for (let index = 1; index < data.length; index++) {​​​​​
+                        
+                //         //console.log(datos);
+                //         var datos= data[index].split("||");
+                       
+                //         var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+                //         //console.log(datosRetornar);
+                //         //Concateno para mostrar en la tabla.
+                //         tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                //         +datos[4]+"</td><td>"
+                //         +datos[5]+"</td><td>"
+                //         +datos[6]+"</td><td>"
+                //         +datos[7]+"</td><td>"
+                //         +datos[8]+"</td><td>"
+                //         +datos[9]+"</td><td>"
+                //         +datos[10]+"</td><td>"
+                //         +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                        
+                //     }​​​​​
+                //     datosRetornar="";
+                //     $('#salida').html(tabla);
+                //     $('#primero').val('');
+            }
+            //     //Mostrar input buscar
+            //     $('#buscar').css('visibility', 'visible');
+            //    // $('#primero').toggle(); 
+            //     document.getElementById("enviarAlumno").innerHTML = "Buscar";
+            // }​​​​​
+            // //Si el array solo trae un dato significa que no hay resultados.
+            // if(data.length==1){​​​​​
+            //     $('#salida').html("<h2>No se encontraron resultados.</h2>");
+            //     $('#primero').val('');
+            //     //Alerta.
+            //     alertify.error("No hay resultados");
+               
+            // }​​​​​else
+            // {​​​​​
+            //      //TODO: CLAVE ELIMINAR
+               
+            //     var tabla;
+            //     for (let index = 1; index < data.length; index++) {​​​​​
+                    
+            //         //console.log(datos);
+            //         var datos= data[index].split("||");
+                   
+            //         var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+            //         //console.log(datosRetornar);
+            //         //Concateno para mostrar en la tabla.
+            //         tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+            //         +datos[4]+"</td><td>"
+            //         +datos[5]+"</td><td>"
+            //         +datos[6]+"</td><td>"
+            //         +datos[7]+"</td><td>"
+            //         +datos[8]+"</td><td>"
+            //         +datos[9]+"</td><td>"
+            //         +datos[10]+"</td><td>"
+            //         +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                    
+            //     }​​​​​
+            //     datosRetornar="";
+            //     $('#salida').html(tabla);
+            //     $('#primero').val('');
+            // }​​​​​
+        }
+    );
 }

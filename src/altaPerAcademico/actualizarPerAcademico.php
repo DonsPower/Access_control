@@ -12,9 +12,9 @@
     $telefono = ($_POST['telefono']);
     $extension = ($_POST['extension']);
     $emailPerAcademico = ($_POST['emailPerAcademico']);
-    $numcodqr = ($_POST['numcodqr']);
+  
 
     //Mandamos la consulta con todos los datos
-    $algo=$perAcademico->editarPerAcademico($id,$nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico, $academia, $RFC,$telefono,$extension,$emailPerAcademico,$numcodqr);
+    $algo=$perAcademico->editarPerAcademico($id,$nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico, $academia, $RFC,$telefono,$extension,$emailPerAcademico);
     echo json_encode($algo);
 ?>

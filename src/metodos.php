@@ -69,7 +69,7 @@
       
       <div class="col-sm-5" style="width: 50%; margin-left: 6%; margin-top:16%;">
       <!--<img src="img/logo.png" alt="logo-ControlAccess" width="80" height="80">-->
-        <img src="img/controlacceso.png"  width="320" height="100">
+        <img src="img/controlacceso.png"  width="70%" height="70%">
        
       </div>
       <div class="col-sm-5" style="margin-top:10%; text-align: center;">

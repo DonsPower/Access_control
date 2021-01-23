@@ -99,7 +99,7 @@
     
              <!--Botones para regresar o guardar datos.-->
              <div class="container">
-                <button  type="button" id="Paae" class="btn btn-success" style="width: 100px;">Registrar</button>
+                <button  type="button" id="registrarPaae" class="btn btn-success" style="width: 100px;">Registrar</button>
                 <button type="button" class="btn btn-danger" style="width: 100px; "><a href="dashboard.php">Regresar</a></button>
             </div>
         </div>

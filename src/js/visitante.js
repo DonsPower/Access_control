@@ -13,6 +13,7 @@ window.onclick = function(event) {
     }
 }
 
+
 $('#enviarVisitante').click(regresar);
 var total=[0];
 //Boton buscar usuario.
@@ -87,26 +88,40 @@ function regresar(){
 
 //Funcion para activar modal. editar visitante.
 function editarDatosVis(datos){
-    //console.log(datos);
+    console.log(datos);
     modal.style.display = "block";
     datosVist=datos.split("||");
         //console.log(datosVist[5]);
         if(datosVist[5]=="tabla"){
             //TODO: QUE PASA CUANDO HAY MAS DE DOS NOMBRES.
             //juan hernandez montalvo
-            //juna lucas fim algo
-            if(datosVist[1].length>3){
-                nombreCompleto=datosVist[1].split(" ");
-                $('#name').val(nombreCompleto[0]+" " +nombreCompleto[1]);
-                $('#apellidoP').val(nombreCompleto[2]);
-                $('#apellidoM').val(nombreCompleto[3]);
-                
-            }else{
-
+            //Abraham hernandez montalvo
+            let total=datosVist[1].split(" ");
+            if(total.length==3){
+                //1 nombre
+                $('#idVist').val(datosVist[0]);
+                let completo=datosVist[1].split(" ");
+                $('#name').val(completo[0]);
+                $('#apellidoP').val(completo[1]);
+                 $('#apellidoM').val(completo[2]);
+                $('#razon').val(datosVist[2]);
+            }else if(total.length==4){
+                $('#idVist').val(datosVist[0]);
+                let completo=datosVist[1].split(" ");
+                $('#name').val(completo[0]+" "+completo[1]);
+                $('#apellidoP').val(completo[2]);
+                 $('#apellidoM').val(completo[3]);
+                $('#razon').val(datosVist[2]);
+            }else if(total.length==5){
+                //3 nombres.
+                $('#idVist').val(datosVist[0]);
+                let completo=datosVist[1].split(" ");
+                $('#name').val(completo[0]+" "+completo[1]+" "+completo[2]);
+                $('#apellidoP').val(completo[3]);
+                 $('#apellidoM').val(completo[4]);
+                $('#razon').val(datosVist[2]);
             }
-            
-            
-            
+
         }else{
             $('#idVist').val(datosVist[0]);
             $('#apellidoP').val(datosVist[2]);

@@ -1,10 +1,10 @@
 
 
-$('#registrarPaae').click(registro);
+$('#registrarPaae').click(registroPae);
 
 
-function registro(){
-    
+function registroPae(){
+    console.log("sads");
     $nombrePaae = $('#nombrePaae').val();
     $apellidoPatPaae = $('#apellidoPatPaae').val();
     $apellidoMatPaae = $('#apellidoMatPaae').val();
@@ -68,7 +68,7 @@ function editarDatosPaae(datos){
         
 }
 
-$("#editActualizar").click(actualizardata);
+$("#editActualizarPaae").click(actualizardata);
 function actualizardata(){
     //obtenemos los datos de los input que el usaurioi editó.
     //alertify.success("Entro");

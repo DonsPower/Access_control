@@ -26,11 +26,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control-ListaAdmin</title>
-    <!--CSS-->
+    <!--CSS-->s
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     <!--JS-->
     <script type="text/javascript" src="js/funcion.js"></script>
+    <script src="lib/alertifyjs/alertify.js"></script>
     <script src="lib/alertifyjs/alertify.js"></script>
 </head>
 <body>
@@ -130,7 +131,7 @@
               <div style="float: right;">
                     <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                      <li class="page-item">
+                     
                       <?php
                         $i=1;
                         $total= $admin->getDataAdmin();
@@ -138,10 +139,7 @@
           
                         
                       ?>
-                        <a class="page-link" href="#" aria-label="Previous">
-                          <span aria-hidden="true">&laquo;</span>
-                        </a>
-                      </li>
+                      
                       <?php
                         while($i<=$celdas){
                           ?>
@@ -153,11 +151,7 @@
                       ?>
                       
                       
-                      <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
-                          <span aria-hidden="true">&raquo;</span>
-                        </a>
-                      </li>
+                      
                     </ul>
                   </nav>
                 </div>
@@ -177,7 +171,8 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-              <?php echo print_r($_SESSION)?>  
+                  
+                  
                 <div class="row">
                   <div class="col-4 col-sm-4">Nombre<input type="text" name="name" id="name"></div>
                   <div class="col">Apellido paterno<input type="text" name="" id="apellidoP"></div>
@@ -186,12 +181,36 @@
                 </div>
                 <div class="row">
                   <div class="col">Puesto<input type="text" name="" id="puesto"></div>
-                  <div class="col">Área de administración <input type="text" name="" id="areaAdministra"></div>
+                  <?php 
+                  if($_SESSION['tipo']=='AdministradorGlobal'){
+                  ?>
+                  
+                  <select name="areaAdministra" class="col" id="area" required="required"  style=" border-radius: 5px;  margin-top:5%" >
+                  
+                      <option value="0">Seleccione el área que administra</option>
+                      <?php
+                          $res=$admin->getAreas();
+                          while($row=$res->fetch(PDO::FETCH_ASSOC)){
+                              ?>
+                                  <option value="<?echo $row['id'];?>"><?php echo $row['nombreArea'];?></option>
+                              <?php
+                          }
+                      ?>
+                  </select>
+                  <?php
+                }
+                 ?>
                 </div>
 
                 <div class="row">
-                  <div class="col">Tipo de administrador<input type="text" name="" id="tipo"></div>
-        
+                <div class="col">
+                
+                <select name="pais" id="tipo" style="border-radius: 5px;  margin-top:10%" >
+                  <option value="0">Seleccione el tipo de administrador</option>
+                  <option value="admin">AdministradorGlobal</option>
+                  <option value="noadmin">AdministradorArea</option>
+                </select>
+                </div>
                   <div class="col">Correo<input type="text" name="" id="email"></div>
                 </div>  
 

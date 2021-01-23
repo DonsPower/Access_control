@@ -68,8 +68,8 @@ function editarDatosPerAcademico(datos){
         
 }
 
-$("#editActualizar").click(actualizardata);
-function actualizardata(){
+$("#editActualizarperacademico").click(actualizardataPerAcademico);
+function actualizardataPerAcademico(){
     //obtenemos los datos de los input que el usaurioi editó.
     //alertify.success("Entro");
     nombre=$('#nombrePerAcademico').val();
@@ -219,4 +219,110 @@ function guardarDatosPer(){
                 //document.cookie = "token= "+data['token'];
                 //console.log(data['token']);
             });
+}
+
+$('#enviarPerAcademico').click(buscarPer);
+
+function buscarPer(){
+     //console.log("asd");
+     $.ajax({
+        url: 'altaPerAcademico/buscarPerAcademico.php',
+        type: 'post',
+        dataType: 'json',
+        data:{
+            buscar: $('#buscarPeracademico').val()
+        }
+    }).done(
+        function(data){
+            console.log(total1[0]);
+            if(data.length==1){
+                $('#salida').html("<h2>No se encontraron resultados.</h2>");
+                $('#primero').val('');
+                //Alerta.
+                alertify.error("No hay resultados");
+            }else{
+                var tabla;
+                for(let index=1; index<data.length;index++){
+                    console.log(data);
+                    var datos= data[index].split("||");
+                       
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||tabla";
+                    //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                    +datos[4]+"</td><td>"
+                    +datos[5]+"</td><td>"
+                    +datos[6]+"</td><td>"
+                    +datos[7]+"</td><td>"
+                    +datos[8]+"</td><td>"
+                    +datos[9]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosPerAcademico(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarPerAcademico(`"+datos[0]+"`,`"+datos[1]+"`,`"+datos[2]+"`,`"+datos[3]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                }
+                datosRetornar="";
+                    $('#salida').html(tabla);
+                    $('#primero').val('');
+                //     for (let index = 1; index < data.length; index++) {​​​​​
+                        
+                //         //console.log(datos);
+                //         var datos= data[index].split("||");
+                       
+                //         var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+                //         //console.log(datosRetornar);
+                //         //Concateno para mostrar en la tabla.
+                //         tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                //         +datos[4]+"</td><td>"
+                //         +datos[5]+"</td><td>"
+                //         +datos[6]+"</td><td>"
+                //         +datos[7]+"</td><td>"
+                //         +datos[8]+"</td><td>"
+                //         +datos[9]+"</td><td>"
+                //         +datos[10]+"</td><td>"
+                //         +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                        
+                //     }​​​​​
+                //     datosRetornar="";
+                //     $('#salida').html(tabla);
+                //     $('#primero').val('');
+            }
+            //     //Mostrar input buscar
+            //     $('#buscar').css('visibility', 'visible');
+            //    // $('#primero').toggle(); 
+            //     document.getElementById("enviarAlumno").innerHTML = "Buscar";
+            // }​​​​​
+            // //Si el array solo trae un dato significa que no hay resultados.
+            // if(data.length==1){​​​​​
+            //     $('#salida').html("<h2>No se encontraron resultados.</h2>");
+            //     $('#primero').val('');
+            //     //Alerta.
+            //     alertify.error("No hay resultados");
+               
+            // }​​​​​else
+            // {​​​​​
+            //      //TODO: CLAVE ELIMINAR
+               
+            //     var tabla;
+            //     for (let index = 1; index < data.length; index++) {​​​​​
+                    
+            //         //console.log(datos);
+            //         var datos= data[index].split("||");
+                   
+            //         var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+            //         //console.log(datosRetornar);
+            //         //Concateno para mostrar en la tabla.
+            //         tabla+="<tr><td>"+index+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+            //         +datos[4]+"</td><td>"
+            //         +datos[5]+"</td><td>"
+            //         +datos[6]+"</td><td>"
+            //         +datos[7]+"</td><td>"
+            //         +datos[8]+"</td><td>"
+            //         +datos[9]+"</td><td>"
+            //         +datos[10]+"</td><td>"
+            //         +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                    
+            //     }​​​​​
+            //     datosRetornar="";
+            //     $('#salida').html(tabla);
+            //     $('#primero').val('');
+            // }​​​​​
+        }
+    );
 }

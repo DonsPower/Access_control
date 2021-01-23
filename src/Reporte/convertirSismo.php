@@ -138,27 +138,27 @@ function Datos1 ($header)
       $this->Cell(40,5,utf8_decode("Total de Participantes"),1);
       $this->Ln();
       include("../../database/con_db.php");  
-      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+      $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
   
        $this->Cell(25,5,$row['numcodqr'],1);}
-       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+       $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
        $this->Cell(75,5,$row['numcodqr'],1);}
-       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+       $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
       $this->Cell(25,5,$row['numcodqr'],1);}
-      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+      $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
       $this->Cell(25,5,$row['numcodqr'],1);}
-      $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+      $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
       $resultado = $conex->query($sql);
       while($row = $resultado->fetch_assoc()){
-        $this->Cell(40,5,$row['salida'],1);}
+        $this->Cell(40,5,$row['estado'],1);}
       $this->Ln(10);
       $this->SetFont('Times','B',10,);
       $this->Cell(190,5,utf8_decode("POBLACIÓN TOTAL DEL TURNO VESPERTINO"),1);
@@ -171,27 +171,27 @@ function Datos1 ($header)
       $this->Cell(40,5,utf8_decode("Total de Participantes"),1);
       $this->Ln();
       include("../../database/con_db.php");  
-      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+      $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
   
        $this->Cell(25,5,$row['numcodqr'],1);}
-       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+       $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
        $this->Cell(75,5,$row['numcodqr'],1);}
-       $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+       $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
       $this->Cell(25,5,$row['numcodqr'],1);}
-      $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+      $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                  $resultado = $conex->query($sql);
             while($row = $resultado->fetch_assoc()){
       $this->Cell(25,5,$row['numcodqr'],1);}
-      $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+      $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
       $resultado = $conex->query($sql);
       while($row = $resultado->fetch_assoc()){
-        $this->Cell(40,5,$row['salida'],1);}
+        $this->Cell(40,5,$row['estado'],1);}
 
      //Datos simulacro
      $this->Ln(10);

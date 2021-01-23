@@ -69,9 +69,9 @@
           return $user;    
       }
 
-      function editarPaae($id,$nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area, $RFC, $telefono,$extension,$emailPaae,$numcodqr){
+      function editarPaae($id,$nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area, $RFC, $telefono,$extension,$emailPaae){
         $db=new Connect;
-        $user=$db->prepare("UPDATE  paaes SET nombrePaae=:nombre, apellidoPatPaae=:apellidop, apellidoMatPaae=:apellidom, area=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPaae=:telefonop,numcodqr=:numcodqr WHERE id=:id");
+        $user=$db->prepare("UPDATE  paaes SET nombrePaae=:nombre, apellidoPatPaae=:apellidop, apellidoMatPaae=:apellidom, area=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPaae=:telefonop WHERE id=:id");
         $user->execute([
             ':id'=>$id,
             ':nombre'=>$nombrePaae,
@@ -82,7 +82,7 @@
             ':telefonoM'=>$telefono,
             ':telefonofijo'=>$extension,
             ':telefonop'=>$emailPaae,
-            ':numcodqr'=>$numcodqr
+           
         ]);
         return $user;
     }
@@ -134,6 +134,59 @@
                 
             }
             
+        }
+        function buscarQrpaae($codigoQr, $idAdmin, $hora){
+            $db=new Connect;
+            $contqro=$db->prepare("SELECT * FROM paaes WHERE numcodqr=:codigo" );
+            $contqro->execute([
+                ':codigo'=>$codigoQr
+            ]);
+            $userinfo = $contqro->fetch(PDO::FETCH_ASSOC);
+            
+            if($userinfo){
+                //Obtengo el id del visitante.
+                $idVis=$userinfo['id'];
+                //Como saber cuando entro y salio. con un ID 
+                //Primero buscamos si no existe ningun registro en la BD.
+                $buscarRegistro=$db->prepare("SELECT * FROM registro WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=:estado");
+                $buscarRegistro->execute([
+                    ':idVis'=>$codigoQr,
+                    ':idAdmin'=>$idAdmin,
+                    ':estado' => "1"
+                ]);
+                $res=$buscarRegistro->fetch(PDO::FETCH_ASSOC);
+                //SI $res>1 entonces si hay un registro y buscar en que estado esta el campo 'ESTADO'
+                if($res){
+                    //Buscar si es 0 o 1 el campo 'ESTADO'
+                    //1 es igual a la entrada. cero es la salida
+                    $checarEstado=$db->prepare("UPDATE registro SET estado=0 WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=1");
+                    $checarEstado->execute([
+                        'idVis'=>$codigoQr,
+                        'idAdmin'=>$idAdmin
+                    ]);
+                    $retornar="||"."pae"."||".$userinfo['nombrePaae']."||".$hora."||"."1"."||";
+                    return $retornar;
+                }else{
+                    //Activamos el estado del codigo QR y activamos la entrada al area del registro
+                    $user=$db->prepare("INSERT INTO  registro (numcodqr, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
+                    $user->execute([
+                        ':idVis'=>$codigoQr,
+                        ':idAdmin'=>$idAdmin,
+                        ':entrada'=>$hora,
+                        ':estado'=>"1" 
+                    ]);
+                    // $userActive=$db->prepare("UPDATE visitantes SET estado= 1 WHERE id=:id");
+                    // $userActive->execute([
+                    //     ':id'=>$idVis
+                    // ]);
+                    $res2="||"."pae"."||".$userinfo['nombrePaae']."||".$hora."||"."2"."||";
+                    return $res2;
+                }
+            }
+            else{
+                //Si no encontro el codigo qr
+                return "||"."pae"."||"."No user"."||"."No hora"."||"."0"."||";
+            }
         }
     }
 

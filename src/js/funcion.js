@@ -95,13 +95,14 @@ function regresar(){
     );
 }
 //AGREGAR DATOS DEL ADMINISTRADOR AL MODAL
+//var modal = document.getElementById("myModal");
 function editarDatos(datos, id){
     //console.log(datos);
     //console.log(the.id);
     //Activa modal.
     modal.style.display = "block";
     
-    console.log(id);
+    //console.log(id);
     //console.log(datos);
     //Almacenamos los datos en una cadena y hacemos split para separarlos.
     cadena=datos.split("||");
@@ -111,32 +112,60 @@ function editarDatos(datos, id){
     //Cuando los datos vienen de la tabla buscar
     //Hacemos esto por que el nombre y los apellidos no vienen separados por "||"
     if(cadena[10]=="undefined"){
+        //prueba prueba prueba jose pedro
+        //juan admin admin
         nombreCompleto=cadena[1].split(" ");
-        //console.log(nombreCompleto);
-        $('#name').val(nombreCompleto[0]);
-        $('#apellidoP').val(nombreCompleto[1]);
-        $('#apellidoM').val(nombreCompleto[2]);
-        $('#puesto').val(cadena[2]);
-        $('#areaAdministra').val(cadena[3]);
-        $('#tipo').val(cadena[4]);
-        $('#email').val(cadena[5]);
-        $('#claveTrabajador').val(cadena[6]);
-        $('#preguntaSeg').val(cadena[7]);
-        $('#respuestaSeg').val(cadena[8]);
-        //alertify.success("Example :)");
-        //var PacienteId = $(this.datos("id"));
-        //Decido agregar el id ya que en el futuro no quiero hacer la busqueda 
-        //Y lo dejo no visible para el usuario.
-        $('#idAdmin').val(cadena[0]);
+        if(nombreCompleto.length==3){
+            $('#name').val(nombreCompleto[0]);
+            $('#apellidoP').val(nombreCompleto[1]);
+            $('#apellidoM').val(nombreCompleto[2]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+            //$('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+    
+        }else if(nombreCompleto.length==4){
 
+            $('#name').val(nombreCompleto[0]+" "+nombreCompleto[1]);
+            $('#apellidoP').val(nombreCompleto[2]);
+            $('#apellidoM').val(nombreCompleto[3]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+           // $('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+    
+        }else if(nombreCompleto.length==5){
+            $('#name').val(nombreCompleto[0]+" "+nombreCompleto[1]+" "+nombreCompleto[2]);
+            $('#apellidoP').val(nombreCompleto[3]);
+            $('#apellidoM').val(nombreCompleto[4]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+           // $('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+        }
+        //console.log(nombreCompleto);
+       
     }else{
         //Aqui van los datos del usuario se escriben en la vista del modal
+        console.log(cadena[6]);
         $('#name').val(cadena[1]);
         $('#apellidoP').val(cadena[2]);
         $('#apellidoM').val(cadena[3]);
         $('#puesto').val(cadena[4]);
         $('#areaAdministra').val(cadena[5]);
-        $('#tipo').val(cadena[6]);
+        //$('#tipo').val(cadena[6]);
         $('#email').val(cadena[7]);
         $('#claveTrabajador').val(cadena[8]);
         $('#preguntaSeg').val(cadena[9]);
@@ -146,6 +175,10 @@ function editarDatos(datos, id){
         //Decido agregar el id ya que en el futuro no quiero hacer la busqueda 
         //Y lo dejo no visible para el usuario.
         $('#idAdmin').val(cadena[0]);
+        // if(cadena[6]=='AdministradorGlobal'){
+
+        // }
+        
     } 
     
 }

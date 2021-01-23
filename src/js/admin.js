@@ -65,47 +65,6 @@ function registrar(){
                 );
         }
     }
-    //console.log(tipo, areaAdministra);
-    //TODO:Validar que los datos introducidos sean correctos
-    //Si estan vacios los campos retornar vacio si no almacenarlos
-    // if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="" ||  tipo=="Seleccione el tipo de administrador" || clave=="" || email=="" || password=="" ||preguntaS=="" ||respuestaS=="" ) alertify.error("Campo vacío");
-    // else{
-    //     //Buscamos el Id del area.
-    //     if(areaAdministra!=""){
-            
-    //     }
-    //     //Concatenamos los resultados
-    // cadena="name="+nombre+"&apellidoP="+apellidoP+
-    //         "&apellidoM="+apellidoM+"&puesto="+puesto+"&areaAdministra="+areaAdministra+
-    //         "&tipo="+tipo+"&email="+email+"&clave="+clave+"&password="+password+"&preguntaS="+
-    //         preguntaS+"&respuestaS="+respuestaS;
-    //     $.ajax({
-    //         url: 'admin/agregarAdmin.php',
-    //         type: 'post',
-    //         dataType: 'json',
-    //         data: cadena
-    //     }).done(
-    //         function(data){
-    //             if(data==1){
-    //                 alertify.error("El correo ya existe en la base de datos.");
-    //             } 
-    //             else {
-    //                 $('#name').val("");
-    //                 $('#apellidoP').val("");
-    //                 $('#apellidoM').val("");
-    //                 $('#puesto').val("");
-    //                 $("#area option:selected").text();
-    //                 $("#tipo option:selected").text();
-    //                 $('#clave').val("");
-    //                 $('#email').val("");
-    //                 $('#password').val("");
-    //                 $('#preguntaSeg').val("");
-    //                 $('#respuestaSeg').val("");
-    //                 alertify.success("Usuario registrado exitosamente.");   
-    //             }
-    //         }
-    //     );
-    //}
 }
 //Boto de registrar visitante
 $('#registrarVis').click(registrarvist);

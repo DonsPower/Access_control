@@ -38,6 +38,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/dashboard.css">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="../../lib/alertifyjs/css/alertify.css">
+    <link rel="stylesheet" href="../../lib/alertifyjs/css/themes/default.css">
+    <script src="../../lib/alertifyjs/alertify.js"></script>
 </head>
 <body>
 <div class="card-top">
@@ -199,6 +202,7 @@
                     $('#salida').html("");
               }else{  
                 var resultado=data.split("||");
+                console.log(resultado);
                 console.log(resultado[4]);
                 //lA ESTRUCTURA DE RESIVIR LOS DATOS ES=
                 //"tipodeusuario"." "."Nombre user"."||"."hora"."||"."numero respuesta";
@@ -219,6 +223,48 @@
                     alertify.success("Entrada registrada.");
                   }
                   
+                }else if(resultado[1]=="alu"){
+                  if(resultado[4]==0){
+                    alertify.error("No se encontro el codigo QR");
+                  }else if(resultado[4]==1){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("Alumno");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Salida registrada.");
+                  }else if(resultado[4]==2){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("Alumno");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Entrada registrada.");
+                  }
+                }else if(resultado[1]=="pae"){
+                  if(resultado[4]==0){
+                    alertify.error("No se encontro el codigo QR");
+                  }else if(resultado[4]==1){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("PAAE");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Salida registrada.");
+                  }else if(resultado[4]==2){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("PAAE");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Entrada registrada.");
+                  }
+                }else if(resultado[1]=="pro"){
+                  if(resultado[4]==0){
+                    alertify.error("No se encontro el codigo QR");
+                  }else if(resultado[4]==1){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("Profesor");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Salida registrada.");
+                  }else if(resultado[4]==2){
+                    $('#nombreqr').html(resultado[2]);
+                    $('#tipoqr').html("Profesor");
+                    $('#horaqr').html(resultado[3]);
+                    alertify.success("Entrada registrada.");
+                  }
                 }
               }
              
