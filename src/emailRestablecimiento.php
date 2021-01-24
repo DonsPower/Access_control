@@ -82,8 +82,10 @@
 		
 
 			<br><br>
-            <input type="submit" value="Recordar contraseña" />
-		
+            <input type="submit" class="btn btn-primary btn-block" value="Enviar Correo" />
+		<br>
+    <br>
+    <td><a href="metodos.php" class="btn btn-primary btn-block" > Regresar</a></td>
 	</div>
 </form>
 			
@@ -99,17 +101,17 @@
         
 		try{
 			if(isset($_POST['email']) && !empty($_POST['email'])){
-                $contraseña = substr( md5(microtime()), 1, 10);
+                $token = substr( md5(microtime()), 1, 10);
                 $email = $_POST['email'];
                 
                 //Conexion con la base
-                $conex = new mysqli("localhost","root","","sistemacontrolacceso");
+
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);
                 } 
                 
-                $sql = "Update administradores Set contraseña='$contraseña' Where email='$email'";
+                $sql = "Update administradores Set token='$token' Where email='$email'";
 
                 if ($conex->query($sql) === TRUE) {
                     echo "correcto: ";
@@ -121,8 +123,10 @@
                 $subject = "Restablecer Contraseña ";
                 $message = '<html><body>';
                 $message .= '<h1 style="color:#f40;">Hola!</h1>';
+                $message .= "El sistema le asigno el siguiente token " . $token ;
+                $message .= "\n copia e ingresa al siguiente enlace para restablecer tu contraseña \n Si no solicitaste cambio de contraseña omite este correo";
                 $message .= '<p style="color:#080;font-size:18px;"></p>';
-                $message .= '<a href="https://7433e85a9629.ngrok.io/Access_control/src/RestablecerContrase%C3%B1a.php" >Restablecer </a>';
+                $message .= '<a href=" https://a1009814fcec.ngrok.io/Access_control/src/emailToken.php" >Restablecer contraseña </a>';
                 $message .= '</body></html>';
                 $headers = "From:  mafrosh13@gmail.com";  
                             'Reply-To: .mafrosh13@gmail.com' ."\r\n" .
@@ -132,7 +136,7 @@
                 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
                
              
-                mail($to, $subject, $message, $headers);
+                mail($to, $subject, $message, $headers, $token);
                 echo 'Correo enviado satisfactoriamente a ' . $_POST['email'];
             }
             else 

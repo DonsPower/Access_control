@@ -49,13 +49,13 @@ if(!$conex){
     die("no hay conexión: ".mysqli_connect_error());
 }
 
-$email = ($_POST['email']);
+$token = ($_POST['token']);
 
-$query=mysqli_query($conex, "SELECT * FROM  administradores  WHERE email ='".$email."'");
+$query=mysqli_query($conex, "SELECT * FROM  administradores  WHERE token ='".$token."'");
 $nr = mysqli_num_rows($query);
 
 if($nr==1){
-    header("Location:  cambiar.php?dato=2&var1=$email");
+    header("Location:  cambiar.php?dato=2&var1=$token");
 }else{
     header ("refresh:1; url=RestablecerContraseña.php?dato=1");
 }
