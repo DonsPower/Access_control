@@ -55,7 +55,7 @@
     <!--Boton buscar-->
     <div class="container" style="float: right;">
         <button type="button" id="enviarPerAcademico" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
-        <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+        <input type="text" id="buscarPeracademico" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
     </div>
     
     <div>
@@ -167,7 +167,7 @@
             </div>
             <div class="modal-footer">
             <div class="col-4 col-sm-4"> <input type="text" name="idperson" id="idAdmin" disabled style="visibility: hidden;"></div>
-              <button type="button" class="btn btn-primary" id="editActualizar">Guardar cambios</button>
+              <button type="button" class="btn btn-primary" id="editActualizarperacademico">Guardar cambios</button>
              
             </div>
           </div>

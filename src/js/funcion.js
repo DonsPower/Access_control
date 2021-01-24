@@ -1,4 +1,5 @@
-    //Activar modal
+    var emailid=document.getElementById("email");
+//Activar modal
     var modal = document.getElementById("myModal");
     // Obtengo "X" obtener evento.
     var span = document.getElementsByClassName("close")[0];
@@ -94,43 +95,77 @@ function regresar(){
     );
 }
 //AGREGAR DATOS DEL ADMINISTRADOR AL MODAL
-function editarDatos(datos){
+//var modal = document.getElementById("myModal");
+function editarDatos(datos, id){
     //console.log(datos);
     //console.log(the.id);
     //Activa modal.
     modal.style.display = "block";
+    
+    //console.log(id);
     //console.log(datos);
     //Almacenamos los datos en una cadena y hacemos split para separarlos.
     cadena=datos.split("||");
+    if(id){
+        emailid.style.display="none";
+    }
     //Cuando los datos vienen de la tabla buscar
     //Hacemos esto por que el nombre y los apellidos no vienen separados por "||"
     if(cadena[10]=="undefined"){
+        //prueba prueba prueba jose pedro
+        //juan admin admin
         nombreCompleto=cadena[1].split(" ");
-        //console.log(nombreCompleto);
-        $('#name').val(nombreCompleto[0]);
-        $('#apellidoP').val(nombreCompleto[1]);
-        $('#apellidoM').val(nombreCompleto[2]);
-        $('#puesto').val(cadena[2]);
-        $('#areaAdministra').val(cadena[3]);
-        $('#tipo').val(cadena[4]);
-        $('#email').val(cadena[5]);
-        $('#claveTrabajador').val(cadena[6]);
-        $('#preguntaSeg').val(cadena[7]);
-        $('#respuestaSeg').val(cadena[8]);
-        //alertify.success("Example :)");
-        //var PacienteId = $(this.datos("id"));
-        //Decido agregar el id ya que en el futuro no quiero hacer la busqueda 
-        //Y lo dejo no visible para el usuario.
-        $('#idAdmin').val(cadena[0]);
+        if(nombreCompleto.length==3){
+            $('#name').val(nombreCompleto[0]);
+            $('#apellidoP').val(nombreCompleto[1]);
+            $('#apellidoM').val(nombreCompleto[2]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+            //$('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+    
+        }else if(nombreCompleto.length==4){
 
+            $('#name').val(nombreCompleto[0]+" "+nombreCompleto[1]);
+            $('#apellidoP').val(nombreCompleto[2]);
+            $('#apellidoM').val(nombreCompleto[3]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+           // $('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+    
+        }else if(nombreCompleto.length==5){
+            $('#name').val(nombreCompleto[0]+" "+nombreCompleto[1]+" "+nombreCompleto[2]);
+            $('#apellidoP').val(nombreCompleto[3]);
+            $('#apellidoM').val(nombreCompleto[4]);
+            $('#puesto').val(cadena[2]);
+            $('#areaAdministra').val(cadena[3]);
+           // $('#tipo').val(cadena[4]);
+            $('#email').val(cadena[5]);
+            $('#claveTrabajador').val(cadena[6]);
+            $('#preguntaSeg').val(cadena[7]);
+            $('#respuestaSeg').val(cadena[8]);
+            $('#idAdmin').val(cadena[0]);
+        }
+        //console.log(nombreCompleto);
+       
     }else{
         //Aqui van los datos del usuario se escriben en la vista del modal
+        console.log(cadena[6]);
         $('#name').val(cadena[1]);
         $('#apellidoP').val(cadena[2]);
         $('#apellidoM').val(cadena[3]);
         $('#puesto').val(cadena[4]);
         $('#areaAdministra').val(cadena[5]);
-        $('#tipo').val(cadena[6]);
+        //$('#tipo').val(cadena[6]);
         $('#email').val(cadena[7]);
         $('#claveTrabajador').val(cadena[8]);
         $('#preguntaSeg').val(cadena[9]);
@@ -140,6 +175,10 @@ function editarDatos(datos){
         //Decido agregar el id ya que en el futuro no quiero hacer la busqueda 
         //Y lo dejo no visible para el usuario.
         $('#idAdmin').val(cadena[0]);
+        // if(cadena[6]=='AdministradorGlobal'){
+
+        // }
+        
     } 
     
 }
@@ -203,7 +242,7 @@ function eliminarAdmin(id,nombre){
                 if(r){
                     //console.log("deberiaentrar");
                     //TODO: Cuando hay llaves foraneas no elimina.
-                    alertify.success('Se elimino as: ' + value) 
+                    alertify.success('Se elimino a: ' + value) 
                     $("#main").load("admin/index.php");
                 }else{
                     alertify.error("Problemas con el servidor.");
@@ -219,5 +258,43 @@ function eliminarAdmin(id,nombre){
     }
     , function() { alertify.error('Cancelado') });
 
+}
+//Paginacion de la tabla administradores.
+function paginacion(numPagina){
+    //Obtengo al numero de pagina que quiero ir.
+    //console.log(numPagina);
+    //Se supone que si llega un 2 debo de recuperar un 20.
+    $.ajax({
+        type:"POST",
+        dataType: 'json',
+        url: "admin/paginacion.php",
+        data:{ 
+            ids: numPagina 
+        }
+    }).done(
+        function(data){
+            console.log(data);
+            var tabla;
+            let i=(numPagina-1)*10;
+                for (let index = 0; index < data.length; index++) {
+                    i++;
+                    //console.log(datos);
+                    var datos= data[index].split("||");
+                    //console.log(datos[1]);
+                    //Concatenamos los datos para hacer la editacion XD.
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]
+                             +"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]
+                             +"||"+datos[9]+"||"+datos[10];
+                             //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                    +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
+                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
+                    
+                }
+                datosRetornar="";
+                $('#salida').html(tabla);
+                $('#primero').val('');
+        });
 }
 

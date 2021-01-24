@@ -66,7 +66,7 @@
              
              <tr>     <?php
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -80,7 +80,7 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -97,7 +97,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estadoa='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -114,7 +114,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -131,12 +131,12 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
                     
             <?php
                 }
@@ -163,7 +163,7 @@
              <tr> 
              <?php
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pro-%' and salida='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -177,7 +177,7 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'pae-%' and salida='1' ";
+          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -194,7 +194,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'alu-%' and salida='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -211,7 +211,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,salida FROM registro where numcodqr like 'vis-%' and salida='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -228,12 +228,12 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) salida FROM registro where  salida='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estadoa='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
                     
             <?php
                 }

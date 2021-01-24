@@ -1,3 +1,9 @@
+body{
+  background: #f0f2f5;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  display: block;
+}
 /* MARGENES GENERALES */
 *{
     margin: 0;
@@ -163,7 +169,6 @@ label #cancel{
   display: none; 
   position: fixed; 
   z-index: 1; 
-  
   left: 0;
   top: 0;
   width: 100%; 

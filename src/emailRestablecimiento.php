@@ -105,7 +105,7 @@
                 $email = $_POST['email'];
                 
                 //Conexion con la base
-             
+
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);
