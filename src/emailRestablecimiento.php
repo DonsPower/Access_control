@@ -105,7 +105,7 @@
                 $email = $_POST['email'];
                 
                 //Conexion con la base
-                $conex = new mysqli("localhost","root","","SistemaControlAcceso");
+             
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);
