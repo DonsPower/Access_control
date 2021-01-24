@@ -41,9 +41,9 @@
                <table class="table table-hover" class="row table-responsive">
                             <thead>
                             <tr> <th ><Label>Uso del inmueble : </Label>
-                                      <th> <label><input type="radio" name="uso" value="Educativo"> Educativo</label> </th>
-                                      <th><label><input type="radio" name="uso" value="Administrativo"> Administrativo</label> </th>
-                                      <th><label><input type="radio" name="uso" value="Otro"> Otro</label> </th>
+                                      <th> <label><input type="radio" name="uso"  value="Educativo" checked> Educativo</label> </th>
+                                      <th><label><input type="radio" name="uso"  value="Administrativo" checked> Administrativo</label> </th>
+                                      <th><label><input type="radio" name="uso"  value="Otro" checked> Otro</label> </th>
                                       </tr>
                             </thead>
                </table>
@@ -314,7 +314,7 @@
                                 </tr>
                                 <tr> <th ><Label>¿Se mantienen identificadas las áreas de riesgo?</Label>
                                       <th> <label><input type="radio" name="identificacion" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="identificación" value="No"checked> No</label> </th>
+                                      <th><label><input type="radio" name="identificacion" value="No"checked> No</label> </th>
                                 </tr>
                                 <tr> <th ><Label>¿Tienen señalización los extintores?</Label>
                                       <th> <label><input type="radio" name="señalizacion" value="Si" checked> Si</label> </th>
@@ -344,10 +344,10 @@
                             <table class="table table-hover" class="row table-responsive">
                             <thead>
                             <tr> <th ><Label>¿El origen del incendio fue de tipo: </Label>
-                                      <th> <label><input type="radio" name="tipoincendio" value="A" checked> a</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="B"checked> b</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="C"checked> c</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="D"checked> c</label> </th>
+                                      <th> <label><input type="radio" name="tipoincendio" value="A" checked> A</label> </th>
+                                      <th><label><input type="radio" name="tipoincendio" value="B"checked> B</label> </th>
+                                      <th><label><input type="radio" name="tipoincendio" value="C"checked> C</label> </th>
+                                      <th><label><input type="radio" name="tipoincendio" value="D"checked> D</label> </th>
                                       </tr>
                             </thead>
                </table>

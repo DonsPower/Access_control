@@ -41,9 +41,9 @@
                <table class="table table-hover" class="row table-responsive">
                             <thead>
                             <tr> <th ><Label>Uso del inmueble : </Label>
-                                      <th> <label><input type="radio" name="uso" value="Educativo"> Educativo</label> </th>
-                                      <th><label><input type="radio" name="uso" value="Administrativo"> Administrativo</label> </th>
-                                      <th><label><input type="radio" name="uso" value="Otro"> Otro</label> </th>
+                                      <th> <label><input type="radio" name="uso" value="Educativo" checked> Educativo</label> </th>
+                                      <th><label><input type="radio" name="uso" value="Administrativo" checked> Administrativo</label> </th>
+                                      <th><label><input type="radio" name="uso" value="Otro" checked> Otro</label> </th>
                                       </tr>
                             </thead>
                </table>
@@ -310,7 +310,7 @@
             </tr>
             <tr> <th ><Label>¿El personal cuenta con identificación de acceso al inmueble?</Label>
                   <th> <label><input type="radio" name="identificacion" value="Si" checked> Si</label> </th>
-                  <th><label><input type="radio" name="identificación" value="No" checked> No</label> </th>
+                  <th><label><input type="radio" name="identificacion" value="No" checked> No</label> </th>
             </tr>
             <tr> <th ><Label>¿El plantel cuenta con bitácora de visitantes?</Label>
                   <th> <label><input type="radio" name="bitacora"  value= " Si"checked> Si</label> </th>
@@ -375,7 +375,7 @@
         <table class="table table-hover" class="row table-responsive">
         <thead>
         <tr>  <th> <label><input type="radio" name="descripcion" value="Femenino" checked>Femenino</label> </th>
-                  <th><label><input type="radio" name="decripcion" value="Masculino"checked>Masculino</label> </th>
+                  <th><label><input type="radio" name="descripcion" value="Masculino"checked>Masculino</label> </th>
                   <th> <label><input type="radio" name="descripcion" value="Voz excitada" checked>Voz excitada</label> </th>
                   <th> <label><input type="radio" name="descripcion" value="Voz calmada"checked>Voz calmada</label> </th>
                   <th><label><input type="radio" name="descripcion" value="Voz familiar"checked>Voz familiar</label> </th>

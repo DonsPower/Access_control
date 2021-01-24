@@ -76,12 +76,17 @@
         <div class="card">
         <div class="mb-3">
            <form class="container" method="POST" autocomplete="off" >
-           <td><a href="preguntaSeguridad.php" class="btn btn-primary btn-block" > Restablecer contraseña por pregunta de seguridad </a></td>
+           <td><a href="preguntaSeguridad.php"  class="btn btn-primary btn-block" > Restablecer contraseña por pregunta de seguridad </a></td>
 
-			<br>
-            <br>
-			<br>
-            <td><a href="emailRestablecimiento.php" class="btn btn-primary btn-block" > Restablecer contraseña por email</a></td>
+			<br> <br>
+       
+            <td><a href="emailRestablecimiento.php"  class="btn btn-primary btn-block" > Restablecer contraseña por email</a></td>
+         <br><br>
+         
+          <div>
+        
+           <td><a href="index.php" class="btn btn-primary btn-block" > Regresar</a></td>
+          <div>
             </form>
 
 			
