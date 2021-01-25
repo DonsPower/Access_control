@@ -48,12 +48,12 @@ if(!$conex){
     die("no hay conexión: ".mysqli_connect_error());
 }
 
-$email = ($_GET["var1"]);
+$token = ($_GET["var1"]);
  
 $contra=$_POST["contraseña"];
 $pass_cifrada = password_hash($contra, PASSWORD_DEFAULT, array("cost"=>10));
 
-$sql="UPDATE administradores SET contraseña='".$pass_cifrada."' where email = '".$email."' ";
+$sql="UPDATE administradores SET contraseña='".$pass_cifrada."' where token = '".$token."' ";
 
 if(mysqli_query($conex,$sql)===TRUE){
     header("Location: index.php?dato=3");

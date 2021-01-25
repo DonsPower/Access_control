@@ -86,8 +86,8 @@
 			
 	
  
-           <input type="submit" class="btn btn-success btn-block" value="Ingresar" name="action">
-            <td><a href="index.php" class="btn btn-success btn-block" > Iniciar Sesion  </a></td>
+           <input type="submit" class="btn btn-primary btn-block" value="Ingresar" name="action">
+            <td><a href="metodos.php" class="btn btn-primary btn-block" > Regresar</a></td>
 
 			
 			

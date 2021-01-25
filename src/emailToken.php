@@ -58,14 +58,15 @@
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
 
     
-
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     
 </head>
 <body>
-<form action="up.php" method="post">
-  <div class="container">
+	
+<form action="validarToken.php" method="post">
+
+<div class="container">
 
      <div class="row ">
       
@@ -77,29 +78,33 @@
       <div class="col-sm-5" style="margin-top:10%; text-align: center;">
         <div class="card">
         <div class="mb-3">
-           <form class="container" method="POST" autocomplete="off" >
-		   <h1 vertical-align:middle>   Restablecer Contraseña </h1>
-       <input type="password" name="token" REQUIERED maxlength="30"  autofocus="1" style="width: 95%; margin-right: 15px;" placeholder="Ingresa tu token" />
-			
+
+		<h1 vertical-align:middle>   Control de Acceso </h1>
+			<input type="text" name="email" REQUIERED maxlength="30"  autofocus="1" style="width: 95%; margin-right: 15px;" placeholder="Ingresa tu correo" />
+            <br>
 			<br>
 			
-				<input type="submit" class="btn btn-success btn-block" value="Validar" name="action">
+            
+			<input type="submit" class="btn btn-success btn-block"  value="validar" />
+			<br>
+			<br>
 
-					<br>
-						<td><a href="index.php" class="btn btn-success btn-block" > Regresar  </a></td>
-				</div>
-				</div>
-</form>
-
-			
-			
-		
-	</div>
+            </div>
 </div>
+			<?php
+			if (!empty($resultado)) {
+				# code...
+			if($resultado){
+			?>
+			<div class="alert alert-danger" role="alert">
+				Usuario o contraseña incorrectos!
+			</div>
+	<?php		
+		}
+	}
+	?>
+	</div>
 	
 </form>
 </body>
 </html>
-
-
-
