@@ -104,8 +104,7 @@
                 $token = substr( md5(microtime()), 1, 10);
                 $email = $_POST['email'];
                 
-                //Conexion con la base
-
+                //Conexion con l
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);
@@ -126,7 +125,7 @@
                 $message .= "El sistema le asigno el siguiente token " . $token ;
                 $message .= "\n copia e ingresa al siguiente enlace para restablecer tu contraseña \n Si no solicitaste cambio de contraseña omite este correo";
                 $message .= '<p style="color:#080;font-size:18px;"></p>';
-                $message .= '<a href=" https://a1009814fcec.ngrok.io/Access_control/src/emailToken.php" >Restablecer contraseña </a>';
+                $message .= '<a href="https://8060a1fc72d4.ngrok.io/Access_control/src/emailToken.php" >Restablecer contraseña </a>';
                 $message .= '</body></html>';
                 $headers = "From:  mafrosh13@gmail.com";  
                             'Reply-To: .mafrosh13@gmail.com' ."\r\n" .

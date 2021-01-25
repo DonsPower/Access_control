@@ -13,7 +13,7 @@
         <h2 align="center"> Simulacro por Sismo </h2>
         
         </div>
-       
+      
         <div class="container">
             <div class="row justify-content-center"> 
             <form action="convertirSismo.php" method ="post">
@@ -64,7 +64,11 @@
                  <th >Total de participantes en simulacro</th>
              <tr> 
              
-             <tr>    <?php
+             <tr>    
+             
+         
+          <?php
+           
               include("../../database/con_db.php");  
                $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                $resultado = $conex->query($sql);
