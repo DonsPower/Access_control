@@ -64,7 +64,7 @@
     <select name="pais" id="tipo" >
         <option value="0">Seleccione el tipo de administrador</option>
         <option value="admin">AdministradorGlobal</option>
-        <option value="noadmin">AdministradorArea</option>
+        <option value="noadmin">AdministradorÁrea</option>
     </select>
     
 </div>
@@ -125,7 +125,7 @@ $(document).ready(function() {
         </div>
        
         <div class="row">
-            <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de Trabajador"></div>
+            <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de trabajador"></div>
             <div class="col"><input type="email"  REQUIRED  name="email" id="email" placeholder="Correo"></div>
             <div class="col"><input type="password" REQUIRED name="password" id="password" placeholder="Contraseña"></div> 
         </div>

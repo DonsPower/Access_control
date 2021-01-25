@@ -54,7 +54,7 @@
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Alta alumnos</li>
+            <li class="breadcrumb-item active" aria-current="page">Alta de Alumnos</li>
         </ol>
         </nav>
         <div class="container form1">
@@ -70,7 +70,7 @@
               <?php 
             } ?>
         <caption>
-            <div class="titulos "><h2>Almacenar Alumno</h2></div>
+            <div class="titulos "><h2>Alta de Alumnos</h2></div>
             
         </caption>
         
@@ -104,7 +104,7 @@
             </div>
 
             <div class="row">
-                <div class="col-4 col-sm-4"><input type="text" name="telefonoPersonal" id="telefonoPersonal" placeholder="TelefonoPersonal"></div>
+                <div class="col-4 col-sm-4"><input type="text" name="telefonoPersonal" id="telefonoPersonal" placeholder="Teléfono Personal"></div>
                 <div class="col"><input type="text"name="NSS" id="NSS" placeholder="NSS"></div>
                 <div class="col"><input type="text"  name="emailAlumno" id="emailAlumno"  placeholder="Correo"></div>
             </div>
@@ -137,7 +137,7 @@
                                 <div class="col">Contraseña<input type="text" name="name" id="passwordSaes"></div>
                             </div>
                             <div class="row">
-                                <div class="col">Token<input type="text" name="name" id="token"></div>
+                                <div class="col">Token<input type="password" name="name" id="token"></div>
                                
                             </div>
                             <div class="row">

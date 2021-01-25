@@ -228,7 +228,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estado FROM registro where  estadoa='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -261,8 +261,8 @@
              <table class="table table-hover" class="row table-responsive">
               <thead>
               <tr> <th ><Label>El simulacro : </Label>
-                  <th> <label><input type="radio" name="aviso" value="Se realizo con aviso"checked> Se realizo con aviso</label> </th>
-                  <th><label><input type="radio" name="aviso" value="Se realizo sin aviso"checked> Se realizo sin Aviso</label> </th>
+                  <th> <label><input type="radio" name="aviso" value="Se realizo con aviso"checked> Se realizó con aviso</label> </th>
+                  <th><label><input type="radio" name="aviso" value="Se realizo sin aviso"checked> Se realizó sin Aviso</label> </th>
                   </tr>
         </thead>        
 </table>
@@ -304,7 +304,7 @@
                   <th> <label><input type="radio" name="escaleras" value="Si"checked> Si</label> 
                   <th><label><input type="radio" name="escaleras" value="No"checked> No</label> </th>
             </tr>
-            <tr> <th ><Label>¿Se tienen rutas de evacuación señalzadas?</Label>
+            <tr> <th ><Label>¿Se tienen rutas de evacuación señalizadas?</Label>
                   <th> <label><input type="radio" name="rutas" value="Si" checked> Si</label> </th>
                   <th><label><input type="radio" name="rutas" value="No" checked> No</label> </th>
             </tr>
@@ -316,7 +316,7 @@
                   <th> <label><input type="radio" name="bitacora"  value= " Si"checked> Si</label> </th>
                   <th><label><input type="radio" name="bitacora" value="No"checked> No</label> </th>
             </tr>
-            <tr> <th ><Label>¿Cuenta con bitacoras de entrada y salida de vehiculos?</Label>
+            <tr> <th ><Label>¿Cuenta con bitácoras de entrada y salida de vehículos?</Label>
                   <th> <label><input type="radio" name="bitacoraVehiculo" value="Si" checked> Si</label> </th>
                   <th><label><input type="radio" name="bitacoraVehiculo" Value="No"checked> No</label> </th>
             </tr>
@@ -391,7 +391,7 @@
 
         <table class="table table-hover" class="row table-responsive">
         <thead>
-            <tr><th ALIGN="left">Se logro identificar algunos sonidos de fondo al momento de la emergencia</th></tr>
+            <tr><th ALIGN="left">¿Se lograron identificar algunos sonidos de fondo al momento de la emergencia?</th></tr>
            </thead>
         </table>
         <table class="table table-hover" class="row table-responsive">
@@ -431,8 +431,8 @@
         <table class="table table-hover" class="row table-responsive">
               <thead>
               <tr> <th ><Label>El simulacro  : </Label>
-                  <th> <label><input type="radio" name="aaviso" value="Se realizo con aviso" checked> Se realizo con aviso</label> </th>
-                  <th><label><input type="radio" name="aaviso" value="Se realizo sin aviso"checked> Se realizo sin Aviso</label> </th>
+                  <th> <label><input type="radio" name="aaviso" value="Se realizó con aviso" checked> Se realizó con aviso</label> </th>
+                  <th><label><input type="radio" name="aaviso" value="Se realizó sin aviso"checked> Se realizó sin Aviso</label> </th>
                   </tr>
         </thead>        
 </table>
@@ -444,25 +444,25 @@
                 </thead>  </table>
              <table class="table table-hover" class="row table-responsive">
               <thead>
-              <tr> <th ><Label>Las brigadas respondieron oportunamente a la emergencia: </Label>
+              <tr> <th ><Label>¿Las brigadas respondieron oportunamente a la emergencia? </Label>
                   <th> <label><input type="radio" name="brigadas" Value="Si"checked> Si</label> </th>
                   <th><label><input type="radio" name="brigadas" Value="No"checked> No</label> </th>
                   </tr>
-                  <tr> <th ><Label>Se activaron los servicios de emergencias externos: </Label>
+                  <tr> <th ><Label>¿Se activaron los servicios de emergencias externos? </Label>
                   <th> <label><input type="radio" name="servicios" Value="Si" checked> Si</label> </th>
                   <th><label><input type="radio" name="servicios" Value="No" checked> No</label> </th>
                   </tr>
-                  <tr> <th ><Label>Se solicitó oportunamente el apoyo externo de algún grupo especializado: </Label>
+                  <tr> <th ><Label>¿Se solicitó oportunamente el apoyo externo de algún grupo especializado?</Label>
                   <th> <label><input type="radio" name="apoyo" Value="Si" checked> Si</label> </th>
                   <th><label><input type="radio" name="apoyo"Value="No" checked> No</label> </th>
                   </tr>
-                  <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="fax" id="fax" placeholder="cual"></th></tr>
-                  <tr> <th ><Label>Se instaló el puesto de mando: </Label>
+                  <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="fax" id="fax" ></th></tr>
+                  <tr> <th ><Label>¿Se instaló el puesto de mando? </Label>
                   <th> <label><input type="radio" name="mando" Value="Si" checked> Si</label> </th>
                   <th><label><input type="radio" name="mando" Value="No" checked> No</label> </th>
-                  <tr> <th ><Label> Quién proporcionó la información al grupo de apoyo externo: </Label>
+                  <tr> <th ><Label> ¿Quién proporcionó la información al grupo de apoyo externo? </Label>
                   <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="informacion" id="fax" ></th></tr>
-                  <tr> <th ><Label> ¿Cuanto tiempo se utilizó para que las actividades del inmueble volvieran a la normalidad: </Label>
+                  <tr> <th ><Label> ¿Cuánto tiempo se utilizó para que las actividades del inmueble volvieran a la normalidad? </Label>
                   <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="tiempo" id="fax" ></th></tr>
                 </thead>        
 </table>

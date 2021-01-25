@@ -47,7 +47,7 @@
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Alta Docente</li>
+            <li class="breadcrumb-item active" aria-current="page">Alta de Personal Académico</li>
         </ol>
         </nav>
         <div class="container form1">
@@ -63,7 +63,7 @@
               <?php 
             } ?>
         <caption>
-            <div class="titulos "><h2>Almacenar Docente</h2></div>
+            <div class="titulos "><h2>Alta de Personal Académico</h2></div>
             
         </caption>
         
@@ -88,7 +88,7 @@
                 <div class="row">
             <!--Es necesario que cada input valla con un Div -->
                 <div class="col-4 col-sm-4"><input type="text" name="RFC" id="RFC" placeholder="RFC"></div>
-                <div class="col"><input type="text" name="telefono" id="telefono" placeholder="Telefono"></div>
+                <div class="col"><input type="text" name="telefono" id="telefono" placeholder="Teléfono"></div>
                 <div class="col"><input type="text" name="extension" id="extension" placeholder="Ext"></div>
             </div>
             <div class="row">
