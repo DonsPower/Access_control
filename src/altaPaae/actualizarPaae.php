@@ -12,9 +12,9 @@
     $telefono = ($_POST['telefono']);
     $extension = ($_POST['extension']);
     $emailPaae = ($_POST['emailPaae']);
-    $numcodqr=($_POST['numcodqr']);
+   
 
     //Mandamos la consulta con todos los datos
-    $algo=$paae->editarPaae($id,$nombrePaae,$apellidoPatPaae,$apellidoMatPaae, $area, $RFC,$telefono,$extension,$emailPaae,$numcodqr);
+    $algo=$paae->editarPaae($id,$nombrePaae,$apellidoPatPaae,$apellidoMatPaae, $area, $RFC,$telefono,$extension,$emailPaae);
     echo json_encode($algo);
 ?>

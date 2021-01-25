@@ -52,9 +52,21 @@
         </nav>
         <div class="container form1">
         <div style="margin-bottom: 30px; margin-top:10px;">
+        <?php
+        
+            if($_SESSION['tipo']=='AdministradorGlobal'){
+
+                ?>
+                <div style="float: right;">
+                    <button type="button" id="datosSaes3" class="btn btn-success">Carga de datos</button>
+                </div>
+              <?php 
+            } ?>
         <caption>
             <div class="titulos "><h2>Almacenar Docente</h2></div>
+            
         </caption>
+        
         </div>
          <!--Lo anterior solo son los titulos, de aquí para abajo va lo que tien que ir el los datos usuario-->
             <!--Row=Fila entonces agregar los row necesarios.-->
@@ -88,6 +100,37 @@
             <div class="container">
                 <button  type="button" id="registrarPerAcademico" class="btn btn-success" style="width: 100px;">Registrar</button>
                 <button type="button" class="btn btn-danger" style="width: 100px; "><a href="dashboard.php">Regresar</a></button>
+            </div>
+        </div>
+
+        
+         <!--Modal cuando se activa editar-->
+         <div class="modal" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cargar datos</h5>
+                        <span  class="close1 close">&times; </span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col">Usuario<input type="text" name="name" id="usuarioSaes"></div>
+                                <div class="col">Contraseña<input type="text" name="name" id="passwordSaes"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col">Token<input type="text" name="name" id="token"></div>
+                               
+                            </div>
+                            <div class="row">
+                            <div class="col">URL<input type="text" name="name" id="url"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="dataSaes3">Bajar datos del sistema</button>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

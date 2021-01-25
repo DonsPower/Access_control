@@ -12,11 +12,12 @@
     $telefonoMovil = ($_POST['telefonoMovil']);
     $telefonoFijo = ($_POST['telefonoFijo']);
     $telefonoPersonal = ($_POST['telefonoPersonal']);
-    $NSS = ($_POST['NSS']);
     $emailAlumno = ($_POST['emailAlumno']);
-    $numcodqr = ($_POST['numcodqr']);
+    $NSS = ($_POST['NSS']);
+    
+    
     //Mandamos la consulta con todos los datos
-    $algo=$alumno->editarAlumno($id,$nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS,$numcodqr);
+    $algo=$alumno->editarAlumno($id,$nombreAlumno, $apellidoPatAlumno, $apellidoMatAlumno, $carrera, $boleta, $telefonoMovil, $telefonoFijo, $telefonoPersonal , $emailAlumno, $NSS);
     echo json_encode($algo);
     //echo json_encode($id);
 ?>

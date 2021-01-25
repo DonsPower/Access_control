@@ -104,8 +104,7 @@
                 $token = substr( md5(microtime()), 1, 10);
                 $email = $_POST['email'];
                 
-                //Conexion con la base
-               
+                //Conexion con l
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);

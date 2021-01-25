@@ -72,9 +72,9 @@
                 
         }
 
-        function editarAlumno($id,$nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS,$numcodqr){
+        function editarAlumno($id,$nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS){
             $db=new Connect;
-            $user=$db->prepare("UPDATE  alumnos SET nombreAlumno=:nombre, apellidoPatAlumno:apellidop, apellidoMatAlumno=:apellidom, carrera=:carrera, boleta=:boleta, telefonoMovil=:telefonoM, telefonoFijo=:telefonofijo, telefonoPersonal=:telefonop, emailAlumno=:email, NSS=:nss,numcodqr=:numcodqr WHERE id=:id");
+            $user=$db->prepare("UPDATE  alumnos SET nombreAlumno=:nombre, apellidoPatAlumno=:apellidop, apellidoMatAlumno=:apellidom, carrera=:carrera, boleta=:boleta, telefonoMovil=:telefonoM, telefonoFijo=:telefonofijo, telefonoPersonal=:telefonop, emailAlumno=:email, NSS=:nss WHERE id=:id");
             $user->execute([
                 ':id'=>$id,
                 ':nombre'=>$nombreAlumno,
@@ -86,9 +86,7 @@
                 ':telefonofijo'=>$telefonoFijo,
                 ':telefonop'=>$telefonoPersonal,
                 ':email'=>$emailAlumno,
-                ':nss'=> $NSS,
-                ':numcodqr'=>$numcodqr
-
+                ':nss'=> $NSS
             ]);
             return $user;
         }
@@ -105,7 +103,98 @@
             return $user;
         }
 
+         //generar token
          
+        function addSaes($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof, $telefonop, $email, $nss){
+            $db = new Connect;
+            $numcodqr=$this->generarToken(10);
+            $validarCod=$this->validarToken($numcodqr);
+            if($validarCod==1){
+                return $this->addSaes($nombre, $apellidop, $apellidom, $carrera, $boleta, $telefonom, $telefonof, $telefonop, $email, $nss);
+            }else{
+                //Buscamos el usuario si existe ya en la BD.
+                $buscarUser=$db->prepare("SELECT * FROM alumnos WHERE boleta=:boleta");
+                $buscarUser->execute([
+                    ':boleta'=> $boleta
+                ]);
+                $userCount=$buscarUser->rowCount();
+                if($userCount>0){
+                    return 0;
+                }else{
+                    $user=$db->prepare("INSERT INTO alumnos(nombreAlumno, apellidoPatAlumno, apellidoMatAlumno, carrera, boleta, telefonoMovil, telefonoFijo, telefonoPersonal, emailAlumno, NSS, numcodqr) VALUES ( :nombre, :apellidop, :apellidom, :carrera, :boleta, :telefonoM, :telefonofijo, :telefonop, :email, :nss,:numcodqr)");
+                    $user->execute([
+                        ':nombre'=>$nombre,
+                        ':apellidop' =>$apellidop,
+                        ':apellidom'=>$apellidom,
+                        ':carrera'=>$carrera,
+                        ':boleta'=>$boleta,
+                        ':telefonoM'=>$telefonom,
+                        ':telefonofijo'=>$telefonof,
+                        ':telefonop'=>$telefonop,
+                        ':email'=>$email,
+                        ':nss'=> $nss,
+                        ':numcodqr'=>$numcodqr
+                    ]);
+                    return 1;
+                }
+                
+                
+            }
+            
+        }
+        function buscarQrAlum($codigoQr, $idAdmin, $hora){
+            $db=new Connect;
+            $contqro=$db->prepare("SELECT * FROM alumnos WHERE numcodqr=:codigo" );
+            $contqro->execute([
+                ':codigo'=>$codigoQr
+            ]);
+            $userinfo = $contqro->fetch(PDO::FETCH_ASSOC);
+            
+            if($userinfo){
+                //Obtengo el id del visitante.
+                $idVis=$userinfo['id'];
+                //Como saber cuando entro y salio. con un ID 
+                //Primero buscamos si no existe ningun registro en la BD.
+                $buscarRegistro=$db->prepare("SELECT * FROM registro WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=:estado");
+                $buscarRegistro->execute([
+                    ':idVis'=>$codigoQr,
+                    ':idAdmin'=>$idAdmin,
+                    ':estado' => "1"
+                ]);
+                $res=$buscarRegistro->fetch(PDO::FETCH_ASSOC);
+                //SI $res>1 entonces si hay un registro y buscar en que estado esta el campo 'ESTADO'
+                if($res){
+                    //Buscar si es 0 o 1 el campo 'ESTADO'
+                    //1 es igual a la entrada. cero es la salida
+                    $checarEstado=$db->prepare("UPDATE registro SET estado=0 WHERE numcodqr=:idVis AND id_administrador=:idAdmin AND estado=1");
+                    $checarEstado->execute([
+                        'idVis'=>$codigoQr,
+                        'idAdmin'=>$idAdmin
+                    ]);
+                    $retornar="||"."alu"."||".$userinfo['nombreAlumno']."||".$hora."||"."1"."||";
+                    return $retornar;
+                }else{
+                    //Activamos el estado del codigo QR y activamos la entrada al area del registro
+                    $user=$db->prepare("INSERT INTO  registro (numcodqr, id_administrador, entrada, estado) VALUES (:idVis, :idAdmin, :entrada, :estado)");
+                    $user->execute([
+                        ':idVis'=>$codigoQr,
+                        ':idAdmin'=>$idAdmin,
+                        ':entrada'=>$hora,
+                        ':estado'=>"1" 
+                    ]);
+                    // $userActive=$db->prepare("UPDATE visitantes SET estado= 1 WHERE id=:id");
+                    // $userActive->execute([
+                    //     ':id'=>$idVis
+                    // ]);
+                    $res2="||"."alu"."||".$userinfo['nombreAlumno']."||".$hora."||"."2"."||";
+                    return $res2;
+                }
+            }
+            else{
+                //Si no encontro el codigo qr
+                return "||"."alu"."||"."No user"."||"."No hora"."||"."0"."||";
+            }
+        }
     }
 
 ?>

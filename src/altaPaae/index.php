@@ -166,7 +166,7 @@
             </div>
             <div class="modal-footer">
             <div class="col-4 col-sm-4"> <input type="text" name="idperson" id="idAdmin" disabled style="visibility: hidden;"></div>
-              <button type="button" class="btn btn-primary" id="editActualizar">Guardar cambios</button>
+              <button type="button" class="btn btn-primary" id="editActualizarPaae">Guardar cambios</button>
              
             </div>
           </div>

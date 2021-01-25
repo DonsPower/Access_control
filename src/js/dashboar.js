@@ -36,16 +36,6 @@ $(document).ready(function(){
     });
 });
 
-
-
-
-
-//Mostrar Lectura de codigos QR
-$(document).ready(function(){
-    $("#lector").click(function(){
-        $("#main").load("visitante/readqr/index.php");
-    });
-});
 //Mostrar agregar visitantes
 $(document).ready(function(){
     $("#altaVis").click(function(){
@@ -72,24 +62,28 @@ $(document).ready(function(){
     });
 });
 //Daremos de baja al visitante y mostraremos un modal para la confirmacion 
-$(document).ready(function(){
-    $("#smodalBtn").click(function(){
-        darBaja();
-    });
-});
+// $(document).ready(function(){
+//     $("#smodalBtn").click(function(){
+//         darBaja();
+//     });
+// });
 
-function darBaja(){
+function darBaja(id){
+    
     alertify.prompt( 'Baja de visitante', '¿Estas seguro que quieres dar de baja a todos los visitantes? Escribe "confirmar" para dar de baja', '...'
     , function(evt, value) {
         if(value=='confirmar'){
-            alertify.success('Se dierón de baja todos los usuarios') 
+            
             $.ajax({
                 type:"POST",
                 url:"visitante/bajaVisitante.php",
-                data:{conf:value},
+                data:{
+                    ids:id
+                },
                 success:function(r){
                     //console.log(r);
                     if(r){
+                        alertify.success('Se dierón de baja todos los usuarios') 
                         $("#main").load("visitante/index.php");
                     }else{
                         alertify.error("Error con el servidor");
