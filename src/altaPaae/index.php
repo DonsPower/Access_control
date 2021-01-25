@@ -67,13 +67,13 @@
   <thead>
     <tr>
     <th scope="col">#</th>
-      <th scope="col">NOMBRE</th>
-      <th scope="col">ÁREA</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Área</th>
       <th scope="col">RFC</th>
-      <th scope="col">TELEFONO</th>
-      <th scope="col">EXTENSION</th>
-      <th scope="col">CORREO </th>
-      <th scope="col">Código QR </th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Extensión</th>
+      <th scope="col">Correo</th>
+      <th scope="col">Código QR</th>
       <th scope="col">Editar </th>
       <th scope="col">Borrar</th>
       
@@ -142,18 +142,18 @@
               
                 <div class="row">
                   <div class="col-4 col-sm-4">Nombre<input type="text" name="name" id="nombrePaae"></div>
-                  <div class="col">Apellido paterno<input type="text" name="" id="apellidoPatPaae"></div>
-                  <div class="col">Apellido materno<input type="text" name="" id="apellidoMatPaae"></div>
+                  <div class="col">Apellido Paterno<input type="text" name="" id="apellidoPatPaae"></div>
+                  <div class="col">Apellido Materno<input type="text" name="" id="apellidoMatPaae"></div>
                   
                 </div>
                 <div class="row">
-                  <div class="col">Area<input type="text" name="" id="area"></div>
+                  <div class="col">Área<input type="text" name="" id="area"></div>
                   <div class="col">RFC <input type="text" name="" id="RFC"></div>
                 </div>
 
                 <div class="row">
-                  <div class="col">telefono<input type="text" name="" id=telefono></div>
-                  <div class="col">extension<input type="text" name="" id="extension"></div>
+                  <div class="col">Teléfono<input type="text" name="" id=telefono></div>
+                  <div class="col">Extensión<input type="text" name="" id="extension"></div>
                 </div>  
 
                 <div>
