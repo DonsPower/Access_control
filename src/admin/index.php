@@ -26,7 +26,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control-ListaAdmin</title>
-    <!--CSS-->s
+    <!--CSS-->
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
     <!--JS-->
@@ -206,7 +206,7 @@
                 <div class="col">
                 
                 <select name="pais" id="tipo" style="border-radius: 5px;  margin-top:10%" >
-                  <option value="0">Seleccione el tipo de administrador</option>
+                  <option value="0">Tipo de administrador</option>
                   <option value="admin">AdministradorGlobal</option>
                   <option value="noadmin">AdministradorArea</option>
                 </select>

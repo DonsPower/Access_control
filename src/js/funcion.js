@@ -159,7 +159,7 @@ function editarDatos(datos, id){
        
     }else{
         //Aqui van los datos del usuario se escriben en la vista del modal
-        console.log(cadena[6]);
+        //console.log(cadena[6]);
         $('#name').val(cadena[1]);
         $('#apellidoP').val(cadena[2]);
         $('#apellidoM').val(cadena[3]);
@@ -192,8 +192,8 @@ function actualizardata(){
     apellidoP=$('#apellidoP').val();
     apellidoM=$('#apellidoM').val();
     puesto=$('#puesto').val();
-    areaAdministra=$('#areaAdministra').val();
-    tipo=$('#tipo').val();
+    areaAdministra=$("#area option:selected").text();
+    tipo=$("#tipo option:selected").text();
     email=$('#email').val();
     clave=$('#claveTrabajador').val();
     preguntaS=$('#preguntaSeg').val();
@@ -210,17 +210,19 @@ function actualizardata(){
         url:"admin/actualizarAdmin.php",
         data:cadena,
         success:function(r){
-            if(r){
-                //cont=true;
-            //Eliminamos el modal
-            modal.style.display = "none";
-            //recargamos la pagina con los datos actualizados
-            $("#main").load("admin/index.php");
-            }else{
-                alertify.error("Problemas con el servidor.");
-                $("#main").load("dashboard.php");
-            }
-            alertify.success("Datos actualizados");
+            console.log("dimequeentro");
+            console.log(r);
+            // if(r){
+            //     //cont=true;
+            // //Eliminamos el modal
+            // modal.style.display = "none";
+            // //recargamos la pagina con los datos actualizados
+            // $("#main").load("admin/index.php");
+            // }else{
+            //     alertify.error("Problemas con el servidor.");
+            //     $("#main").load("dashboard.php");
+            // }
+            // alertify.success("Datos actualizados");
 
         }
     });

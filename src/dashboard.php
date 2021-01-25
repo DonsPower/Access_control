@@ -118,7 +118,13 @@
         <a href="#"><i class="fas fa-asterisk"></i>Nosotros</a>
         <div class="container mt-5" >
                    <!--Para dar de baja a todos los vistantes-->
-          <button  type="button" id="smodalBtn" onclick="darBaja(`<?php echo $_SESSION['AreaAdm']?>`)" class="btn btn-danger">Eliminar visitantes activos</button>
+           <?php
+           if($_SESSION['tipo']=="AdministradorArea"){
+            ?>
+            <button  type="button" id="smodalBtn" onclick="darBaja(`<?php echo $_SESSION['AreaAdm']?>`)" class="btn btn-danger">Dar de baja visitantes activos</button>
+          <?php
+           }        
+          ?>
         
         </div>
        

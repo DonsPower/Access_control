@@ -16,9 +16,9 @@
     $preguntaS=$_POST['preguntaS'];
     $respuestaS=$_POST['respuestaS'];
     
-    $algo=$admin->actualizarAdmin($id,$name,$apellidoP,$apellidoM,$puesto,$areaAdministra,$tipo,$email,$clave,$preguntaS,$respuestaS);
+    //$algo=$admin->actualizarAdmin($id,$name,$apellidoP,$apellidoM,$puesto,$areaAdministra,$tipo,$email,$clave,$preguntaS,$respuestaS);
 
-    echo json_encode($algo);
+    echo json_encode($areaAdministra." ".$tipo);
 
 
 
