@@ -190,7 +190,6 @@
                 </div>
                 <div class="row">
                 
-<<<<<<< HEAD
                     Carrera
                 <select id="carrera" name="carrera"  REQUIRED>
                     <option value="Seleccione la Carerra" >Seleccione Programa Académico</option>
@@ -206,16 +205,6 @@
                 <div class="row">
                   <div class="col">telefonoMovil<input type="text" name="" id="telefonoMovil"></div>
                   <div class="col">telefonoFijo<input type="text" name="" id="telefonoFijo"></div>
-=======
-            
-                  <div class="col">Carrera<input type="text" name="" id="carrera"></div>
-                  <div class="col">Boleta <input type="text" name="" id="boleta"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col">Teléfono Móvil<input type="text" name="" id=telefonoMovil></div>
-                  <div class="col">Teléfono Fijo<input type="text" name="" id="telefonoFijo"></div>
->>>>>>> origin/master
                 </div>  
 
                 <div>

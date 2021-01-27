@@ -8,15 +8,17 @@
     require_once 'clases/alumnosController.Class.php';
     require_once 'clases/paaeController.Class.php';
     require_once 'clases/perAcademicoController.Class.php';
+    require_once 'clases/areaController.Class.php';
    
     
-    
+    date_default_timezone_set('GMT');
     //creamos el objeto cliente
     $auth=new auth;
     
     $alumno=new alumno;
     $perAcademico=new perAcademico;
     $paae=new paae;
+    $area=new area;
     //objeto visitante
     $visitor= new visitor;
     $admin=new admin;
@@ -27,10 +29,39 @@
    
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
+        //Checar los registros 
+       
     }else{
         header('Location: ./index.php');
         die();
     }
+    if($_SESSION['tipo']=='AdministradorArea'){
+      
+        $resultado=$admin->obtenerDia($_SESSION['AreaAdm']);
+        while($row=$resultado->fetch(PDO::FETCH_ASSOC)){
+          
+          $data=explode(" ",$row['entrada']);
+          $dia=explode("-",$data[0]);
+           //año
+          
+          $total=date("j")-$dia[2];//dia
+          $total2=date("n")-$dia[1];//mes
+          $total3=date("Y")-$dia[0];
+         // echo $total." ".$total2." ".$total3."||";
+          if($total3>0){
+             $visitor-> bajaVistQR($row['numcodqr'],$_SESSION['AreaAdm']);
+           }else{
+             if($total2>1){
+              $visitor-> bajaVistQR($row['numcodqr'],$_SESSION['AreaAdm']);
+             }else if($total>0){
+              $visitor-> bajaVistQR($row['numcodqr'],$_SESSION['AreaAdm']);
+             }
+           }
+           
+        }
+    }
+   
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,9 +88,9 @@
     <script src="lib/alertifyjs/alertify.js"></script>
     <script src="js/sesion.js"></script>
     <script src="js/alumno.js"></script>
-    
     <script src="js/perAcademico.js"></script>
     <script src="js/menu.js"></script>
+   
    
    
 </head>
@@ -91,9 +122,9 @@
            
             <li class="submenu"><a href="#"><i class="fas fa-file-medical"></i>Reportes<i class="fas fa-caret-square-down more"></i></a>
             <ul>
-                <li><a href="././Reporte/reporteSismoConsulta.php" id="altaRepSismo" target="_blank">Sismo</a></li>
-                <li><a href="././Reporte/reporteIncendioConsulta.php" id="altaRepSismo" target="_blank">Incendio</a></li>
-                <li><a href="././Reporte/reporteArtExploConsulta.php" id="altaRepSismo" target="_blank">Artefacto Explosivo</a></li>
+                <li><a href="././Reporte/reporteSismoConsulta.php" id="altaRepSismo" target="_blank"><i class="fas fa-mountain"></i>Sismo</a></li>
+                <li><a href="././Reporte/reporteIncendioConsulta.php" id="altaRepSismo" target="_blank"><i class="fab fa-free-code-camp"></i>Incendio</a></li>
+                <li><a href="././Reporte/reporteArtExploConsulta.php" id="altaRepSismo" target="_blank"><i class="fas fa-bomb"></i>Artefacto Explosivo</a></li>
             </ul></li>
          
     </nav>
@@ -112,6 +143,7 @@
         if($_SESSION['tipo']=='AdministradorGlobal'){
           ?>
           <a href="#" id="altaAdmin"><i class="fas fa-address-card"></i>Alta administradores</i></a>
+          <a href="#" id="altaAreaAdmin"><i class="fas fa-clinic-medical"></i>Alta área</i></a>
           <?php
         }
         ?>
@@ -194,9 +226,9 @@
               <div class="col mb-6 ">
                 <div class="card card-5 text-white  bg-success " >
                 <div class="card-body">
-                    <h5 class="card-title" style="margin-top: 10px;">Total usuarios</h5>
-                    <h3 class="card-text"><?php echo $visitor->getVisitorActive();?></h3>
-                      <a href="#" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
+                    <h5 class="card-title" style="margin-top: 10px;">Total de áreas</h5>
+                    <h3 class="card-text"><?php echo $area->getArea();?></h3>
+                      <a href="#" id="totalArea" class="btn btn-primary" style="float:right; margin-bottom:10px; width:100px;">Ir <i class="fas fa-arrow-right"></i></a>
                     </div>
                   
                 </div>
@@ -235,5 +267,36 @@
                 </div>
               </div>
             </div>
+
+
+             <!--Modal cuando se activa editar-->
+     <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Alta área</h5>
+              
+                <span  class="close1 close">&times; </span>
+              
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+              
+                <div class="row">
+                  <div class="col-4 col-sm-4">área<input type="text" name="name" id="areaNew"></div>
+                  
+                </div>
+                
+              
+              
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="editActualizarPaae">Guardar</button>
+             
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 </html> 

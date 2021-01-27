@@ -128,16 +128,9 @@ $(document).ready(function() {
         </div>
        
         <div class="row">
-<<<<<<< HEAD
-       <!-- //TODO: Preguntar si esta bien la clave del trabajador o si no cambiarla -->
-            <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de Trabajador" maxlength="30"></div>
-            <div class="col"><input type="email"  REQUIRED  name="email" id="email" placeholder="Correo" maxlength="40"></div>
-            <div class="col"><input type="password" REQUIRED name="password" id="password" placeholder="Contraseña" maxlength="40"></div> 
-=======
             <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de trabajador"></div>
             <div class="col"><input type="email"  REQUIRED  name="email" id="email" placeholder="Correo"></div>
             <div class="col"><input type="password" REQUIRED name="password" id="password" placeholder="Contraseña"></div> 
->>>>>>> origin/master
         </div>
         <div class="row">
             <div class="col"><input type="text"   REQUIRED  name="preguntaSeg" id="preguntaSeg"  placeholder="Pregunta de seguridad" maxlength="40"></div>

@@ -176,7 +176,6 @@
                   
                 </div>
                 <div class="row">
-<<<<<<< HEAD
                 <select name="areaAdministra" class="col" id="area" required="required" >
                 Área
                     <option value="0">Seleccione el área que administra</option>
@@ -189,9 +188,6 @@
                         }
                     ?>
                 </select>
-=======
-                  <div class="col">Área<input type="text" name="" id="area"></div>
->>>>>>> origin/master
                   <div class="col">RFC <input type="text" name="" id="RFC"></div>
                 </div>
 

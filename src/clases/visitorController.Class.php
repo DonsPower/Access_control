@@ -60,7 +60,7 @@
                 ':id'=>$id
             ]);
             return $user;
-            //TODO: Preguntar si cuando se de de baja, dar de baja en todos los registros?
+            
         }
         //Agregar a un visitante
         function agregarVis($nombre, $apellidop, $apellidom, $razon, $codigoQr){
@@ -269,7 +269,16 @@
                 return "||"."vis"."||"."No user"."||"."No hora"."||"."0"."||";
             }
         }
-       
+        function bajaVistQR($qr, $id){
+            $db = new Connect;
+            $user = $db->prepare("UPDATE registro SET estado= 0 WHERE numcodqr=:id and id_administrador=:ids ");
+            $user->execute([
+                ':id'=>$qr,
+                ':ids'=>$id
+            ]);
+            return $user;
+            
+        }
 
     }
 ?>

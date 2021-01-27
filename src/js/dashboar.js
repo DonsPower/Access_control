@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    $("#totalArea").click(function(){
+        $("#main").load("area/index.php");
+    });
+});
+$(document).ready(function(){
     $("#tablaAlumno").click(function(){
         $("#main").load("altaAlumnos/index.php");
     });
@@ -61,6 +66,11 @@ $(document).ready(function(){
         $("#main").load("admin/addAdmin.php");
     });
 });
+$(document).ready(function(){
+    $("#altaAreaAdmin").click(function(){
+        modalopen();
+    });
+});
 //Daremos de baja al visitante y mostraremos un modal para la confirmacion 
 // $(document).ready(function(){
 //     $("#smodalBtn").click(function(){
@@ -91,6 +101,42 @@ function darBaja(id){
                 }
             });
         }else alertify.error('Palabra incorrecta');
+       
+    
+    }
+    , function() { alertify.error('Cancelado') });
+}
+
+
+function modalopen(){
+    alertify.prompt( 'Alta área', 'Nombre de la nueva área.', '...'
+    , function(evt, value) {
+        if(value=='...' || value==""){
+            alertify.error('Espacios vacíos');
+           
+        }else{
+            $.ajax({
+                type:"POST",
+                url:"area/addArea.php",
+                data:{
+                    ids:value
+                },
+                success:function(r){
+                    //console.log(r);
+                   if(r==1){
+                    alertify.error('Área ya registrada.') 
+                   }else if(r==2){
+                    alertify.error('Área no valida.') 
+                   }
+                   else if(r==0){
+                        alertify.success('Se almaceno el área') 
+                        $("#main").load("area/index.php");
+                    }else{
+                        alertify.error("Error con el servidor");
+                    }
+                }
+            });
+        } 
        
     
     }

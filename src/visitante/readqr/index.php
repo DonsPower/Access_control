@@ -200,6 +200,20 @@
                     $('#tipoqr').html("");
                     $('#horaqr').html("");
                     $('#salida').html("");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/ledred', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
               }else{  
                 var resultado=data.split("||");
                 console.log(resultado);
@@ -211,59 +225,227 @@
                   //Elijimos el tipo de resultado que nos mando el servidor.
                   if(resultado[4]==0){
                     alertify.error("No se encontro el codigo QR");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/ledred', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==1){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Visitante");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Salida registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==2){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Visitante");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Entrada registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }
                   
                 }else if(resultado[1]=="alu"){
                   if(resultado[4]==0){
                     alertify.error("No se encontro el codigo QR");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/ledred', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==1){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Alumno");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Salida registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==2){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Alumno");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Entrada registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }
                 }else if(resultado[1]=="pae"){
                   if(resultado[4]==0){
                     alertify.error("No se encontro el codigo QR");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/ledred', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==1){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("PAAE");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Salida registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==2){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("PAAE");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Entrada registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }
                 }else if(resultado[1]=="pro"){
                   if(resultado[4]==0){
                     alertify.error("No se encontro el codigo QR");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/ledred', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==1){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Profesor");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Salida registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }else if(resultado[4]==2){
                     $('#nombreqr').html(resultado[2]);
                     $('#tipoqr').html("Profesor");
                     $('#horaqr').html(resultado[3]);
                     alertify.success("Entrada registrada.");
+                    (async () => {
+                    const rawResponse = await fetch('http://localhost:8081/led', {
+                        method: 'POST',
+                        dataType: 'json',
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({estado: 1})
+                    });
+                    const content = await rawResponse.json();
+
+                    console.log(content);
+                    })();
                   }
                 }
               }

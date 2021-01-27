@@ -106,6 +106,7 @@
             return $userinfo['id'];
         } 
         function buscarArea($id){
+            
             $db=new Connect;
             $user=$db->prepare("SELECT * FROM area WHERE id=:id");
             $user->execute([
@@ -113,6 +114,15 @@
             ]);
             $userinfo=$user->fetch(PDO::FETCH_ASSOC);
             return $userinfo['nombreArea'];
+        }
+        function obtenerDia($area){
+            $db=new Connect;
+            $user=$db->prepare("SELECT * FROM registro WHERE id_administrador=:id AND estado=1");
+            $user->execute([
+                ':id'=>$area
+            ]);
+            return $user;
+            
         }
     }
 

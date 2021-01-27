@@ -79,7 +79,6 @@
                 <div class="col"><input type="text" name="apellidoMatPaae" id="apellidoMatPaae" placeholder="Apellido Materno"></div>
             </div>
              <!--Aquí no utilice row ya que esto es una fila completa.-->     
-<<<<<<< HEAD
              <select name="areaAdministra" class="col" id="area" required="required" >
                     <option value="0">Seleccione el área que administra</option>
                     <?php
@@ -90,14 +89,6 @@
                             <?php
                         }
                     ?>
-=======
-             <select id="area" name="area"  REQUIRED>
-                    <option value="Seleccione la area" >Seleccione Área</option>
-                    <option value="Biblioteca">Biblioteca</option>
-                    <option value="Edificio de Pesados" >Edificio de Pesados</option>
-                    <option value="Edificio de Ligero" >Edificio de Ligeros</option>
-                    <option value="Cafeteria" >Cafetería</option>
->>>>>>> origin/master
                 </select>
 
                 <div class="row">
