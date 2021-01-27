@@ -27,6 +27,7 @@
         
         if($tipoUser[0]=="vis"){
             $res=$visitor->buscarQrVis($codigoQr, $idAdmin, $fecha);
+            //Puede haber dos opciones que exista o no exista el codigo qr registrado en la BD
             echo json_encode($res);
         }else if($tipoUser[0]=="alu"){
             //Aqui va la funcion alumno.

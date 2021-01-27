@@ -31,7 +31,6 @@
     <script type="text/javascript" src="../../lib/instascan.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <!--JS-->
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
@@ -70,25 +69,47 @@
     </div>
   <div class="container">
 
-    <div class="row mt-5" style="width:58%; height:290px;">
-      <div class="col-md-6" id="camera" >
+    <div class="row mt-5">
+      <div class="col">
+             <div class="col-md-6" id="camera" style="width:300px; margin-left:25%">
         <div class="led"></div>
-
         <div class="strip">
-       
-        <video id="preview" class="video" style="height: 100%;"></video>
+          <video id="preview" class="video" style="height: 100%; "></video>
         </div>
-
-      <!--<video id="preview" style="width: 95%; height:95%; "></video>-->
       </div>
-      <div class="col-md-6">
-        <div class="row" style="margin-left: 25%;" >
-            <input type="hidden" id="idAdmin" value="<?php echo $_SESSION['AreaAdm']; ?>"></input>
-            
-            <div class="col"style="margin-top: 10px;" ><h6>Área: <?PHP echo $_SESSION['AreaAdm'];?></h6></div>
+      </div>
+      <div class="col">
+      <input type="hidden" id="idAdmin" value="<?php echo $_SESSION['AreaAdm']; ?>"></input>
+        <div class="row" style="margin-top:10px;">
+          <div clas="col"><h4>Datos del usuario</h4></div>
+          <div class="col" style="margin-lefth:10px;"><h4>Área: <?PHP echo $admin-> buscarArea($_SESSION['AreaAdm']);?></h4></div>
+        </div>
+        <hr>
+        <div class="row"><div class="col"><h6>Tipo de usuario: <span id="tipoqr"></span></h6></div></div>
+        <div class="row"><div class="col"> <h6> Nombre: <span id="nombreqr"></span></h6></div></div>
+        <div class="row"><div class="col"><h6>Hora de registro: <span id="horaqr"></span> </h6></div></div>
+        <div class="row"><div class="col"> <h6> Codigo QR: <span id="salida"></span></h6></div></div>
+      </div>
+      <!-- <div class="col-md-6" id="camera" >
+        <div class="led"></div>
+        <div class="strip">
+          <video id="preview" class="video" style="height: 100%;"></video>
+        </div>
+      </div> -->
+      <!-- <div class="col-md-6">
+        <div class="row" style="text-align: center;" style="margin-left: 30%;">
+        <div class="row">
+            <div class="col" style="margin-left: 50%;"><h5>Datos del Usuario</h5></div>
             <hr>
-              <h5>Datos del usuario.</h5>
-              <hr>
+        </div>
+          <div class="row" >
+              <div class="col"style="margin-top: 10px;" ><h6>Área: <?PHP echo $admin-> buscarArea($_SESSION['AreaAdm']);?></h6></div>
+          </div>
+
+            
+            
+            
+             
             <div class="row" style="margin-top: 10px;">
               <div class="col"><h6>Tipo de usuario: <span id="tipoqr"></span></h6></div>
             </div>
@@ -107,11 +128,11 @@
               <div class="col">Salida: <span id="nombreqr"></span></div>
             -->
             
-        </div>
+        <!-- </div>
         
       </div>
-    </div>
-  
+    </div> 
+   -->
   </div>
 
     
@@ -151,7 +172,13 @@
         
         setTimeout("mueveReloj()",1000)
       }
-     
+      setInterval('eliminarCampos()',30000);
+     function eliminarCampos(){
+      $('#nombreqr').html("");
+                    $('#tipoqr').html("");
+                    $('#horaqr').html("");
+                    $('#salida').html("");
+     }
      //console.log(fechaConc);
      // document.getElementById("hora").innerHTML =hora;
       document.getElementById("dia").innerHTML =fecha;
@@ -194,6 +221,7 @@
             }
           }).done(
             function (data){
+              
               if(data==10){
                 alertify.error("CODIGO QR NO VALIDO");
                 $('#nombreqr').html("");
