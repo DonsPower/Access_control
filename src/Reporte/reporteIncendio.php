@@ -264,8 +264,8 @@
              <table class="table table-hover" class="row table-responsive">
               <thead>
               <tr> <th ><Label>El simulacro : </Label>
-                  <th> <label><input type="radio" name="aviso" value="Se realizo con aviso"checked> Se realizo con aviso</label> </th>
-                  <th><label><input type="radio" name="aviso" value="Se realizo sin aviso"checked> Se realizo sin Aviso</label> </th>
+                  <th> <label><input type="radio" name="aviso" value="Se realizó con aviso"checked> Se realizó con aviso</label> </th>
+                  <th><label><input type="radio" name="aviso" value="Se realizó sin aviso"checked> Se realizó sin Aviso</label> </th>
                   </tr>
         </thead>        
 </table>
@@ -354,7 +354,7 @@
                <table class="table table-hover" class="row table-responsive">
                             <thead>
                                 <tr><th ALIGN="center">¿El incendio se complicó con otro agente perturbador?</th></tr>
-                                <th><input type="text" size=60 style="width:1100px" REQUIRED class="form-control" name="agenteper" id="agenteper" ></th>
+                                <th><input type="text" size=60 style="width:1100px" REQUIRED class="form-control" name="agenteper" id="agenteper"  ></th>
                              </thead>
                  </table>
 
@@ -377,12 +377,12 @@
                                       <th> <label><input type="radio" name="apoyo" value="Si" checked> Si</label> </th>
                                       <th><label><input type="radio" name="apoyo" value="No"checked> No</label> </th>
                                       </tr>
-                                      <tr><th><input type="text" size=60 style="width:1000px"  class="form-control" name="cual" id="cual" placeholder="cual"></th></tr>
+                                      <tr><th><input type="text" size=60 style="width:1000px"  class="form-control" name="cual" id="cual" ></th></tr>
                                       <tr> <th ><Label>¿Se instaló el puesto de mando? </Label>
                                       <th> <label><input type="radio" name="mando" value="Si" checked> Si</label> </th>
                                       <th><label><input type="radio" name="mando" value="No" checked> No</label> </th>
                                       <tr> <th ><Label> ¿Quién proporcionó la información al grupo de apoyo externo? </Label>
-                                      <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="informacion" id="informacion" ></th></tr>
+                                      <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="informacion" id="informacion"  ></th></tr>
                                       <tr> <th ><Label> ¿Cuánto tiempo se utilizó para que las actividades del inmueble volvieran a la normalidad? </Label>
                                       <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="actividades" id="actividades" ></th></tr>
                                     </thead>        
@@ -392,7 +392,7 @@
                      <table class="table table-hover" class="row table-responsive">
                             <thead>
                                  <tr><th>Observaciones</th><tr> 
-                                 <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="observaciones" id="observaciones" ></th></tr>
+                                 <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="observaciones" id="observaciones" placeholder="Observaciones"></th></tr>
                                     </thead>  </table>
                                     <table class="table table-hover" class="row table-responsive">
         <thead>

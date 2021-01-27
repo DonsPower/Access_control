@@ -13,7 +13,7 @@
         <h2 align="center"> Simulacro por Sismo </h2>
         
         </div>
-       
+      
         <div class="container">
             <div class="row justify-content-center"> 
             <form action="convertirSismo.php" method ="post">
@@ -64,11 +64,14 @@
                  <th >Total de participantes en simulacro</th>
              <tr> 
              
-             <tr>    <?php
+             <tr>    
+             
+         
+          <?php
+           
               include("../../database/con_db.php");  
                $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -82,7 +85,6 @@
           include("../../database/con_db.php");  
           $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -99,7 +101,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -116,7 +117,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -133,7 +133,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
@@ -165,7 +164,6 @@
               include("../../database/con_db.php");  
                $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -179,7 +177,6 @@
           include("../../database/con_db.php");  
           $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -196,7 +193,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -213,7 +209,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -230,7 +225,6 @@
             include("../../database/con_db.php");  
             $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
@@ -262,14 +256,14 @@
              <table class="table table-hover" class="row table-responsive">
               <thead>
               <tr> <th ><Label>El simulacro : </Label>
-                  <th> <label><input type="radio" name="aviso" value="Se realizo con aviso"checked> Se realizo con aviso</label> </th>
-                  <th><label><input type="radio" name="aviso" value="Se realizo sin aviso"checked> Se realizo sin Aviso</label> </th>
+                  <th> <label><input type="radio" name="aviso" value="Se realizó con aviso"checked> Se realizó con aviso</label> </th>
+                  <th><label><input type="radio" name="aviso" value="Se realizó sin aviso"checked> Se realizó sin Aviso</label> </th>
                   </tr>
         </thead>        
 </table>
 <table class="table table-hover" class="row table-responsive">
               <thead>
-            <tr> <th><Label>¿Qué tipo de alertamiento utilizo? </Label></th>
+            <tr> <th><Label>¿Qué tipo de alertamiento utilizó? </Label></th>
             <th><input type="text" size=60 style="width:800px" REQUIRED class="form-control" name="alertamiento" id="alertamiento" ></th>
                  
             </tr>
@@ -354,7 +348,7 @@
                                       <th> <label><input type="radio" name="apoyo" value="Si" checked> Si</label> </th>
                                       <th><label><input type="radio" name="apoyo" value="No"checked> No</label> </th>
                                       </tr>
-                                      <tr><th><input type="text" size=60 style="width:1000px"  class="form-control" name="cual" id="cual" placeholder="cual"></th></tr>
+                                      <tr><th><input type="text" size=60 style="width:1000px"  class="form-control" name="cual" id="cual" ></th></tr>
                                       <tr> <th ><Label>¿Se instaló el puesto de mando? </Label>
                                       <th> <label><input type="radio" name="mando" value="Si" checked> Si</label> </th>
                                       <th><label><input type="radio" name="mando" value="No" checked> No</label> </th>

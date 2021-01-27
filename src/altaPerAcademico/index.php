@@ -74,12 +74,12 @@
   <thead>
     <tr>
    <th scope="col">#</th>
-      <th scope="col">NOMBRE</th>
-      <th scope="col">ACADEMIA</th>
-      <th scope="col">CLAVE </th>
-      <th scope="col">TELEFONO</th>
-      <th scope="col">EXTENSION</th>
-      <th scope="col">CORREO </th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Academia</th>
+      <th scope="col">RFC</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">Extensión</th>
+      <th scope="col">Correo</th>
       <th scope="col">Código QR</th>
       <th scope="col">Editar </th>
       <th scope="col">Borrar</th>
@@ -162,7 +162,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Editar Personal Academico</h5>
+              <h5 class="modal-title">Editar Personal Académico</h5>
               
                 <span  class="close1 close">&times; </span>
               
@@ -172,8 +172,8 @@
               
                 <div class="row">
                   <div class="col-4 col-sm-4">Nombre<input type="text" name="name" id="nombrePerAcademico"></div>
-                  <div class="col">Apellido paterno<input type="text" name="" id="apellidoPatPerAcademico"></div>
-                  <div class="col">Apellido materno<input type="text" name="" id="apellidoMatPerAcademico"></div>
+                  <div class="col">Apellido Paterno<input type="text" name="" id="apellidoPatPerAcademico"></div>
+                  <div class="col">Apellido Materno<input type="text" name="" id="apellidoMatPerAcademico"></div>
                   
                 </div>
                 <div class="row">
@@ -188,8 +188,8 @@
                 </div>
 
                 <div class="row">
-                  <div class="col">telefono<input type="text" name="" id=telefono></div>
-                  <div class="col">extension<input type="text" name="" id="extension"></div>
+                  <div class="col">Teléfono<input type="text" name="" id=telefono></div>
+                  <div class="col">Extensión<input type="text" name="" id="extension"></div>
                 </div>  
 
                 <div>

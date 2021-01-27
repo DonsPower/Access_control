@@ -54,7 +54,7 @@
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Lista Alumnos</li>
+            <li class="breadcrumb-item active" aria-current="page">Lista de Alumnos</li>
         </ol>
         </nav>
       <hr>
@@ -75,20 +75,20 @@
         
     <div class="container">
     <caption>
-        <div class="titulos "><h2>Lista Alumnos</h2></div>
+        <div class="titulos "><h2>Lista de Alumnos</h2></div>
     </caption>
      <div class=" table-responsive-md">
     <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">NOMBRE</th>
-      <th scope="col">CARRERA</th>
-      <th scope="col">BOLETA</th>
-      <th scope="col">TELEFONO MOVIL</th>
-      <th scope="col">TELEFONO FIJO</th>
-      <th scope="col">TELEFONO PERSONAL</th>
-      <th scope="col">CORREO</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Carrera</th>
+      <th scope="col">Boleta</th>
+      <th scope="col">Teléfono Móvil</th>
+      <th scope="col">Teléfono Fijo</th>
+      <th scope="col">Teléfono Personal</th>
+      <th scope="col">Correo</th>
       <th scope="col">NSS </th>
       <th scope="col">Código QR </th>
       <th scope="col">Editar </th>
@@ -184,12 +184,13 @@
               
                 <div class="row">
                   <div class="col-4 col-sm-4">Nombre<input type="text" name="name" id="nombreAlumno"></div>
-                  <div class="col">Apellido paterno<input type="text" name="" id="apellidoPatAlumno"></div>
-                  <div class="col">Apellido materno<input type="text" name="" id="apellidoMatAlumno"></div>
+                  <div class="col">Apellido Paterno<input type="text" name="" id="apellidoPatAlumno"></div>
+                  <div class="col">Apellido Materno<input type="text" name="" id="apellidoMatAlumno"></div>
                   
                 </div>
                 <div class="row">
                 
+<<<<<<< HEAD
                     Carrera
                 <select id="carrera" name="carrera"  REQUIRED>
                     <option value="Seleccione la Carerra" >Seleccione Programa Académico</option>
@@ -205,15 +206,25 @@
                 <div class="row">
                   <div class="col">telefonoMovil<input type="text" name="" id="telefonoMovil"></div>
                   <div class="col">telefonoFijo<input type="text" name="" id="telefonoFijo"></div>
+=======
+            
+                  <div class="col">Carrera<input type="text" name="" id="carrera"></div>
+                  <div class="col">Boleta <input type="text" name="" id="boleta"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col">Teléfono Móvil<input type="text" name="" id=telefonoMovil></div>
+                  <div class="col">Teléfono Fijo<input type="text" name="" id="telefonoFijo"></div>
+>>>>>>> origin/master
                 </div>  
 
                 <div>
-                  <div class="col">telefonoPersonal <input type="text" name="" id="telefonoPersonal"></div>
+                  <div class="col">Teléfono Personal <input type="text" name="" id="telefonoPersonal"></div>
                   
                 </div>
 
                 <div class="row">
-                  <div class="col"> email<input type="text" name="" id="emailAlumno"></div>
+                  <div class="col">Correo<input type="text" name="" id="emailAlumno"></div>
                   <div class="col">NSS<input type="text" name="" id="NSS"></div>
                 </div>
               

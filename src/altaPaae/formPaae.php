@@ -48,7 +48,7 @@
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Alta PAAE</li>
+            <li class="breadcrumb-item active" aria-current="page">Alta de PAAE</li>
         </ol>
         </nav>
         <div class="container form1">
@@ -64,7 +64,7 @@
               <?php 
             } ?>
         <caption>
-            <div class="titulos "><h2>Almacenar PAAE</h2></div>
+            <div class="titulos "><h2>Alta de PAAE</h2></div>
             
         </caption>
         
@@ -79,6 +79,7 @@
                 <div class="col"><input type="text" name="apellidoMatPaae" id="apellidoMatPaae" placeholder="Apellido Materno"></div>
             </div>
              <!--Aquí no utilice row ya que esto es una fila completa.-->     
+<<<<<<< HEAD
              <select name="areaAdministra" class="col" id="area" required="required" >
                     <option value="0">Seleccione el área que administra</option>
                     <?php
@@ -89,12 +90,20 @@
                             <?php
                         }
                     ?>
+=======
+             <select id="area" name="area"  REQUIRED>
+                    <option value="Seleccione la area" >Seleccione Área</option>
+                    <option value="Biblioteca">Biblioteca</option>
+                    <option value="Edificio de Pesados" >Edificio de Pesados</option>
+                    <option value="Edificio de Ligero" >Edificio de Ligeros</option>
+                    <option value="Cafeteria" >Cafetería</option>
+>>>>>>> origin/master
                 </select>
 
                 <div class="row">
             <!--Es necesario que cada input valla con un Div -->
                 <div class="col-4 col-sm-4"><input type="text" name="RFC" id="RFC" placeholder="RFC"></div>
-                <div class="col"><input type="text" name="telefono" id="telefono" placeholder="Telefono"></div>
+                <div class="col"><input type="text" name="telefono" id="telefono" placeholder="Teléfono"></div>
                 <div class="col"><input type="text" name="extension" id="extension" placeholder="Ext"></div>
             </div>
            
@@ -125,7 +134,7 @@
                                 <div class="col">Contraseña<input type="text" name="name" id="passwordSaes"></div>
                             </div>
                             <div class="row">
-                                <div class="col">Token<input type="text" name="name" id="token"></div>
+                                <div class="col">Token<input type="password" name="name" id="token"></div>
                                
                             </div>
                             <div class="row">

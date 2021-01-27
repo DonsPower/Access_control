@@ -14,7 +14,18 @@
     <script src="js/index.js"></script>
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+    <script>
+function comprobarClave(){
+    contraseña = document.f1.contraseña.value
+    contraseña = document.f1.contraseña.value
 
+    if (contraseña == contraseña)
+       alert("Las dos claves son iguales...")
+       
+    else
+       alert("Las dos claves son distintas...")
+}
+</script>
     
     <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
     <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
@@ -27,7 +38,7 @@ $var2=$_GET["var2"];
 $var3=$_GET["var3"];
 ?>
 
-<form action="upPS2.php?var1=<?php echo $var1;?>&var2=<?php echo $var2;?>&var3=<?php echo $var3;?>" method="post">
+<form action="upPS2.php?var1=<?php echo $var1;?>&var2=<?php echo $var2;?>&var3=<?php echo $var3;?>" method="post" name="f1">
   <div class="container">
 
      <div class="row ">
@@ -42,14 +53,16 @@ $var3=$_GET["var3"];
         <div class="mb-3">
 		<h1 vertical-align:middle>   Ingrese su nueva contraseña </h1>
 			
-			<input  type="password" name="contraseña" placeholder="Contraseña" />
+		<input  type="password" name="contraseña" placeholder="Contraseña" />
+      <br>
+      <input  type="password" name="contraseña" placeholder="Confirma la contraseña" />
 		
 
 			<br><br>
 			<input type="submit" class="btn btn-secundary btn-lg btn-block" value="Actualizar" name="action" />
 			<br>
 			<br>
-			<td><a href="index.php" class="btn btn-primary btn-block" > Iniciar Sesion  </a></td>
+			<td><a href="index.php" class="btn btn-primary btn-block" >Regresar  </a></td>
 	</div>
 </form>
 			
