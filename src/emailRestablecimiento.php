@@ -105,6 +105,7 @@
                 $email = $_POST['email'];
                 
                 //Conexion con l
+                $conex = mysqli_connect("localhost","root","","SistemaControlAcceso");
                 // Check connection
                 if ($conex->connect_error) {
                     die("Connection failed: " . $conex->connect_error);
@@ -125,7 +126,7 @@
                 $message .= "El sistema le asigno el siguiente token " . $token ;
                 $message .= "\n copia e ingresa al siguiente enlace para restablecer tu contraseña \n Si no solicitaste cambio de contraseña omite este correo";
                 $message .= '<p style="color:#080;font-size:18px;"></p>';
-                $message .= '<a href="https://8060a1fc72d4.ngrok.io/Access_control/src/emailToken.php" >Restablecer contraseña </a>';
+                $message .= '<a href="https://e4f1c5c7deee.ngrok.io/Access_control/src/emailToken.php" >Restablecer contraseña </a>';
                 $message .= '</body></html>';
                 $headers = "From:  mafrosh13@gmail.com";  
                             'Reply-To: .mafrosh13@gmail.com' ."\r\n" .
