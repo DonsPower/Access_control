@@ -91,9 +91,9 @@
            
             <li class="submenu"><a href="#"><i class="fas fa-file-medical"></i>Reportes<i class="fas fa-caret-square-down more"></i></a>
             <ul>
-                <li><a href="././Reporte/reporteSismo.php" id="altaRepSismo" target="_blank">Sismo</a></li>
-                <li><a href="././Reporte/reporteIncendio.php" id="altaRepSismo" target="_blank">Incendio</a></li>
-                <li><a href="././Reporte/reporteArtExplo.php" id="altaRepSismo" target="_blank">Artefacto Explosivo</a></li>
+                <li><a href="././Reporte/reporteSismoConsulta.php" id="altaRepSismo" target="_blank">Sismo</a></li>
+                <li><a href="././Reporte/reporteIncendioConsulta.php" id="altaRepSismo" target="_blank">Incendio</a></li>
+                <li><a href="././Reporte/reporteArtExploConsulta.php" id="altaRepSismo" target="_blank">Artefacto Explosivo</a></li>
             </ul></li>
          
     </nav>

@@ -1,25 +1,4 @@
-<?php
-    //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
-    //importamos la clase auth
-    require_once '../clases/conexion.Class.php';
-    require_once '../clases/authController.Class.php';
-    require_once "../clases/adminController.Class.php";
-    session_start();
-    //creamos el objeto cliente
-    $auth=new auth;
-    $admin=new admin;
-    $location="../index.php";
-    if (isset($_SESSION['nombre'])){
-        $cliente = $_SESSION['nombre'];
-            //Consultamos datos del administrador para obtenerlos en una tabla.
-            $row=$admin->getAdmin();
-            //Enviamos el tiempo y si pasan ciertos minutos lo redireccionamos
-           
-    }else{
-        header('Location: ../index.php');
-        die();
-    }
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,11 +14,7 @@
 
 </head>
 <body>
-    <!--tituto-->
-    <div class="container">
-      <h4>
-        <?php echo $_SESSION['tipo']?>
-      </h4>
+    
       <!--muestra la ubicación de donde esta-->
         <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">

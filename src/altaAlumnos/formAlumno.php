@@ -91,7 +91,7 @@
                     <option value="Ingenieria en Sistemas Computacionales">Ingeniería en Sistemas Computacionales</option>
                     <option value="Ingenieria Ambiental" >Ingeniería Ambiental</option>
                     <option value="Ingenieria Mecatronica" >Ingenieria Mecatrónica</option>
-                    <option value="Ingenieria Metalurgica" >Ingeniría Metalurgíca</option>
+                    <option value="Ingenieria Metalurgica" >Ingeniería Metalurgíca</option>
                     <option value="Ingenieria en Alimentos" >Ingeniería en Alimentos</option>
                 </select>
            
