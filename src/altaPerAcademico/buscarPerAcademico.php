@@ -4,7 +4,7 @@ $palabraBuscar=$_POST['buscar'];
 //si no se encuentram datos en la consuulta
 $datos[]=["No resultado"];
 
-$sql="SELECT * FROM personalacademico WHERE nombrePerAcademico like '".$palabraBuscar."%'";
+$sql="SELECT * FROM personalacademico WHERE nombrePerAcademico like '".$palabraBuscar."%' ORDER BY id DESC";
 $ejecutar= $conex->query($sql);
 
 if($ejecutar) {

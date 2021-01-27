@@ -41,50 +41,96 @@
 
     function agregarPaae($nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area,$RFC,$telefono,$extension,$emailPaae){
         $db=new Connect;
-     $i=0;
-    while ($i==0){
-          $numcod=$this->generarToken(10);
-            $comprobarToken=$this->validarToken($numcod);
-           if($comprobarToken == 0){
-              //  no hay ninguno
-                $i=1;
-                break;
-        }
+       
         
-      } 
-            $user=$db->prepare("INSERT INTO paaes(nombrePaae,apellidoPatPaae,apellidoMatPaae,area,RFC,telefono,extension,emailPaae,numcodqr)
-            VALUES(:nombrePaae,:apellidoPatPaae,:apellidoMatPaae,:area,:RFC,:telefono,:extension,:emailPaae,:numcodqr)");
-
-            $user->execute([
-                ':nombrePaae' => $nombrePaae,
-                ':apellidoPatPaae' =>$apellidoPatPaae,
-                ':apellidoMatPaae' =>$apellidoMatPaae,
-                ':area'=> $area,
-                ':RFC' =>$RFC,
-                ':telefono'=>$telefono,
-                ':extension'=>$extension,
-                ':emailPaae'=>$emailPaae,
-                ':numcodqr'=>$numcod
+        $contAdmin1=$db->prepare("SELECT * FROM paaes WHERE emailPaae=:email " );
+            $contAdmin1->execute([
+                ':email'=>$emailPaae
+            ]);
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM paaes WHERE RFC=:email " );
+                $contAdmin->execute([
+                    ':email'=>$RFC,
+                    
                 ]);
-          return $user;    
+                $contador=$contAdmin->rowCount();
+                if ($contador>0) {
+                    # Si se encutra el email registrado ya regresa un mensaje de error
+                    # User ya registrado.
+                    return 1;
+                }else{
+                $i=0;
+                    while ($i==0){
+                        $numcod=$this->generarToken(10);
+                            $comprobarToken=$this->validarToken($numcod);
+                        if($comprobarToken == 0){
+                            //  no hay ninguno
+                                $i=1;
+                                break;
+                        }
+                        
+                    } 
+                            $user=$db->prepare("INSERT INTO paaes(nombrePaae,apellidoPatPaae,apellidoMatPaae,area,RFC,telefono,extension,emailPaae,numcodqr)
+                            VALUES(:nombrePaae,:apellidoPatPaae,:apellidoMatPaae,:area,:RFC,:telefono,:extension,:emailPaae,:numcodqr)");
+
+                            $user->execute([
+                                ':nombrePaae' => $nombrePaae,
+                                ':apellidoPatPaae' =>$apellidoPatPaae,
+                                ':apellidoMatPaae' =>$apellidoMatPaae,
+                                ':area'=> $area,
+                                ':RFC' =>$RFC,
+                                ':telefono'=>$telefono,
+                                ':extension'=>$extension,
+                                ':emailPaae'=>$emailPaae,
+                                ':numcodqr'=>$numcod
+                                ]);
+                        return 0;  
+                    }
+                }  
       }
 
       function editarPaae($id,$nombrePaae,$apellidoPatPaae,$apellidoMatPaae,$area, $RFC, $telefono,$extension,$emailPaae){
         $db=new Connect;
-        $user=$db->prepare("UPDATE  paaes SET nombrePaae=:nombre, apellidoPatPaae=:apellidop, apellidoMatPaae=:apellidom, area=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPaae=:telefonop WHERE id=:id");
-        $user->execute([
-            ':id'=>$id,
-            ':nombre'=>$nombrePaae,
-            ':apellidop' =>$apellidoPatPaae,
-            ':apellidom'=>$apellidoMatPaae,
-            ':carrera'=>$area,
-            ':boleta'=>$RFC,
-            ':telefonoM'=>$telefono,
-            ':telefonofijo'=>$extension,
-            ':telefonop'=>$emailPaae,
-           
-        ]);
-        return $user;
+        $contAdmin1=$db->prepare("SELECT * FROM paaes WHERE emailPaae=:email  and id not in (:id)" );
+            $contAdmin1->execute([
+                ':email'=>$emailPaae,
+                ':id'=>$id
+            ]);
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM paaes WHERE RFC=:email  and id not in (:id)" );
+                $contAdmin->execute([
+                    ':email'=>$RFC,
+                    ':id' =>$id
+                ]);
+                $contador=$contAdmin->rowCount();
+                if ($contador>0) {
+                    # Si se encutra el email registrado ya regresa un mensaje de error
+                    # User ya registrado.
+                    return 1;
+                }else{
+        
+                    $user=$db->prepare("UPDATE  paaes SET nombrePaae=:nombre, apellidoPatPaae=:apellidop, apellidoMatPaae=:apellidom, area=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPaae=:telefonop WHERE id=:id");
+                    $user->execute([
+                        ':id'=>$id,
+                        ':nombre'=>$nombrePaae,
+                        ':apellidop' =>$apellidoPatPaae,
+                        ':apellidom'=>$apellidoMatPaae,
+                        ':carrera'=>$area,
+                        ':boleta'=>$RFC,
+                        ':telefonoM'=>$telefono,
+                        ':telefonofijo'=>$extension,
+                        ':telefonop'=>$emailPaae,
+                    
+                    ]);
+                    return 0;
+                }
+            }
     }
 
       function deletePaae($id){

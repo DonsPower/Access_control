@@ -13,7 +13,8 @@ function registrar(){
     password=$('#password').val();
     preguntaS=$('#preguntaSeg').val();
     respuestaS=$('#respuestaSeg').val();
-    if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="" ||  tipo=="Seleccione el tipo de administrador" || clave=="" || email=="" || password=="" ||preguntaS=="" ||respuestaS=="" ) alertify.error("Campo vacío");
+    
+    if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="" ||  tipo=="Seleccione el tipo de administrador" || clave=="" || email=="" || password=="" ||preguntaS=="" ||respuestaS=="" ) alertify.error("Campos vacíos, por favor llene todos los campos");
     else{
         
         
@@ -35,7 +36,7 @@ function registrar(){
             cadena="name="+nombre+"&apellidoP="+apellidoP+
                     "&apellidoM="+apellidoM+"&puesto="+puesto+"&areaAdministra="+areaAdministra+
                     "&tipo="+tipo+"&email="+email+"&clave="+clave+"&password="+password+"&preguntaS="+
-                    preguntaS+"&respuestaS="+respuestaS;
+                    preguntaS+"&respuestaS="+respuestaS
                 $.ajax({
                     url: 'admin/agregarAdmin.php',
                     type: 'post',
@@ -43,11 +44,36 @@ function registrar(){
                     data: cadena
                 }).done(
                     function(data){
-                        console.log(data);
+                        //console.log(data);
                         if(data==1){
                             alertify.error("El correo ya existe en la base de datos.");
-                        } 
-                        else {
+                        }else if(data==2){
+                            //nombre incorrecto
+                            $('#name').val("");
+                            alertify.error("El nombre no debe de llevar números o caracteres especiales");
+
+                        }else if(data==3){
+                            //apellido
+                            $('#apellidoP').val("");
+                            alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                        }else if(data==4){
+                            //apellido
+                            $('#apellidoM').val("");
+                            alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                        }else if(data==5){
+                            //apellido
+                            $('#puesto').val("");
+                            alertify.error("El puesto no debe de llevar números o caracteres especiales");
+                        }else if(data==6){
+                            //apellido 11 digitos
+                            $('#clave').val("");
+                            alertify.error("El NSS debe de ser valido");
+                        }else if(data==7){
+                            //apellido 11 digitos
+                            $('#email').val("");
+                            alertify.error("El Correo debe de ser valido");
+                        }
+                        else if(data==0){
                             $('#name').val("");
                             $('#apellidoP').val("");
                             $('#apellidoM').val("");
@@ -93,8 +119,21 @@ function registrarvist(){
             function(data){
                 if(data==1){
                     alertify.error("El codigo QR ya esta registrado.");
-                } 
-                else {
+                }else if(data==2){
+                    //nombre incorrecto
+                    $('#name').val("");
+                    alertify.error("El nombre no debe de llevar números o caracteres especiales");
+
+                }else if(data==3){
+                    //apellido
+                    $('#apellidoP').val("");
+                    alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                }else if(data==4){
+                    //apellido
+                    $('#apellidoM').val("");
+                    alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                }
+                else if(data==0){
                     $('#name').val("");
                     $('#apellidoP').val("");
                     $('#apellidoM').val("");

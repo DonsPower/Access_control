@@ -5,7 +5,7 @@ $palabraBuscar=$_POST['buscar'];
 $datos[]=["No resultado"];
 
 
-$sql="SELECT * FROM paaes WHERE nombrePaae like '".$palabraBuscar."%'";
+$sql="SELECT * FROM paaes WHERE nombrePaae like '".$palabraBuscar."%'  ORDER BY id DESC LIMIT 0,10";
 $ejecutar= $conex->query($sql);
 
 if($ejecutar) {

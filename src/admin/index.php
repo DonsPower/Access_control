@@ -1,5 +1,4 @@
 <?php
-    //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
     //importamos la clase auth
     require_once '../clases/conexion.Class.php';
     require_once '../clases/authController.Class.php';
@@ -37,7 +36,7 @@
 <body>
 <div class="container">
       <h4>
-        <?php echo $_SESSION['tipo']?>
+        <?php echo $_SESSION['tipo'];?>
       </h4>
       <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
@@ -49,9 +48,15 @@
     </div>
     
     <!--Boton buscar-->
-    <div class="container" style="float: right;">
+    <div class="container">
+    <a href="dashboard.php"><button type="button"  class="btn btn-info" style="float:center; width:20%; margin-left:2px; margin-bottom:10px; ">  Regresar </button></a>
+    </div>
+    
+    <div class="container" >
+
         <button type="button" id="enviar" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
         <input type="text" id="primero" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
+       
     </div>
     <div>
     
@@ -85,6 +90,8 @@
         while($row=$resultado->fetch(PDO::FETCH_ASSOC))
         {
             $i+=1;
+            //Buscamos area
+            $area=$admin->buscarArea($row['AreaAdm']);
             //Concatenamos datos para editarlos. los pasamos a la funcion editarDatos
             $datos=$row['id']."||".$row['name']."||".$row['ApellidoPAdm']."||".$row['ApellidoMFAdm']."||".$row['Puesto']
                              ."||".$row['AreaAdm']."||".$row['Tipo']."||".$row['email']."||".$row['TrabajadorAdm']
@@ -98,7 +105,7 @@
                 <td ><?php echo $i;?> </td>
                 <td><?php echo $row['name'];?> <?php echo $row['ApellidoPAdm'];?> <?php echo $row['ApellidoMFAdm'];?></td>
                 <td><?php echo $row['Puesto'];?></td>
-                <td><?php echo $row['AreaAdm'];?></td>
+                <td><?php echo $area?></td>
                 <td><?php echo $row['Tipo'];?></td>
                 <td><?php echo $row['email'];?></td>
                 <td><?php echo $row['TrabajadorAdm'];?></td>
@@ -108,13 +115,13 @@
                   if($row['id']==$_SESSION['id']){
                     $ocultarCorreo=False;
                     ?>
-                    <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatos('<?php echo $datos; ?>', <?php $ocultarCorreo ?>)"><i class="fas fa-user-edit"></i></button></td>
-                    <td><button type="button" id="eliminar" class="btn btn-danger" disabled onclick="eliminarAdmin(<?php echo $row['id']; ?>,'<?php echo $nombre ?>')"><i class="fas fa-user-times"></i> </button></td>
+                    <td><button type="button" id="editar" disabled class="btn btn-success" ><i class="fas fa-user-edit"></i></button></td>
+                    <td><button type="button" id="eliminar" class="btn btn-danger" disabled ><i class="fas fa-user-times"></i> </button></td>
                    <?php
                   }else{
                     ?>
                     <td><button type="button" id="editar" class="btn btn-success" onclick="editarDatos('<?php echo $datos; ?>')"><i class="fas fa-user-edit"></i></button></td>
-                <td><button type="button" id="eliminar" class="btn btn-danger" onclick="eliminarAdmin(<?php echo $row['id']; ?>,'<?php echo $nombre ?>')"><i class="fas fa-user-times"></i> </button></td>
+                   <td><button type="button" id="eliminar" class="btn btn-danger" onclick="eliminarAdmin(<?php echo $row['id']; ?>,'<?php echo $nombre ?>')"><i class="fas fa-user-times"></i> </button></td>
                     <?php
                   }
                 ?>
@@ -123,11 +130,8 @@
                 </tr>
          <?php  
         } ?>
-
         </tbody>
         </table>
-
-
               <div style="float: right;">
                     <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -136,11 +140,6 @@
                         $i=1;
                         $total= $admin->getDataAdmin();
                         $celdas=ceil($total/10);
-          
-                        
-                      ?>
-                      
-                      <?php
                         while($i<=$celdas){
                           ?>
                             <li class="page-item"><a class="page-link" href="#" onclick="paginacion(<?php echo $i; ?>)"><?php echo $i; ?></a></li>
@@ -148,10 +147,7 @@
                           <?php
                           $i+=1;
                         }
-                      ?>
-                      
-                      
-                      
+                      ?>                 
                     </ul>
                   </nav>
                 </div>
@@ -187,7 +183,7 @@
                   
                   <select name="areaAdministra" class="col" id="area" required="required"  style=" border-radius: 5px;  margin-top:5%" >
                   
-                      <option value="0">Seleccione el área que administra</option>
+                      <option value="0">Seleccione el area que administra</option>
                       <?php
                           $res=$admin->getAreas();
                           while($row=$res->fetch(PDO::FETCH_ASSOC)){
@@ -210,6 +206,35 @@
                   <option value="admin">AdministradorGlobal</option>
                   <option value="noadmin">AdministradorArea</option>
                 </select>
+                <script>
+$(document).ready(function() {
+    $('#area').hide();
+
+    $("#tipo").click(function() {
+        $resultado=$('#tipo').val();
+       // console.log($resultado);
+        if ($("#tipo").val() == "admin"){
+            $("#tipo").show();
+            $('#area').hide();
+            
+        } else {
+            $("#pais-error").text("");
+            $("#tipo").show();
+            $('#area').show();
+            
+        }
+        if($resultado=="noadmin" || $resultado==0){
+            $("#pais-error").text("");
+            $("#tipo").show();
+            $('#area').show();
+        }else{
+            $("#tipo").show();
+            $('#area').hide();
+        }
+        
+    });
+});
+</script>
                 </div>
                   <div class="col">Correo<input type="text" name="" id="email"></div>
                 </div>  
@@ -234,5 +259,6 @@
           </div>
         </div>
       </div>
+      <input type="text" id="idbusc" disabled style="visibility: hidden;" value="<?php echo $_SESSION['id']; ?>">
 </body>
 </html>

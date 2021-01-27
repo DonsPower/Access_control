@@ -37,52 +37,97 @@
         }
     }
 
-    function agregarPerAcademico($nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico,$academia,$RFC,$telefono,$extension,$emailPerAcademico,$numcodqr){
-        $db=new Connect;
-        $i=0;
-            while ($i==0){
-                $numcodqr=$this->generarToken(10);
-                $comprobarToken=$this->validarToken($numcodqr);
-                if($comprobarToken == 0){
-                    //no hay ninguno
-                    $i=1;
-                    break;
-                }
-            
-            } 
-            $user=$db->prepare("INSERT INTO personalacademico(nombrePerAcademico,apellidoPatPerAcademico,apellidoMatPerAcademico,academia,RFC,telefono,extension,emailPerAcademico,numcodqr)
-            VALUES(:nombrePerAcademico,:apellidoPatPerAcademico,:apellidoMatPerAcademico,:academia,:RFC,:telefono,:extension,:emailPerAcademico,:numcodqr)");
-
-            $user->execute([
-                ':nombrePerAcademico' => $nombrePerAcademico,
-                ':apellidoPatPerAcademico' =>$apellidoPatPerAcademico,
-                ':apellidoMatPerAcademico' =>$apellidoMatPerAcademico,
-                ':academia'=> $academia,
-                ':RFC' =>$RFC,
-                ':telefono'=>$telefono,
-                ':extension'=>$extension,
-                ':emailPerAcademico'=>$emailPerAcademico,
-                ':numcodqr'=>$numcodqr
+    function agregarPerAcademico($nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico,$academia,$RFC,$telefono,$extension,$emailPerAcademico){
+        $db = new Connect;
+        
+        $contAdmin1=$db->prepare("SELECT * FROM personalacademico WHERE emailPerAcademico=:email " );
+            $contAdmin1->execute([
+                ':email'=>$emailPerAcademico
+            ]);
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM personalacademico WHERE RFC=:email " );
+                $contAdmin->execute([
+                    ':email'=>$RFC,
+                    
                 ]);
-          return $user;    
+                $contador=$contAdmin->rowCount();
+                if ($contador>0) {
+                    # Si se encutra el email registrado ya regresa un mensaje de error
+                    # User ya registrado.
+                    return 1;
+                }else{
+
+                        $i=0;
+                        while ($i==0){
+                            $numcodqr=$this->generarToken(10);
+                            $comprobarToken=$this->validarToken($numcodqr);
+                            if($comprobarToken == 0){
+                                //no hay ninguno
+                                $i=1;
+                                break;
+                            }
+                        
+                        } 
+                        $user=$db->prepare("INSERT INTO personalacademico(nombrePerAcademico,apellidoPatPerAcademico,apellidoMatPerAcademico,academia,RFC,telefono,extension,emailPerAcademico,numcodqr)
+                        VALUES(:nombrePerAcademico,:apellidoPatPerAcademico,:apellidoMatPerAcademico,:academia,:RFC,:telefono,:extension,:emailPerAcademico,:numcodqr)");
+
+                        $user->execute([
+                            ':nombrePerAcademico' => $nombrePerAcademico,
+                            ':apellidoPatPerAcademico' =>$apellidoPatPerAcademico,
+                            ':apellidoMatPerAcademico' =>$apellidoMatPerAcademico,
+                            ':academia'=> $academia,
+                            ':RFC' =>$RFC,
+                            ':telefono'=>$telefono,
+                            ':extension'=>$extension,
+                            ':emailPerAcademico'=>$emailPerAcademico,
+                            ':numcodqr'=>$numcodqr
+                            ]);
+                    return 0;    
+                        }
+                    }
+            
       }
 
       function editarPerAcademico($id,$nombrePerAcademico,$apellidoPatPerAcademico,$apellidoMatPerAcademico,$academia,$RFC,$telefono,$extension,$emailPerAcademico){
-        $db=new Connect;
-        $user=$db->prepare("UPDATE  personalacademico SET nombrePerAcademico=:nombre, apellidoPatPerAcademico=:apellidop, apellidoMatPerAcademico=:apellidom, academia=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPerAcademico=:telefonop WHERE id=:id");
-        $user->execute([
-            ':id'=>$id,
-            ':nombre'=>$nombrePerAcademico,
-            ':apellidop' =>$apellidoPatPerAcademico,
-            ':apellidom'=>$apellidoMatPerAcademico,
-            ':carrera'=>$academia,
-            ':boleta'=>$RFC,
-            ':telefonoM'=>$telefono,
-            ':telefonofijo'=>$extension,
-            ':telefonop'=>$emailPerAcademico,
-            
-        ]);
-        return $user;
+        $db = new Connect;
+        $contAdmin1=$db->prepare("SELECT * FROM personalacademico WHERE emailPerAcademico=:email " );
+            $contAdmin1->execute([
+                ':email'=>$emailPerAcademico
+            ]);
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM personalacademico WHERE RFC=:email " );
+                $contAdmin->execute([
+                    ':email'=>$RFC,
+                    
+                ]);
+                $contador=$contAdmin->rowCount();
+                if ($contador>0) {
+                    # Si se encutra el email registrado ya regresa un mensaje de error
+                    # User ya registrado.
+                    return 1;
+                }else{
+                    $user=$db->prepare("UPDATE  personalacademico SET nombrePerAcademico=:nombre, apellidoPatPerAcademico=:apellidop, apellidoMatPerAcademico=:apellidom, academia=:carrera, RFC=:boleta, telefono=:telefonoM, extension=:telefonofijo, emailPerAcademico=:telefonop WHERE id=:id");
+                    $user->execute([
+                        ':id'=>$id,
+                        ':nombre'=>$nombrePerAcademico,
+                        ':apellidop' =>$apellidoPatPerAcademico,
+                        ':apellidom'=>$apellidoMatPerAcademico,
+                        ':carrera'=>$academia,
+                        ':boleta'=>$RFC,
+                        ':telefonoM'=>$telefono,
+                        ':telefonofijo'=>$extension,
+                        ':telefonop'=>$emailPerAcademico,
+                        
+                    ]);
+                    return 0;
+                }
+            }
     }
 
       function deletePerAcademico($id){

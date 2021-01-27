@@ -7,7 +7,7 @@
     $datos[]=["No resultado"];
     //echo json_encode($datos);
     
-    $sql="SELECT * FROM alumnos WHERE nombreAlumno like '".$palabraBuscar."%'";
+    $sql="SELECT * FROM alumnos WHERE nombreAlumno like '".$palabraBuscar."%' ORDER BY id DESC";
     $ejecutar= $conex->query($sql);
     //echo json_encode($ejecutar);
 if($ejecutar) {

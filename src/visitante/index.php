@@ -47,7 +47,10 @@
       <hr>
     </div>
     <!--Boton buscar visitante-->
-    <div class="container" style="float: right;">
+    <div class="container">
+    <a href="dashboard.php"><button type="button"  class="btn btn-info" style="float:center; width:20%; margin-left:2px; margin-bottom:10px; ">  Regresar </button></a>
+    </div>
+    <div class="container">
         <button type="button" id="enviarVisitante" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
         <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar visitante" aria-label="Buscar usuario">
     </div>
@@ -114,19 +117,11 @@
           <div style="float: right;">
               <nav aria-label="Page navigation example">
               <ul class="pagination">
-                <li class="page-item">
+               
                 <?php
                   $i=1;
                   $total= $visitor->getVisitorData();
                   $celdas=ceil($total/10);
-                  
-                  
-                ?>
-                  <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <?php
                   while($i<=$celdas){
                     ?>
                       <li class="page-item"><a class="page-link" href="#" onclick="paginacion(<?php echo $i; ?>)"><?php echo $i; ?></a></li>
@@ -137,11 +132,7 @@
                 ?>
                 
                 
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
+                
               </ul>
             </nav>
           </div>

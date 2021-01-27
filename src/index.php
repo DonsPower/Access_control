@@ -6,6 +6,7 @@
   if (!empty($_POST['email']) && !empty($_POST['password'])) {
     $usuario=$_POST['email'];
     $password= $_POST['password'];
+    
     //preg_match("/^[a-zA-Z]*$/", $usuario) || preg_match("/^[a-zA-Z]*$/", $password)
       //valdiamos correo.
       if(filter_var($usuario, FILTER_VALIDATE_EMAIL)){
@@ -27,11 +28,10 @@
           $_SESSION['tiempo'] = time();
           $_SESSION['tipo']= $userinfo['Tipo'];
           $_SESSION['AreaAdm']=$userinfo['AreaAdm'];
+          $_SESSION["token"] = md5(uniqid(mt_rand(), true));
           //echo "Si funciona";
           header('location: dashboard.php');
         }else{
-      
-          //Mandar notificacion con js de usuario no registrado.
           $resultado=1;
           
         }
@@ -39,7 +39,9 @@
         $resultado=1;
           
       }
-	}
+	}else{
+    $resultado=3;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,8 +80,8 @@
         <div class="card">
         <div class="mb-3">
            <form class="container" method="POST" autocomplete="off" >
-            <input class="input-group" type="email" name="email"  REQUIERED maxlength="30"  autofocus="1" placeholder="Correo electronico" style="width: 95%; margin-right: 15px;" aria-label="Correo electronico">
-            <input type="password" name="password" REQUIERED maxlength="30"  autofocus="0" placeholder="Contraseña" aria-label="Contraseña" style="width: 95%;">
+            <input class="input-group" type="email" name="email"  REQUIERED maxlength="40"  autofocus="1" placeholder="Correo electronico" style="width: 95%; margin-right: 15px;" aria-label="Correo electronico">
+            <input type="password" name="password" REQUIERED maxlength="40"  autofocus="0" placeholder="Contraseña" aria-label="Contraseña" style="width: 95%;">
             <button type="submit" class="buttomPrimary">Iniciar Sesión</button>
             </form>
             <div class="mt-3">
@@ -108,6 +110,15 @@
                     </div>
                     </div>
                     <?php
+                }
+                else if($resultado==3){
+                  ?>
+                    <div class="container">
+                    <div class="alert alert-danger content" role="alert">
+                      <p style="color: red;">Campos vacíos</p>
+                    </div>
+                    </div>
+                  <?php
                 }
               }
             ?>

@@ -32,7 +32,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <title>Registrar PAAE</title>
+        <title>Alta PAAE</title>
         <meta charset="utf-8">
         <script src="js/paae.js"></script>
         <script src="js/modal.js"></script>
@@ -79,11 +79,16 @@
                 <div class="col"><input type="text" name="apellidoMatPaae" id="apellidoMatPaae" placeholder="Apellido Materno"></div>
             </div>
              <!--Aquí no utilice row ya que esto es una fila completa.-->     
-             <select id="area" name="area"  REQUIRED>
-                    <option value="Seleccione la area" >Seleccione Área</option>
-                    <option value="Biblioteca">Biblioteca</option>
-                    <option value="Edificio de Pesados" >Edificio de Pesados</option>
-                    <option value="Edificio de Ligeros" >Ingenieria Mecatrónica</option>
+             <select name="areaAdministra" class="col" id="area" required="required" >
+                    <option value="0">Seleccione el área que administra</option>
+                    <?php
+                        $res=$admin->getAreas();
+                        while($row=$res->fetch(PDO::FETCH_ASSOC)){
+                            ?>
+                                <option value="<?echo $row['id'];?>"><?php echo $row['nombreArea'];?></option>
+                            <?php
+                        }
+                    ?>
                 </select>
 
                 <div class="row">

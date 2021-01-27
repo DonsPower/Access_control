@@ -4,10 +4,12 @@
     require_once '../clases/conexion.Class.php';
     require_once '../clases/authController.Class.php';
     require_once "../clases/adminController.Class.php";
+    require_once "../clases/paaeController.Class.php";
     session_start();
     //creamos el objeto cliente
     $auth=new auth;
     $admin=new admin;
+    $paae=new paae;
     $location="../dashboar.php";
     if (isset($_SESSION['nombre'])){
         $cliente = $_SESSION['nombre'];
@@ -24,17 +26,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+       
       <meta name="viewport" content="width=device-width. initial-scale=1">
+      <title>PAAE </title>
+
+      <!--CSS-->
+      <link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
+      <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
+      <!--JS-->
+      <script type="text/javascript" src="js/funcion.js"></script>
+      <script src="lib/alertifyjs/alertify.js"></script>
       <script type="text/javascript" src="js/paae.js"></script>
       <script type="text/javascript" src="js/modal.js"></script>
-<title>PAAE </title>
-<!--CSS-->
-<link rel="stylesheet" href="lib/alertifyjs/css/alertify.css">
-    <link rel="stylesheet" href="lib/alertifyjs/css/themes/default.css">
-    <!--JS-->
-    <script type="text/javascript" src="js/funcion.js"></script>
-    <script src="lib/alertifyjs/alertify.js"></script>
   </head>
   <body>
   <div class="container">
@@ -51,7 +54,10 @@
     </div>
     
       <!--Boton buscar-->
-  <div class="container" style="float: right;">
+      <div class="container">
+    <a href="dashboard.php"><button type="button"  class="btn btn-info" style="float:center; width:20%; margin-left:2px; margin-bottom:10px; ">  Regresar </button></a>
+    </div>
+  <div class="container">
         <button type="button" id="enviarPaae" class="btn btn-success" style=" float: right; margin-left:2px">Buscar</button>
         <input type="text" id="buscar" style="width: 20%; height: 1px; float: right; " maxlength="30" placeholder="Buscar usuario" aria-label="Buscar usuario">
     </div>
@@ -93,7 +99,7 @@
        $pagina=5;
         
         //$desde=($pagina-1) * 
-        $sql="SELECT * FROM paaes $where ";
+        $sql="SELECT * FROM paaes $where  ORDER BY id DESC LIMIT 0,10 ";
         $resultado=mysqli_query($conex,$sql);
         $i=0;
         while($row=mysqli_fetch_array($resultado)){
@@ -127,6 +133,29 @@
 
   </tbody>
 </table>
+
+                  <div style="float: right;">
+                    <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                     
+                      <?php
+                        $i=1;
+                        $total= $paae->getDataPaae();
+                        $celdas=ceil($total/10);
+                        while($i<=$celdas){
+                          ?>
+                            <li class="page-item"><a class="page-link" href="#" onclick="paginacion3(<?php echo $i; ?>)"><?php echo $i; ?></a></li>
+                            
+                          <?php
+                          $i+=1;
+                        }
+                      ?>                 
+                    </ul>
+                  </nav>
+                </div>
+                
+                </div>
+                </div>
      <!--Modal cuando se activa editar-->
      <div class="modal" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -147,7 +176,18 @@
                   
                 </div>
                 <div class="row">
-                  <div class="col">Area<input type="text" name="" id="area"></div>
+                <select name="areaAdministra" class="col" id="area" required="required" >
+                Área
+                    <option value="0">Seleccione el área que administra</option>
+                    <?php
+                        $res=$admin->getAreas();
+                        while($row=$res->fetch(PDO::FETCH_ASSOC)){
+                            ?>
+                                <option value="<?echo $row['id'];?>"><?php echo $row['nombreArea'];?></option>
+                            <?php
+                        }
+                    ?>
+                </select>
                   <div class="col">RFC <input type="text" name="" id="RFC"></div>
                 </div>
 

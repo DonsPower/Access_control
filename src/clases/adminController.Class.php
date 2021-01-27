@@ -17,23 +17,36 @@
         }
         function actualizarAdmin($id,$name,$apellidoP,$apellidoM,$puesto,$areaAdministra,$tipo,$email,$clave,$preguntaS,$respuestaS){
             $db = new Connect;
-            $user= $db->prepare("UPDATE administradores SET name=:name, ApellidoPAdm=:apellidoP, ApellidoMFAdm=:apellidoM, Puesto=:puesto, AreaAdm=:areaAdministra, Tipo=:tipo, email=:email, TrabajadorAdm=:clave, PreguntaS=:preguntaS, RespuestaS=:respuestaS WHERE id=:id");
-            $user->execute([
-                ':id'=>$id,
-                ':name'=>$name,
-                ':apellidoP'=>$apellidoP,
-                ':apellidoM'=>$apellidoM,
-                ':puesto'=>$puesto,
-                ':areaAdministra'=>$areaAdministra,
-                ':tipo'=>$tipo,
+            $contAdmin=$db->prepare("SELECT * FROM `administradores` WHERE email=:email and id not in (:id)" );
+            $contAdmin->execute([
                 ':email'=>$email,
-                ':clave'=>$clave,
-                ':preguntaS'=>$preguntaS,
-                ':respuestaS'=>$respuestaS
+                ':id'=>$id
                 
             ]);
-            return $user;
-        }
+            $contador=$contAdmin->rowCount();
+            if ($contador>0) {
+                # Si se encutra el email registrado ya regresa un mensaje de error
+                # User ya registrado.
+                return 1;
+            }else{
+                $user= $db->prepare("UPDATE administradores SET name=:name, ApellidoPAdm=:apellidoP, ApellidoMFAdm=:apellidoM, Puesto=:puesto, AreaAdm=:areaAdministra, Tipo=:tipo, email=:email, TrabajadorAdm=:clave, PreguntaS=:preguntaS, RespuestaS=:respuestaS WHERE id=:id");
+                $user->execute([
+                    ':id'=>$id,
+                    ':name'=>$name,
+                    ':apellidoP'=>$apellidoP,
+                    ':apellidoM'=>$apellidoM,
+                    ':puesto'=>$puesto,
+                    ':areaAdministra'=>$areaAdministra,
+                    ':tipo'=>$tipo,
+                    ':email'=>$email,
+                    ':clave'=>$clave,
+                    ':preguntaS'=>$preguntaS,
+                    ':respuestaS'=>$respuestaS
+                    
+                ]);
+                return 0;
+                }
+            }
         function deleteAdmin($id){
             $db = new Connect;
             $user= $db->prepare("DELETE  FROM  administradores WHERE id=:id ");
@@ -85,13 +98,22 @@
         //Buscamos el ID del administrador nos basamos en la area.
         function buscarIdAdmin($area){
             $db=new Connect;
-            $user=$db->prepare("SELECT id FROM area WHERE nombreArea=:area");
+            $user=$db->prepare("SELECT * FROM area WHERE nombreArea=:area");
             $user->execute([
                 ':area'=>$area
             ]);
             $userinfo=$user->fetch(PDO::FETCH_ASSOC);
-            return $userinfo;
+            return $userinfo['id'];
         } 
+        function buscarArea($id){
+            $db=new Connect;
+            $user=$db->prepare("SELECT * FROM area WHERE id=:id");
+            $user->execute([
+                ':id'=>$id
+            ]);
+            $userinfo=$user->fetch(PDO::FETCH_ASSOC);
+            return $userinfo['nombreArea'];
+        }
     }
 
 ?>

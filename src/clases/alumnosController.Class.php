@@ -40,56 +40,100 @@
         }
 
         
-        function agregarAlum($nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS,$numcodqr){
+        function agregarAlum($nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS){
             $db=new Connect;
-            $i=0;
-            while ($i==0){
-                $numcodqr=$this->generarToken(10);
-                $comprobarToken=$this->validarToken($numcodqr);
-                if($comprobarToken == 0){
-                    //no hay ninguno
-                    $i=1;
-                    break;
+            $contAdmin1=$db->prepare("SELECT * FROM alumnos WHERE emailAlumno=:email" );
+            $contAdmin1->execute([
+                ':email'=>$emailAlumno
+            ]);
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM alumnos WHERE boleta=:email" );
+            $contAdmin->execute([
+                ':email'=>$boleta
+            ]);
+            $contador=$contAdmin->rowCount();
+            if ($contador>0) {
+                # Si se encutra el email registrado ya regresa un mensaje de error
+                # User ya registrado.
+                return 1;
+            }else{
+                $i=0;
+                while ($i==0){
+                    $numcodqr=$this->generarToken(10);
+                    $comprobarToken=$this->validarToken($numcodqr);
+                    if($comprobarToken == 0){
+                        //no hay ninguno
+                        $i=1;
+                        break;
+                    }
+                
+                } 
+                    $user=$db->prepare("INSERT INTO alumnos(nombreAlumno, apellidoPatAlumno, apellidoMatAlumno, carrera, boleta, telefonoMovil, telefonoFijo, telefonoPersonal, emailAlumno, NSS, numcodqr) VALUES ( :nombre, :apellidop, :apellidom, :carrera, :boleta, :telefonoM, :telefonofijo, :telefonop, :email, :nss,:numcodqr)");
+                    $user->execute([
+                        ':nombre'=>$nombreAlumno,
+                        ':apellidop' =>$apellidoPatAlumno,
+                        ':apellidom'=>$apellidoMatAlumno,
+                        ':carrera'=>$carrera,
+                        ':boleta'=>$boleta,
+                        ':telefonoM'=>$telefonoMovil,
+                        ':telefonofijo'=>$telefonoFijo,
+                        ':telefonop'=>$telefonoPersonal,
+                        ':email'=>$emailAlumno,
+                        ':nss'=> $NSS,
+                        ':numcodqr'=>$numcodqr
+                    ]);
+                
+                    return 0;
                 }
+            }
             
-            } 
-                $user=$db->prepare("INSERT INTO alumnos(nombreAlumno, apellidoPatAlumno, apellidoMatAlumno, carrera, boleta, telefonoMovil, telefonoFijo, telefonoPersonal, emailAlumno, NSS, numcodqr) VALUES ( :nombre, :apellidop, :apellidom, :carrera, :boleta, :telefonoM, :telefonofijo, :telefonop, :email, :nss,:numcodqr)");
-                $user->execute([
-                    ':nombre'=>$nombreAlumno,
-                    ':apellidop' =>$apellidoPatAlumno,
-                    ':apellidom'=>$apellidoMatAlumno,
-                    ':carrera'=>$carrera,
-                    ':boleta'=>$boleta,
-                    ':telefonoM'=>$telefonoMovil,
-                    ':telefonofijo'=>$telefonoFijo,
-                    ':telefonop'=>$telefonoPersonal,
-                    ':email'=>$emailAlumno,
-                    ':nss'=> $NSS,
-                    ':numcodqr'=>$numcodqr
-                ]);
             
-                return $user;
                 
         }
 
         function editarAlumno($id,$nombreAlumno,$apellidoPatAlumno,$apellidoMatAlumno, $carrera, $boleta,$telefonoMovil,$telefonoFijo,$telefonoPersonal, $emailAlumno, $NSS){
             $db=new Connect;
-            $user=$db->prepare("UPDATE  alumnos SET nombreAlumno=:nombre, apellidoPatAlumno=:apellidop, apellidoMatAlumno=:apellidom, carrera=:carrera, boleta=:boleta, telefonoMovil=:telefonoM, telefonoFijo=:telefonofijo, telefonoPersonal=:telefonop, emailAlumno=:email, NSS=:nss WHERE id=:id");
-            $user->execute([
-                ':id'=>$id,
-                ':nombre'=>$nombreAlumno,
-                ':apellidop' =>$apellidoPatAlumno,
-                ':apellidom'=>$apellidoMatAlumno,
-                ':carrera'=>$carrera,
-                ':boleta'=>$boleta,
-                ':telefonoM'=>$telefonoMovil,
-                ':telefonofijo'=>$telefonoFijo,
-                ':telefonop'=>$telefonoPersonal,
+            $contAdmin1=$db->prepare("SELECT * FROM alumnos WHERE emailAlumno=:email  and id not in (:id)" );
+            $contAdmin1->execute([
                 ':email'=>$emailAlumno,
-                ':nss'=> $NSS
+                ':id'=>$id
             ]);
-            return $user;
+            $contador1=$contAdmin1->rowCount();
+            if($contador1>0){
+                return 10;
+            }else{
+                $contAdmin=$db->prepare("SELECT * FROM alumnos WHERE boleta=:email  and id not in (:id)" );
+                $contAdmin->execute([
+                    ':email'=>$boleta,
+                    ':id' =>$id
+                ]);
+                $contador=$contAdmin->rowCount();
+                if ($contador>0) {
+                    # Si se encutra el email registrado ya regresa un mensaje de error
+                    # User ya registrado.
+                    return 1;
+                }else{
+                    $user=$db->prepare("UPDATE  alumnos SET nombreAlumno=:nombre, apellidoPatAlumno=:apellidop, apellidoMatAlumno=:apellidom, carrera=:carrera, boleta=:boleta, telefonoMovil=:telefonoM, telefonoFijo=:telefonofijo, telefonoPersonal=:telefonop, emailAlumno=:email, NSS=:nss WHERE id=:id");
+                    $user->execute([
+                        ':id'=>$id,
+                        ':nombre'=>$nombreAlumno,
+                        ':apellidop' =>$apellidoPatAlumno,
+                        ':apellidom'=>$apellidoMatAlumno,
+                        ':carrera'=>$carrera,
+                        ':boleta'=>$boleta,
+                        ':telefonoM'=>$telefonoMovil,
+                        ':telefonofijo'=>$telefonoFijo,
+                        ':telefonop'=>$telefonoPersonal,
+                        ':email'=>$emailAlumno,
+                        ':nss'=> $NSS
+                    ]);
+                    return 0;
+                }
         }
+    }
 
         function deleteAlumno($id){
             $db = new Connect;

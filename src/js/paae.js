@@ -4,48 +4,93 @@ $('#registrarPaae').click(registroPae);
 
 
 function registroPae(){
-    console.log("sads");
-    $nombrePaae = $('#nombrePaae').val();
-    $apellidoPatPaae = $('#apellidoPatPaae').val();
-    $apellidoMatPaae = $('#apellidoMatPaae').val();
-    $area = $('#area').val();
-    $RFC = $('#RFC').val();
-    $telefono = $('#telefono').val();
-    $extension = $('#extension').val();
-    $emailPaae = $('#emailPaae').val();
-    $numcodqr= $('#numcodqr').val();
+    //console.log("sads");
+    nombrePaae = $('#nombrePaae').val();
+    apellidoPatPaae = $('#apellidoPatPaae').val();
+    apellidoMatPaae = $('#apellidoMatPaae').val();
+    area=$("#area option:selected").text();
+    RFC = $('#RFC').val();
+    telefono = $('#telefono').val();
+    extension = $('#extension').val();
+    emailPaae = $('#emailPaae').val();
+    console.log(area);
+    if(nombrePaae=="" || apellidoPatPaae=="" || apellidoMatPaae=="" || area=="Seleccione Área" || telefono=="" || extension=="" || emailPaae=="") alertify.error("Campos vacíos, por favor llene todos los campos");
+    else{
+        
+        //La cadena para pasarla al POST.
+        cadena="nombrePaae="+nombrePaae+"&apellidoPatPaae="+apellidoPatPaae+"&apellidoMatPaae="+apellidoMatPaae+"&area="+
+        area+"&RFC="+RFC+"&telefono="+telefono+"&extension="+extension+"&emailPaae="+emailPaae;
 
-    //La cadena para pasarla al POST.
-    cadena="nombrePaae="+$nombrePaae+"&apellidoPatPaae="+$apellidoPatPaae+"&apellidoMatPaae="+$apellidoMatPaae+"&area="+
-    $area+"&RFC="+$RFC+"&telefono="+$telefono+"&extension="+$extension+"&emailPaae="+$emailPaae+"&numcodqr="+$numcodqr;
-
-    $.ajax({
-        url:"altaPaae/agregarPaae.php",
-        type: "POST",
-        dataType: "json",
-        data: cadena,
-    }).done(
-        function(data){
-            console.log(data);
-            if(data){
+        $.ajax({
+            url:"altaPaae/agregarPaae.php",
+            type: "POST",
+            dataType: "json",
+            data: cadena,
+        }).done(
+            function(data){
+                //console.log(data);
+                if(data==1){
+                    $('#RFC').val("");
+                    alertify.error("El RFC ya esta registrado.");
+                }
+                else if(data==2){
+                    //nombre incorrecto
                 $('#nombrePaae').val("");
-                $('#apellidoPatPaae').val("");
-                $('#apellidoMatPaae').val("");
-                //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
-                $("#area option:selected").text();
-                $('#RFC').val("");
-                $('#telefono').val("");
-                $('#extension').val("");
-                $('#emailPaae').val("");
-                $('#numcodqr').val();
-                console.log(data);
-                alertify.success("Usuario registrado exitosamente.");
-            }else{
-                console.log("Error de servidor");
-                alertify.error("Error");
+                    alertify.error("El nombre no debe de llevar números o caracteres especiales");
+
+                }else if(data==3){
+                    //apellido
+                    $('#apellidoPatPaae').val("");
+                    alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                }else if(data==4){
+                    //apellido
+                    $('#apellidoMatPaae').val("");
+                    alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                }else if(data==5){
+                    //apellido
+                    $('#RFC').val("");
+                    alertify.error("El RFC es incorrecto");
+                }
+                else if(data==6){
+                    //apellido
+                    $('#telefono').val("");
+                    alertify.error("Telefono incorrecto");
+                }
+                else if(data==7){
+                    //apellido
+                    $('#extension').val("");
+                    alertify.error("Extencion incorrecta");
+                }
+                else if(data==8){
+                    //apellido
+                    $('#emailPaae').val("");
+                    alertify.error("El Correo debe de ser valido");
+                }else if(data==10){
+                    $('#emailPaae').val("");
+                    alertify.error("El Correo ya registrado");
+                }
+                else if(data==0){
+                    $('#nombrePaae').val("");
+                    $('#apellidoPatPaae').val("");
+                    $('#apellidoMatPaae').val("");
+                    //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
+                    $("#area option:selected").text();
+                    $('#RFC').val("");
+                    $('#telefono').val("");
+                    $('#extension').val("");
+                    $('#emailPaae').val("");
+                    $('#numcodqr').val();
+                    //console.log(data);
+                    alertify.success("Usuario registrado exitosamente.");
+                    $("#main").load("altaPaae/index.php");
+                }else{
+                    //console.log("Error de servidor");
+                    alertify.error("Error del servidor");
+                }
             }
-        }
-    );
+        );
+    }
+
 }
 
 
@@ -58,7 +103,7 @@ function editarDatosPaae(datos){
         $('#nombrePaae').val(cadena[1]);
         $('#apellidoPatPaae').val(cadena[2]);
         $('#apellidoMatPaae').val(cadena[3]);
-        $('#area').val(cadena[4]);
+        $("#area option:selected").text();
         $('#RFC').val(cadena[5]);
         $('#telefono').val(cadena[6]);
         $('#extension').val(cadena[7]);
@@ -75,39 +120,101 @@ function actualizardata(){
     nombre=$('#nombrePaae').val();
     apellidoP=$('#apellidoPatPaae').val();
     apellidoM=$('#apellidoMatPaae').val();
-    puesto=$('#area').val();
+    puesto=$("#area option:selected").text();
     areaAdministra=$('#RFC').val();
     tipo=$('#telefono').val();
     email=$('#extension').val();
     clave=$('#emailPaae').val();
     numcodqr=$('#numcodqr').val();
     id=$('#idAdmin').val();
+    if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="Seleccione el área que administra" || areaAdministra=="" || tipo=="" || email=="" || clave=="") alertify.error("Campos vacíos, por favor llene todos los campos");
+    else{
     //Concatenamos los resultados
-    cadena="id="+id+"&nombrePaae="+nombre+"&apellidoPatPaae="+apellidoP+
-           "&apellidoMatPaae="+apellidoM+"&area="+puesto+"&RFC="+areaAdministra+
-           "&telefono="+tipo+"&extension="+email+"&emailPaae="+clave+"&numcodqr="+numcodqr;
-    //Mandamos datos con ajax
-    $.ajax({
-        type:"POST",
-        url:"altaPaae/actualizarPaae.php",
-        data:cadena,
-        success:function(r){
-            console.log(r);
-            if(r){
-                //cont=true;
-            //Eliminamos el modal
-            modal.style.display = "none";
-            //recargamos la pagina con los datos actualizados
-            alertify.success("Datos actualizados");
-            $("#main").load("altaPaae/index.php");
-            }else{
-                alertify.error("Problemas con el servidor.");
-                $("#main").load("dashboard.php");
-            }
-           
+        cadena="id="+id+"&nombrePaae="+nombre+"&apellidoPatPaae="+apellidoP+
+            "&apellidoMatPaae="+apellidoM+"&area="+puesto+"&RFC="+areaAdministra+
+            "&telefono="+tipo+"&extension="+email+"&emailPaae="+clave+"&numcodqr="+numcodqr;
+        //Mandamos datos con ajax
+        $.ajax({
+            type:"POST",
+            url:"altaPaae/actualizarPaae.php",
+            data:cadena,
+            success:function(data){
+                if(data==10){
+                    $('#emailPaae').val("");
+                    alertify.error("El Correo ya esta registrado");
+                }
+                else if(data==2){
+                    //nombre incorrecto
+                $('#nombrePaae').val("");
+                    alertify.error("El nombre no debe de llevar números o caracteres especiales");
 
-        }
-    });
+                }else if(data==3){
+                    //apellido
+                    $('#apellidoPatPaae').val("");
+                    alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                }else if(data==4){
+                    //apellido
+                    $('#apellidoMatPaae').val("");
+                    alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                }else if(data==5){
+                    //apellido
+                    $('#RFC').val("");
+                    alertify.error("El RFC es incorrecto");
+                }
+                else if(data==6){
+                    //apellido
+                    $('#telefono').val("");
+                    alertify.error("Telefono incorrecto");
+                }
+                else if(data==7){
+                    //apellido
+                    $('#extension').val("");
+                    alertify.error("Extencion incorrecta");
+                }
+                else if(data==8){
+                    //apellido
+                    $('#emailPaae').val("");
+                    alertify.error("El Correo debe de ser valido");
+                }else if(data==1){
+                    $('#RFC').val("");
+                    alertify.error("El RFC ya esta registrado");
+                }
+                else if(data==0){
+                    $('#nombrePaae').val("");
+                    $('#apellidoPatPaae').val("");
+                    $('#apellidoMatPaae').val("");
+                    //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
+                    $("#area option:selected").text();
+                    $('#RFC').val("");
+                    $('#telefono').val("");
+                    $('#extension').val("");
+                    $('#emailPaae').val("");
+                    $('#numcodqr').val();
+                    //console.log(data);
+                    alertify.success("Usuario actualizado exitosamente.");
+                    $("#main").load("altaPaae/index.php");
+                }else{
+                    //console.log("Error de servidor");
+                    alertify.error("Error del servidor");
+                }
+          
+                //console.log(r);
+                // if(r){
+                //     //cont=true;
+                // //Eliminamos el modal
+                // modal.style.display = "none";
+                // //recargamos la pagina con los datos actualizados
+                // alertify.success("Datos actualizados");
+                // $("#main").load("altaPaae/index.php");
+                // }else{
+                //     alertify.error("Problemas con el servidor.");
+                //     $("#main").load("dashboard.php");
+                // }
+            
+
+            }
+        });
+    }
 
 }
 
@@ -233,26 +340,7 @@ function regresar(){
         }
     }).done(
         function(data){
-           // console.log(data);
-             //Obtenemos el numero mayor de consultas para así cambiar el estado del boton.
-             if(total[0]<data.length){
-                total.pop();
-                total.push(data.length);
-            }
-            //console.log(total);
-            if(total[0]>data.length) {
-                //Ocultar buscar
-                $('#buscar').css('visibility', 'hidden');
-                  //$( "#primero" ).hide();
-                document.getElementById("enviarPaae").innerHTML = "Regresar";
-                alertify.success("Busqueda correcta");
-            }
-            else{
-                //Mostrar buscar
-                $('#buscar').css('visibility', 'visible');
-                //$('#primero').toggle(); 
-                document.getElementById("enviarPaae").innerHTML = "Buscar";
-            }
+          
             //Si el array solo trae un dato significa que no hay resultados.
             if(data.length==1){
                 $('#salida').html("<h2>No se encontraron resultados.</h2>");
@@ -287,4 +375,49 @@ function regresar(){
         }
     );
 
+}
+function paginacion3(numPagina){
+    //Obtengo al numero de pagina que quiero ir.
+    //console.log(numPagina);
+    //Se supone que si llega un 2 debo de recuperar un 20.
+    //console.log(numPagina);
+    $.ajax({
+        type:"POST",
+        dataType: 'json',
+        url: "altaAlumnos/paginacion.php",
+        data:{ 
+            ids: numPagina 
+        }
+    }).done(
+        function(data){
+            
+            var tabla;
+            let i=(numPagina-1)*10;
+           
+            for(let index=0; index<data.length;index++){
+                i++;
+                
+                var datos= data[index].split("||");
+                console.log(datos[4]);
+                    //console.log(datos[10]);
+                    //id|| nombre apellido apellido2||carrera||3- boleta||4-tm    
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||"+datos[10]+"||"+datos[11]+"||tabla";
+                       //console.log(datosRetornar);
+                    //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                    +datos[4]+"</td><td>"
+                    +datos[5]+"</td><td>"
+                    +datos[6]+"</td><td>"
+                    +datos[7]+"</td><td>"
+                    +datos[8]+"</td><td>"
+                    +datos[9]+"</td><td>"
+                    +datos[10]+"</td><td>"
+                    +datos[11]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosAlumnos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAlumno(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i></button></td></tr>";
+                    
+            }
+            datosRetornar="";
+                $('#salida').html(tabla);
+                $('#primero').val('');
+        });
 }

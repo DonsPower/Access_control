@@ -4,48 +4,83 @@ $('#registrarPerAcademico').click(registro);
 
 function registro(){
    
-    $nombrePerAcademico = $('#nombrePerAcademico').val();
-    $apellidoPatPerAcademico = $('#apellidoPatPerAcademico').val();
-    $apellidoMatPerAcademico = $('#apellidoMatPerAcademico').val();
-    $academia = $('#academia').val();
-    $RFC = $('#RFC').val();
-    $telefono = $('#telefono').val();
-    $extension = $('#extension').val();
-    $emailPerAcademico = $('#emailPerAcademico').val();
-    $numcodqr=$('#numcodqr').val();
+    nombrePerAcademico = $('#nombrePerAcademico').val();
+    apellidoPatPerAcademico = $('#apellidoPatPerAcademico').val();
+    apellidoMatPerAcademico = $('#apellidoMatPerAcademico').val();
+    academia=$("#academia option:selected").text();
+    RFC = $('#RFC').val();
+    telefono = $('#telefono').val();
+    extension = $('#extension').val();
+    emailPerAcademico = $('#emailPerAcademico').val();
+    
+    if(nombrePerAcademico=="" || apellidoPatPerAcademico=="" || apellidoMatPerAcademico=="" || academia=="Seleccione Academia" || RFC=="" || telefono=="" || extension=="" || emailPerAcademico=="") alertify.error("Campos vacíos, por favor llene todos los campos");
+    else{
+        cadena="nombrePerAcademico="+nombrePerAcademico+"&apellidoPatPerAcademico="+apellidoPatPerAcademico+"&apellidoMatPerAcademico="+apellidoMatPerAcademico+"&academia="+
+        academia+"&RFC="+RFC+"&telefono="+telefono+"&extension="+extension+"&emailPerAcademico="
+        +emailPerAcademico;
 
+        $.ajax({
+            url:"altaPerAcademico/agregarPerAcademico.php",
+            type: "POST",
+            dataType: "json",
+            data: cadena,
+        }).done(
+            function(data){
+                //console.log(data);
+                
+                    if(data==10){
+                        $('#email').val("");
+                        alertify.error("El correo ya existe en la base de datos.");
+                    }else if(data==2){
+                        //nombre incorrecto
+                        $('#nombrePerAcademico').val("");
+                        alertify.error("El nombre no debe de llevar números o caracteres especiales");
+
+                    }else if(data==3){
+                        //apellido
+                        $('#apellidoPatPerAcademico').val("");
+                        alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                    }else if(data==4){
+                        //apellido
+                        $('#apellidoMatPerAcademico').val("");
+                        alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                    }else if(data==5){
+                        //apellido
+                        $('#RFC').val("");
+                        alertify.error("RFC no valido");
+                    }else if(data==6){
+                        //apellido 11 digitos
+                        $('#telefono').val("");
+                        alertify.error("El NSS debe de ser valido");
+                    }else if(data==7){
+                        $('#extensión').val("");
+                        alertify.error("Extensión no valido");
+                    } 
+                    else if(data==8){
+                        //apellido 11 digitos
+                        $('#email').val("");
+                        alertify.error("El Correo debe de ser valido");
+                    }else if(data==1){
+                        $('#RFC').val("");
+                        alertify.error("RFC ya esta registrado");
+                    }else if(data==0){
+                        $('#nombrePerAcademico').val("");
+                        $('#apellidoPatPerAcademico').val("");
+                        $('#apellidoMatPerAcademico').val("");
+                        //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
+                        $("#academia option:selected").text();
+                        $('#RFC').val("");
+                        $('#telefono').val("");
+                        $('#extension').val("");
+                        $('#emailPerAcademico').val("");
+                        alertify.success("Usuario registrado exitosamente.");
+                    }
+                }
+            
+        );
+    }
     //La cadena para pasarla al POST.
-    cadena="nombrePerAcademico="+$nombrePerAcademico+"&apellidoPatPerAcademico="+$apellidoPatPerAcademico+"&apellidoMatPerAcademico="+$apellidoMatPerAcademico+"&academia="+
-    $academia+"&RFC="+$RFC+"&telefono="+$telefono+"&extension="+$extension+"&emailPerAcademico="
-    +$emailPerAcademico+"&numcodqr="+$numcodqr;
-
-    $.ajax({
-        url:"altaPerAcademico/agregarPerAcademico.php",
-        type: "POST",
-        dataType: "json",
-        data: cadena,
-    }).done(
-        function(data){
-            console.log(data);
-            if(data){
-                $('#nombrePerAcademico').val("");
-                $('#apellidoPatPerAcademico').val("");
-                $('#apellidoMatPerAcademico').val("");
-                //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
-                $("#academia option:selected").text();
-                $('#RFC').val("");
-                $('#telefono').val("");
-                $('#extension').val("");
-                $('#emailPerAcademico').val("");
-                $('#numcodqr').val();
-                console.log(data);
-                alertify.success("Usuario registrado exitosamente.");
-            }else{
-                console.log("Error de servidor");
-                alertify.error("Error");
-            }
-        }
-    );
+    
 }
 
 
@@ -58,7 +93,7 @@ function editarDatosPerAcademico(datos){
         $('#nombrePerAcademico').val(cadena[1]);
         $('#apellidoPatPerAcademico').val(cadena[2]);
         $('#apellidoMatPerAcademico').val(cadena[3]);
-        $('#academia').val(cadena[4]);
+        $("#academia option:selected").text();
         $('#RFC').val(cadena[5]);
         $('#telefono').val(cadena[6]);
         $('#extension').val(cadena[7]);
@@ -75,39 +110,90 @@ function actualizardataPerAcademico(){
     nombre=$('#nombrePerAcademico').val();
     apellidoP=$('#apellidoPatPerAcademico').val();
     apellidoM=$('#apellidoMatPerAcademico').val();
-    puesto=$('#academia').val();
+    puesto=$("#academia option:selected").text();
     areaAdministra=$('#RFC').val();
     tipo=$('#telefono').val();
     email=$('#extension').val();
     clave=$('#emailPerAcademico').val();
-    numcodqr=$('#numcodqr').val();
+    
     id=$('#idAdmin').val();
     //Concatenamos los resultados
-    cadena="id="+id+"&nombrePerAcademico="+nombre+"&apellidoPatPerAcademico="+apellidoP+
-           "&apellidoMatPerAcademico="+apellidoM+"&academia="+puesto+"&RFC="+areaAdministra+
-           "&telefono="+tipo+"&extension="+email+"&emailPerAcademico="+clave+"&numcodqr="+numcodqr;
-    //Mandamos datos con ajax
-    $.ajax({
-        type:"POST",
-        url:"altaPerAcademico/actualizarPerAcademico.php",
-        data:cadena,
-        success:function(r){
-            console.log(r);
-            if(r){
-                //cont=true;
-            //Eliminamos el modal
-            modal.style.display = "none";
-            //recargamos la pagina con los datos actualizados
-            alertify.success("Datos actualizados");
-            $("#main").load("altaPerAcademico/index.php");
-            }else{
-                alertify.error("Problemas con el servidor.");
-                $("#main").load("dashboard.php");
-            }
-           
+    if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="Seleccione Academia" || areaAdministra=="" || tipo=="" || email=="" || clave=="") alertify.error("Campos vacíos, por favor llene todos los campos");
+    else{
+        cadena="id="+id+"&nombrePerAcademico="+nombre+"&apellidoPatPerAcademico="+apellidoP+
+            "&apellidoMatPerAcademico="+apellidoM+"&academia="+puesto+"&RFC="+areaAdministra+
+            "&telefono="+tipo+"&extension="+email+"&emailPerAcademico="+clave;
+        //Mandamos datos con ajax
+        $.ajax({
+            type:"POST",
+            url:"altaPerAcademico/actualizarPerAcademico.php",
+            data:cadena,
+            success:function(data){
+                if(data==10){
+                    $('#email').val("");
+                    alertify.error("El correo ya existe en la base de datos.");
+                }else if(data==2){
+                    //nombre incorrecto
+                    $('#nombrePerAcademico').val("");
+                    alertify.error("El nombre no debe de llevar números o caracteres especiales");
 
-        }
-    });
+                }else if(data==3){
+                    //apellido
+                    $('#apellidoPatPerAcademico').val("");
+                    alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                }else if(data==4){
+                    //apellido
+                    $('#apellidoMatPerAcademico').val("");
+                    alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                }else if(data==5){
+                    //apellido
+                    $('#RFC').val("");
+                    alertify.error("RFC no valido");
+                }else if(data==6){
+                    //apellido 11 digitos
+                    $('#telefono').val("");
+                    alertify.error("El NSS debe de ser valido");
+                }else if(data==7){
+                    $('#extensión').val("");
+                    alertify.error("Extensión no valido");
+                } 
+                else if(data==8){
+                    //apellido 11 digitos
+                    $('#email').val("");
+                    alertify.error("El Correo debe de ser valido");
+                }else if(data==1){
+                    $('#RFC').val("");
+                    alertify.error("RFC ya esta registrado");
+                }else if(data==0){
+                    $('#nombrePerAcademico').val("");
+                    $('#apellidoPatPerAcademico').val("");
+                    $('#apellidoMatPerAcademico').val("");
+                    //Este valor no se limpia ya que borra el contenido del select, entonces solo dejarlo asi.
+                    $("#academia option:selected").text();
+                    $('#RFC').val("");
+                    $('#telefono').val("");
+                    $('#extension').val("");
+                    $('#emailPerAcademico').val("");
+                    alertify.success("Usuario registrado exitosamente.");
+                    $("#main").load("altaPerAcademico/index.php");
+                }
+                //console.log(r);
+                // if(r){
+                //     //cont=true;
+                // //Eliminamos el modal
+                // modal.style.display = "none";
+                // //recargamos la pagina con los datos actualizados
+                // alertify.success("Datos actualizados");
+                // $("#main").load("altaPerAcademico/index.php");
+                // }else{
+                //     alertify.error("Problemas con el servidor.");
+                //     $("#main").load("dashboard.php");
+                // }
+            
+
+            }
+        });
+    }
 
 }
 
@@ -325,4 +411,43 @@ function buscarPer(){
             // }​​​​​
         }
     );
+}
+function paginacion4(numPagina){
+    //Obtengo al numero de pagina que quiero ir.
+    //console.log(numPagina);
+    //Se supone que si llega un 2 debo de recuperar un 20.
+    //console.log(numPagina);
+    $.ajax({
+        type:"POST",
+        dataType: 'json',
+        url: "altaPerAcademico/paginacion.php",
+        data:{ 
+            ids: numPagina 
+        }
+    }).done(
+        function(data){
+            
+            var tabla;
+            let i=0;
+                for(let index=0; index<data.length;index++){
+                    i++;
+                    //console.log(data);
+                    var datos= data[index].split("||");
+                       
+                    var datosRetornar=datos[0]+"||"+datos[1]+"||"+datos[2]+"||"+datos[3]+"||"+datos[4]+"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]+"||"+datos[9]+"||tabla";
+                    //console.log(datosRetornar);
+                    //Concateno para mostrar en la tabla.
+                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+" "+datos[2]+" "+datos[3]+"</td><td>"
+                    +datos[4]+"</td><td>"
+                    +datos[5]+"</td><td>"
+                    +datos[6]+"</td><td>"
+                    +datos[7]+"</td><td>"
+                    +datos[8]+"</td><td>"
+                    +datos[9]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatosPerAcademico(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarPerAcademico(`"+datos[0]+"`,`"+datos[1]+"`,`"+datos[2]+"`,`"+datos[3]+"`)'><i class='fas fa-user-minus'></i></button></td></tr>";
+                }
+                datosRetornar="";
+                    $('#salida').html(tabla);
+                    $('#primero').val('');
+        });
+    
 }

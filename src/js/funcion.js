@@ -30,27 +30,7 @@ function regresar(){
         }
     }).done(
         function(data){
-            //console.log(data)
-            //Obtenemos el numero mayor de consultas para así cambiar el estado del boton.
-            if(total[0]<data.length){
-                total.pop();
-                total.push(data.length);
-            }
-            //console.log(total);
-            if(total[0]>data.length) {
-                //Ocultar input buscar
-                $('#primero').css('visibility', 'hidden');
-                //$( "#primero" ).hide();
-                document.getElementById("enviar").innerHTML = "Regresar";
-                alertify.success("Busqueda correcta");
-            }
-            else{
-                //Mostrar input buscar
-                $('#primero').css('visibility', 'visible');
-               // $('#primero').toggle(); 
-                document.getElementById("enviar").innerHTML = "Buscar";
-            } 
-            console.log(data);
+           let id=$('#idbusc').val();
             //Obtengo la cadena de datos que se encontraron en la BD desde uno hasta 100000000
             //Si data=1 = no hay datos
             if(data.length==1){
@@ -64,7 +44,7 @@ function regresar(){
                 //2 Genaro Vazquez holaholahola Encargado Sistemas A…genaro@gmail.com 123424fr43e Bebida favorita Jugo
                 var tabla;
                 for (let index = 1; index < data.length; index++) {
-                    console.log(datos);
+                   // console.log(datos);
                     var datos= data[index].split("||");
                     //console.log(datos[1]);
                     //Concatenamos los datos para hacer la editacion XD.
@@ -73,11 +53,21 @@ function regresar(){
                              +"||"+datos[5]+"||"+datos[6]+"||"+datos[7]+"||"+datos[8]
                              +"||"+datos[9]+"||"+datos[10];
                              //console.log(datosRetornar);
-                    //Concateno para mostrar en la tabla.
+                            
+                   
+                            if(id==datos[0]){
+                         //Concateno para mostrar en la tabla.
                     tabla+="<tr><td>"+index+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
                     +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
-                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
-                    
+                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' disabled><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' disabled><i class='fas fa-user-times'></i> </button></td></tr>";
+                        
+                    }else{
+                         //Concateno para mostrar en la tabla.
+                        tabla+="<tr><td>"+index+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                        +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
+                        +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
+                        
+                    }
                 }
                 datosRetornar="";
                 $('#salida').html(tabla);
@@ -199,33 +189,88 @@ function actualizardata(){
     preguntaS=$('#preguntaSeg').val();
     respuetaS=$('#respuestaSeg').val();
     id=$('#idAdmin').val();
-    //Concatenamos los resultados
-    cadena="id="+id+"&name="+nombre+"&apellidoP="+apellidoP+
-           "&apellidoM="+apellidoM+"&puesto="+puesto+"&areaAdministra="+areaAdministra+
-           "&tipo="+tipo+"&email="+email+"&clave="+clave+"&preguntaS="+
-           preguntaS+"&respuestaS="+respuetaS;
-    //Mandamos datos con ajax
-    $.ajax({
-        type:"POST",
-        url:"admin/actualizarAdmin.php",
-        data:cadena,
-        success:function(r){
-            console.log("dimequeentro");
-            console.log(r);
-            // if(r){
-            //     //cont=true;
-            // //Eliminamos el modal
-            // modal.style.display = "none";
-            // //recargamos la pagina con los datos actualizados
-            // $("#main").load("admin/index.php");
-            // }else{
-            //     alertify.error("Problemas con el servidor.");
-            //     $("#main").load("dashboard.php");
-            // }
-            // alertify.success("Datos actualizados");
-
+    
+    if(nombre=="" || apellidoP=="" || apellidoM=="" || puesto=="" ||  tipo=="Tipo de administrador" || clave=="" || email=="" || preguntaS=="" ||respuetaS=="" ) alertify.error("Campos vacíos, por favor llene todos los campos");
+    else{
+        
+        
+        //bandera me sirve para saber si es un admin global o no
+        bandera=false;
+    //Si es admin global no tendra area o su area sera UPIIZ==ID=1
+        if(tipo!="AdministradorGlobal"){
+            //verificamos que el campo area no este vacio.
+            if(areaAdministra=="Seleccione el area que administra"){
+                alertify.error("Área vacia");
+                bandera=true;    
+            }
         }
-    });
+        if(bandera==false){
+            
+            //Concatenamos los resultados
+            cadena="id="+id+"&name="+nombre+"&apellidoP="+apellidoP+
+                "&apellidoM="+apellidoM+"&puesto="+puesto+"&areaAdministra="+areaAdministra+
+                "&tipo="+tipo+"&email="+email+"&clave="+clave+"&preguntaS="+
+                preguntaS+"&respuestaS="+respuetaS;
+            //Mandamos datos con ajax
+            $.ajax({
+                type:"POST",
+                url:"admin/actualizarAdmin.php",
+                data:cadena,
+                success:function(data){
+                    if(data==1){
+                        alertify.error("El correo ya existe en la base de datos.");
+                    }else if(data==2){
+                        //nombre incorrecto
+                        $('#name').val("");
+                        alertify.error("El nombre no debe de llevar números o caracteres especiales");
+
+                    }else if(data==3){
+                        //apellido
+                        $('#apellidoP').val("");
+                        alertify.error("El Apellido paterno no debe de llevar números o caracteres especiales");
+                    }else if(data==4){
+                        //apellido
+                        $('#apellidoM').val("");
+                        alertify.error("El Apellido materno no debe de llevar números o caracteres especiales");
+                    }else if(data==5){
+                        //apellido
+                        $('#puesto').val("");
+                        alertify.error("El puesto no debe de llevar números o caracteres especiales");
+                    }else if(data==6){
+                        //apellido 11 digitos
+                        $('#clave').val("");
+                        alertify.error("La clave del trabajador debe de ser valido");
+                    }else if(data==7){
+                        //apellido 11 digitos
+                        $('#email').val("");
+                        alertify.error("El Correo debe de ser valido");
+                    }
+                    else if(data==0){
+                          // //Eliminamos el modal
+                        modal.style.display = "none";
+                        //recargamos la pagina con los datos actualizados
+                        $("#main").load("admin/index.php");
+                        alertify.success("Usuario editado exitosamente.");   
+                    }
+              
+                    //console.log("dimequeentro");
+                    
+                    // if(r){
+                    //     //cont=true;
+                    // //Eliminamos el modal
+                    // modal.style.display = "none";
+                    // //recargamos la pagina con los datos actualizados
+                    // $("#main").load("admin/index.php");
+                    // }else{
+                    //     alertify.error("Problemas con el servidor.");
+                    //     $("#main").load("dashboard.php");
+                    // }
+                    // alertify.success("Datos actualizados");
+
+                }
+            });
+        }
+    }
 
 }
 
@@ -266,6 +311,7 @@ function paginacion(numPagina){
     //Obtengo al numero de pagina que quiero ir.
     //console.log(numPagina);
     //Se supone que si llega un 2 debo de recuperar un 20.
+    let id=$('#idbusc').val();
     $.ajax({
         type:"POST",
         dataType: 'json',
@@ -275,7 +321,9 @@ function paginacion(numPagina){
         }
     }).done(
         function(data){
-            console.log(data);
+            
+            
+            console.log(id);
             var tabla;
             let i=(numPagina-1)*10;
                 for (let index = 0; index < data.length; index++) {
@@ -289,10 +337,16 @@ function paginacion(numPagina){
                              +"||"+datos[9]+"||"+datos[10];
                              //console.log(datosRetornar);
                     //Concateno para mostrar en la tabla.
-                    tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                    if(id==datos[0]){
+                        tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
                     +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
-                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
+                    +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' disabled ><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' disabled><i class='fas fa-user-times'></i> </button></td></tr>";
                     
+                    }else{
+                        tabla+="<tr><td>"+i+"</td><td>"+datos[1]+"</td><td>"+datos[2]+"</td><td>"
+                        +datos[3]+"</td><td>"+datos[4]+"</td><td>"+datos[5]+"</td><td>"+datos[6]+"</td><td>"+datos[7]+"</td><td>"
+                        +datos[8]+"</td><td><button type='button' id='editar' class='btn btn-success' onclick='editarDatos(`"+datosRetornar+"`)'><i class='fas fa-user-edit'></i></button></td> <td><button type='button' id='eliminar' class='btn btn-danger' onclick='eliminarAdmin(`"+datos[0]+"`,`"+datos[1]+"`)'><i class='fas fa-user-times'></i> </button></td></tr>";
+                    }
                 }
                 datosRetornar="";
                 $('#salida').html(tabla);

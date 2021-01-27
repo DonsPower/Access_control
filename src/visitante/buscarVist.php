@@ -7,7 +7,7 @@
     $datos[]=["No resultado"];
     //echo json_encode($datos);
     
-    $sql="SELECT * FROM visitantes  WHERE nombre like '".$palabraBuscar."%'";
+    $sql="SELECT * FROM visitantes  WHERE nombre like '".$palabraBuscar."%' ORDER BY id DESC ";
     $ejecutar= $conex->query($sql);
     //echo json_encode($ejecutar);
 if($ejecutar) {

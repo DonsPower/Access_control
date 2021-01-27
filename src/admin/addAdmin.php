@@ -1,5 +1,5 @@
 <?php
-    //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
+    
     //importamos la clase auth
     require_once '../clases/conexion.Class.php';
     require_once '../clases/authController.Class.php';
@@ -13,12 +13,14 @@
         $cliente = $_SESSION['nombre'];
             //Consultamos datos del administrador para obtenerlos en una tabla.
             $row=$admin->getAdmin();
-            //Enviamos el tiempo y si pasan ciertos minutos lo redireccionamos
-           
     }else{
         header('Location: ../index.php');
         die();
-    }
+    } 
+    //echo $hash = crypt("hola");
+    //echo " ";
+    //echo $hash = crypt("hola","salt");
+ 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +46,7 @@
         <nav aria-label="breadcrumb" style="margin-top: 20px;">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">Inicio</li>
-            <li class="breadcrumb-item active" aria-current="page">Alta administradores</li>
+            <li class="breadcrumb-item active" aria-current="page">Alta administrador</li>
         </ol>
         </nav>
       <hr>
@@ -54,7 +56,7 @@
     <div class="container form1" >
     <div style="margin-bottom: 30px; margin-top:10px;">
     <caption>
-        <div class="titulos "><h2>Almacenar nuevo administrador</h2></div>
+        <div class="titulos "><h2>Alta administrador</h2></div>
     </caption>
     </div>
             
@@ -101,9 +103,9 @@ $(document).ready(function() {
 </script>
 
         <div class="row">
-            <div class="col-4 col-sm-4"><input type="text" name="name" id="name" REQUIRED placeholder="Nombre"></div>
-            <div class="col"><input type="text" name="apellidoP" id="apellidoP" REQUIRED placeholder="Apellido paterno"></div>
-            <div class="col"><input type="text" name="apellidoM" id="apellidoM" REQUIRED placeholder="Apellido materno"></div>
+            <div class="col-4 col-sm-4"><input type="text" name="name" id="name" REQUIRED placeholder="Nombre" maxlength="30"></div>
+            <div class="col"><input type="text" name="apellidoP" id="apellidoP" REQUIRED placeholder="Apellido paterno" maxlength="30"></div>
+            <div class="col"><input type="text" name="apellidoM" id="apellidoM" REQUIRED placeholder="Apellido materno" maxlength="30"></div>
         </div>
         <div class="row">
         <div class="col" style="margin-top: 10px;"> 
@@ -121,26 +123,26 @@ $(document).ready(function() {
             </div>
         </div>
         <div class="row">
-            <div class="col"><input type="text" id="puesto"name="puesto"  required  id="puesto" placeholder="Puesto"></div>
+            <div class="col"><input type="text" id="puesto"name="puesto"  required  id="puesto" placeholder="Puesto" maxlength="30"></div>
         </div>
        
         <div class="row">
-            <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de Trabajador"></div>
-            <div class="col"><input type="email"  REQUIRED  name="email" id="email" placeholder="Correo"></div>
-            <div class="col"><input type="password" REQUIRED name="password" id="password" placeholder="Contraseña"></div> 
+       <!-- //TODO: Preguntar si esta bien la clave del trabajador o si no cambiarla -->
+            <div class="col"><input type="text" REQUIRED class="col" name="clave" id="clave" placeholder="Clave de Trabajador" maxlength="30"></div>
+            <div class="col"><input type="email"  REQUIRED  name="email" id="email" placeholder="Correo" maxlength="40"></div>
+            <div class="col"><input type="password" REQUIRED name="password" id="password" placeholder="Contraseña" maxlength="40"></div> 
         </div>
         <div class="row">
-            <div class="col"><input type="text"   REQUIRED  name="preguntaSeg" id="preguntaSeg"  placeholder="Pregunta de seguridad"></div>
-           <div class="col"><input type="text" REQUIRED   name="PreguntaSeg" id="respuestaSeg"  placeholder="Respuesta de seguridad"></div>
+            <div class="col"><input type="text"   REQUIRED  name="preguntaSeg" id="preguntaSeg"  placeholder="Pregunta de seguridad" maxlength="40"></div>
+           <div class="col"><input type="text" REQUIRED   name="PreguntaSeg" id="respuestaSeg"  placeholder="Respuesta de seguridad" maxlength="40"></div>
+           
         </div>
         <div class="container">
             <button  type="button" id="registrarAdmin" class="btn btn-success" style="width: 100px;">Registrar</button>
             <button type="button" class="btn btn-danger" style="width: 100px; "><a href="dashboard.php">Regresar</a></button>
+            
         </div>
     </div>
     
-   
-    
-   
 </body>
 </html>
