@@ -156,11 +156,11 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*)  estado FROM registro where   estado='1' ";
+            $sql = "SELECT count(*)  estado FROM registro where estado='1' ";
                 $resultado = $conex->query($sql);
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
                     
             <?php
                 }

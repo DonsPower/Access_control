@@ -119,7 +119,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estadoa='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
