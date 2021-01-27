@@ -22,24 +22,48 @@
 ?>
 
 
+<?php
+ $selector=($_POST['repSismo']);
+// $algo=($_POST['algo']);
+// echo $selector;
+?>
+
+   
 <!DOCTYPE html>
 <html>
 <head>
         <title>Generar Reporte</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
     <body>
+    <?php
+                     include("../../database/con_db.php"); 
+                     
+                     $sql = "SELECT nombreArea FROM area where id=$selector ";
+                     $resultado = $conex->query($sql);
+                     if($resultado->num_rows> 0){
+                         while($row = $resultado->fetch_assoc()){
+                        
+                        $area=$row['nombreArea'];
+                        }
+                        }
+                        $conex->close();
+                    ?>
+                    
+
         <div class="container mt-5">
         <h2 align="center"> Reportes </h2>
-        <h2 align="center"> Simulacro por Incendio  </h2>
-        
+        <h2 align="center"> Simulacro por Sismo en <?php echo $area ?></h2>
         </div>
-       
-        <div class="container">
+  
+
+
             <div class="row justify-content-center"> 
-            <form action="convertirIncendio.php" method ="post">
-       
+            <form action="convertirSismo.php" method ="post">
+
+
                 <!--Datos Generales -->
                 <table class="table table-hover" class="row table-responsive">
                             <thead>
@@ -63,9 +87,9 @@
                <table class="table table-hover" class="row table-responsive">
                             <thead>
                             <tr> <th ><Label>Uso del inmueble : </Label>
-                                      <th> <label><input type="radio" name="uso"  value="Educativo" checked> Educativo</label> </th>
-                                      <th><label><input type="radio" name="uso"  value="Administrativo" checked> Administrativo</label> </th>
-                                      <th><label><input type="radio" name="uso"  value="Otro" checked> Otro</label> </th>
+                                      <th> <label><input type="radio" name="uso" value="Educativo"> Educativo</label> </th>
+                                      <th><label><input type="radio" name="uso" value="Administrativo"> Administrativo</label> </th>
+                                      <th><label><input type="radio" name="uso" value="Otro"> Otro</label> </th>
                                       </tr>
                             </thead>
                </table>
@@ -86,13 +110,14 @@
                  <th >Total de participantes en simulacro</th>
              <tr> 
              
-             <tr>  
+             <tr>    
              
-             <?php
+         
+          <?php
+           
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
+               $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'pro-%' and  estado='1' and idArea=$selector";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -104,9 +129,8 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
+          $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'pae-%' and  estado='1' and idArea=$selector ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -121,9 +145,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'alu-%' and  estado='1' and idArea=$selector ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -138,9 +161,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estad FROM registro where numcodqr like 'vis-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'vis-%' and  estado='1'  and idArea=$selector";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -155,9 +177,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estad FROM registro where  estado='1' ";
+            $sql = "SELECT count(*)  estado FROM registro where  estado='1'  and idArea=$selector ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
@@ -187,9 +208,8 @@
              <tr> 
              <?php
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1'  and idArea=$selector ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -201,9 +221,8 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
+          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1'  and idArea=$selector ";
                $resultado = $conex->query($sql);
-
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -218,9 +237,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1'  and idArea=$selector ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -235,9 +253,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1'  and idArea=$selector ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="numcodqr" id="fax" value="<?php echo $row['numcodqr']; ?> " type="text"> </td>
@@ -252,9 +269,8 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estado FROM registro where estado='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estado='1'  and idArea=$selector ";
                 $resultado = $conex->query($sql);
-
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
                     <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
@@ -293,7 +309,7 @@
 </table>
 <table class="table table-hover" class="row table-responsive">
               <thead>
-            <tr> <th><Label>¿Qué tipo de alertamiento utilizo? </Label></th>
+            <tr> <th><Label>¿Qué tipo de alertamiento utilizó? </Label></th>
             <th><input type="text" size=60 style="width:800px" REQUIRED class="form-control" name="alertamiento" id="alertamiento" ></th>
                  
             </tr>
@@ -303,7 +319,7 @@
               <thead>
               <tr> <th ><Label>El desalojo fue : </Label>
                   <th> <label><input type="radio" name="desalojo" value="Total" checked> Total</label> </th>
-                  <th><label><input type="radio" name="desalojo" value= "Parcial" checked> Pacial</label> </th>
+                  <th><label><input type="radio" name="desalojo" value= "Parcial" checked> Parcial</label> </th>
                   </tr>
         </thead>        
 </table>
@@ -316,71 +332,50 @@
         </thead>        
 </table>
 
-
-                    
-                     <!--Medidas de Seguridad -->
-                     <table class="table table-hover" class="row table-responsive">
+  <!--Medidas de Seguridad -->
+  <table class="table table-hover" class="row table-responsive">
                             <thead>
                                 <tr><th ALIGN="center">Medidas de Seguridad</th></tr>
                             </thead>
                      </table>
                      <table class="table table-hover" class="row table-responsive">
                             <thead>
-                              <tr> <th ><Label>¿Se tienen rutas de evacuación señalizadas?</Label>
-                                      <th> <label><input type="radio" name="rutas" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="rutas" value="No"checked> No</label> </th>
+                              <tr> <th ><Label>¿Se tienen rutas de evacuación señalizadas?</Label></th>
+                                      <th> <label><input type="radio" name="rutas" value="Si" checked>Si</label> </th>
+                                      <th><label><input type="radio" name="rutas" value="No"checked>No</label> </th>
                                 </tr>
-                                <tr> <th ><Label>¿Las salidas de emergencia están libres de obstáculos?</Label>
-                                      <th> <label><input type="radio" name="salidas" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="salidas"value="No" checked> No</label> </th>
+                                <tr> <th ><Label>¿Las rutas de emergencia están libres de obstáculos?</Label></th>
+                                      <th> <label><input type="radio" name="salidas" value="Si" checked>Si</label> </th>
+                                      <th><label><input type="radio" name="salidas"value="No" checked>No</label> </th>
                                 </tr>
-                                <tr> <th ><Label>¿Se mantienen identificadas las áreas de riesgo?</Label>
-                                      <th> <label><input type="radio" name="identificacion" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="identificacion" value="No"checked> No</label> </th>
+                                <tr> <th ><Label>¿Cuenta con salidas de emergencia señalizadas?</Label></th>
+                                      <th> <label><input type="radio" name="salemergencia" value="Si" checked>Si</label> </th>
+                                      <th><label><input type="radio" name="salemergencia" value="No"checked>No</label> </th>
                                 </tr>
-                                <tr> <th ><Label>¿Tienen señalización los extintores?</Label>
-                                      <th> <label><input type="radio" name="señalizacion" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="señalizacion" value="No"checked> No</label> </th>
+                                <tr> <th ><Label>¿Las salidas de emergencia pueden ser utilizadas?</Label></th>
+                                      <th> <label><input type="radio" name="utilizadas" value="Si" checked>Si</label> </th>
+                                      <th><label><input type="radio" name="utilizadas" value="No"checked>No</label> </th>
                                 </tr>
-                                <tr> <th ><Label>¿Los extintores se encuentran en puntos estrategicos?</Label>
-                                      <th> <label><input type="radio" name="extintores" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="extintores" value="No"checked> No</label> </th>
+                                <tr> <th ><Label>¿Las zonas de seguridad son de fácil acceso y están señalizadas?</Label></th>
+                                      <th> <label><input type="radio" name="zonas" value="Si" checked>Si</label> </th>
+                                      <th><label><input type="radio" name="zonas" value="No"checked>No</label> </th>
                                 </tr>
-                                <tr> <th ><Label>¿Cuenta con bitácoras de revisión de extintores?</Label>
-                                      <th> <label><input type="radio" name="bitacorasextintores" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="bitacorasextintores" value="No"checked> No</label> </th>
-                                </tr>
-                                <tr> <th ><Label>¿Cuenta con bitácoras de instalaciones electricas?</Label>
-                                      <th> <label><input type="radio" name="bitinstalaciones" value="Si" checked> Si</label> </th>
-                                      <th><label><input type="radio" name="bitinstalaciones" value="No"checked> No</label> </th>
-                                </tr>
+                                <tr> <th ><Label>Otra</Label></th>
+                                <th><input type="text" size=60 style="width:500px" REQUIRED class="form-control" name="otra" id="otra" ></th>
+                                     </tr>
+                               
                             </thead>
                      </table>
-                       <!--Hipotesis de Simulacro -->
-                       <table class="table table-hover" class="row table-responsive">
+
+                      <!--Hipotesis de Simulacro -->
+                      <table class="table table-hover" class="row table-responsive">
                             <thead>
                                 <tr><th ALIGN="center">Hipótesis del Simulacro</th></tr>
                                 <th><input type="text" size=60 style="width:1100px" REQUIRED class="form-control" name="hipotesis" id="hipotesis" ></th>
                              </thead>
                             </table>
-                            <table class="table table-hover" class="row table-responsive">
-                            <thead>
-                            <tr> <th ><Label>¿El origen del incendio fue de tipo: </Label>
-                                      <th> <label><input type="radio" name="tipoincendio" value="A" checked> A</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="B"checked> B</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="C"checked> C</label> </th>
-                                      <th><label><input type="radio" name="tipoincendio" value="D"checked> D</label> </th>
-                                      </tr>
-                            </thead>
-               </table>
-               <table class="table table-hover" class="row table-responsive">
-                            <thead>
-                                <tr><th ALIGN="center">¿El incendio se complicó con otro agente perturbador?</th></tr>
-                                <th><input type="text" size=60 style="width:1100px" REQUIRED class="form-control" name="agenteper" id="agenteper"  ></th>
-                             </thead>
-                 </table>
 
-                  <!--evaluacion del simulacro-->
+                            <!--evaluacion del simulacro-->
                   <table class="table table-hover" class="row table-responsive">
                             <thead>
                                  <tr><th>Evaluación del simulacro</th><tr> 
@@ -404,17 +399,17 @@
                                       <th> <label><input type="radio" name="mando" value="Si" checked> Si</label> </th>
                                       <th><label><input type="radio" name="mando" value="No" checked> No</label> </th>
                                       <tr> <th ><Label> ¿Quién proporcionó la información al grupo de apoyo externo? </Label>
-                                      <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="informacion" id="informacion"  ></th></tr>
+                                      <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="informacion" id="informacion" ></th></tr>
                                       <tr> <th ><Label> ¿Cuánto tiempo se utilizó para que las actividades del inmueble volvieran a la normalidad? </Label>
                                       <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="actividades" id="actividades" ></th></tr>
                                     </thead>        
                     </table>
 
-                     <!--Observaciones-->
-                     <table class="table table-hover" class="row table-responsive">
+                    <!--Observaciones-->
+                    <table class="table table-hover" class="row table-responsive">
                             <thead>
                                  <tr><th>Observaciones</th><tr> 
-                                 <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="observaciones" id="observaciones" placeholder="Observaciones"></th></tr>
+                                 <tr><th><input type="text" size=60 style="width:1000px" REQUIRED class="form-control" name="observaciones" id="observaciones" ></th></tr>
                                     </thead>  </table>
                                     <table class="table table-hover" class="row table-responsive">
         <thead>
@@ -423,11 +418,3 @@
              <th><input type="submit" class=" btn btn-primary btn-lg" value="Generar PDF"></th>
              </tr>
                 </thead>  </table>
-
-                            </div>
-            </form>
-        </div>
-    </div>
-   
-</body>
-</html>

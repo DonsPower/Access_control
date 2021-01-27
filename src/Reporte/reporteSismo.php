@@ -1,23 +1,48 @@
 
+<?php
+    //TODO: Cuando se haga el redireccionamiento redireccionar al sahboar en vez del index
+    //importamos la clase auth
+    require_once '../clases/conexion.Class.php';
+    require_once '../clases/authController.Class.php';
+    require_once "../clases/adminController.Class.php";
+    session_start();
+    //creamos el objeto cliente
+    $auth=new auth;
+    $admin=new admin;
+    $location="../index.php";
+    if (isset($_SESSION['nombre'])){
+        $cliente = $_SESSION['nombre'];
+            //Consultamos datos del administrador para obtenerlos en una tabla.
+            $row=$admin->getAdmin();
+            //Enviamos el tiempo y si pasan ciertos minutos lo redireccionamos
+           
+    }else{
+        header('Location: ../index.php');
+        die();
+    }
+?>
 
+   
 <!DOCTYPE html>
 <html>
 <head>
         <title>Generar Reporte</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 </head>
     <body>
+    
+
         <div class="container mt-5">
         <h2 align="center"> Reportes </h2>
         <h2 align="center"> Simulacro por Sismo </h2>
-        
         </div>
-      
-        <div class="container">
+  
+
+
             <div class="row justify-content-center"> 
             <form action="convertirSismo.php" method ="post">
-       
                 <!--Datos Generales -->
                 <table class="table table-hover" class="row table-responsive">
                             <thead>
@@ -70,7 +95,7 @@
           <?php
            
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1'  ";
                $resultado = $conex->query($sql);
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
@@ -83,7 +108,7 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
+          $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'pae-%' and  estado='1' ";
                $resultado = $conex->query($sql);
                if($resultado->num_rows> 0){
                    while($row = $resultado->fetch_assoc()){ ?>
@@ -99,7 +124,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'alu-%' and  estado='1' ";
                 $resultado = $conex->query($sql);
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
@@ -115,7 +140,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr, estado FROM registro where numcodqr like 'vis-%' and  estado='1' ";
                 $resultado = $conex->query($sql);
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
@@ -131,11 +156,11 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
+            $sql = "SELECT count(*)  estado FROM registro where   estado='1' ";
                 $resultado = $conex->query($sql);
                 if($resultado->num_rows> 0){
                     while($row = $resultado->fetch_assoc()){ ?>
-                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="estado" id="fax" value="<?php echo $row['estado']; ?> " type="text"> </td>
+                    <td> <input type="submit" size=60 style="width:160px" REQUIRED class="form-control" name="salida" id="fax" value="<?php echo $row['salida']; ?> " type="text"> </td>
                     
             <?php
                 }

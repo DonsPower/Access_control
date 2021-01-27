@@ -20,7 +20,14 @@
         die();
     }
 ?>
-   
+
+
+<?php
+ $selector=($_POST['repArtExplo']);
+// $algo=($_POST['algo']);
+// echo $selector;
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,10 +36,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
     <body>
+    <?php
+                     include("../../database/con_db.php"); 
+                     
+                     $sql = "SELECT nombreArea FROM area where id=$selector ";
+                     $resultado = $conex->query($sql);
+                     if($resultado->num_rows> 0){
+                         while($row = $resultado->fetch_assoc()){
+                        
+                        $area=$row['nombreArea'];
+                        }
+                        }
+                        $conex->close();
+                    ?>
 
         <div class="container mt-5">
         <h2 align="center"> Reportes </h2>
-        <h2 align="center"> Simulacro de Artefacto Explosivo  </h2>
+        <h2 align="center"> Simulacro de Artefacto Explosivo en <?php echo $area ?> </h2>
         
         </div>
        
@@ -88,7 +108,7 @@
              
              <tr>     <?php
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' and idArea=$selector ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -102,7 +122,7 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
+          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' and idArea=$selector ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -119,7 +139,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estadoa='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' and idArea=$selector ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -136,7 +156,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' and idArea=$selector ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -153,7 +173,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estado='1' and idArea=$selector ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -185,7 +205,7 @@
              <tr> 
              <?php
               include("../../database/con_db.php");  
-               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1' ";
+               $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pro-%' and estado='1'  and idArea=$selector";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -199,7 +219,7 @@
               <?php
 
           include("../../database/con_db.php");  
-          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' ";
+          $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'pae-%' and estado='1' and idArea=$selector ";
                $resultado = $conex->query($sql);
 
                if($resultado->num_rows> 0){
@@ -216,7 +236,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'alu-%' and estado='1' and idArea=$selector ";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -233,7 +253,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' ";
+            $sql = "SELECT count(*) numcodqr,estado FROM registro where numcodqr like 'vis-%' and estado='1' and idArea=$selector";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
@@ -250,7 +270,7 @@
             <?php
 
             include("../../database/con_db.php");  
-            $sql = "SELECT count(*) estado FROM registro where  estado='1' ";
+            $sql = "SELECT count(*) estado FROM registro where  estado='1' and idArea=$selector";
                 $resultado = $conex->query($sql);
 
                 if($resultado->num_rows> 0){
